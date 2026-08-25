@@ -129,6 +129,32 @@
     .console-panel, .build-selector-bar, #terminal, .firestore-state-viewer {
       display: none !important;
     }
+
+    /* Native Full-Screen Mobile View for Smartphones */
+    @media (max-width: 600px) {
+      html, body {
+        background: #000 !important;
+        overflow: hidden !important;
+      }
+      .pres-header {
+        display: none !important;
+      }
+      .phone-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+      }
+      .smartphone-frame {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
   </style>
 </head>
 <body>

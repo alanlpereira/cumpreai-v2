@@ -3,61 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CumpreAi MVP - Simulator & Live Console</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CumpreAi OS</title>
+  <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    html, body {
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: radial-gradient(circle at center, #1b1638 0%, #070913 80%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      user-select: none;
+    }
+
+    .pres-header {
+      width: 92%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.75rem 0 0.5rem 0;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .pres-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pres-badge {
+      font-size: 0.7rem;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+    }
+
+    .zoom-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .zoom-btn:hover {
+      background: #8b5cf6;
+      border-color: #a78bfa;
+    }
+
+    .phone-container {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .smartphone-frame {
+      width: 340px;
+      height: 680px;
+      transform: scale(0.82);
+      transform-origin: center center;
+      transition: transform 0.2s ease-out;
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.35), 0 0 100px rgba(0, 0, 0, 0.9);
+      margin: 0 auto;
+    }
+
+    .console-panel, .build-selector-bar, #terminal, .firestore-state-viewer {
+      display: none !important;
+    }
+
+    /* Native Full-Screen Mobile View for Smartphones */
+    @media (max-width: 600px) {
+      html, body {
+        background: #000 !important;
+        overflow: hidden !important;
+      }
+      .pres-header {
+        display: none !important;
+      }
+      .phone-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+      }
+      .smartphone-frame {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <header id="main-header">
-    <div class="logo-container">
-      <h1>CumpreAi <span class="logo-badge" id="active-build-badge">Build 015 - Alpha</span></h1>
+  <header class="pres-header">
+    <div class="pres-title">
+      <span>✨ CumpreAi OS</span>
+      <span class="pres-badge">Cliente & Usuário</span>
     </div>
-    
-    <div class="control-bar">
-      <a href="presentation.html" class="btn-presentation-mode" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-        ✨ Abrir Tela de Apresentação (Cliente)
-      </a>
-      <div class="mode-selector">
-        <span>Conectar ao Emulador Local (Port 5001)</span>
-        <label class="switch">
-          <input type="checkbox" id="emulator-toggle">
-          <span class="slider"></span>
-        </label>
-      </div>
+
+    <!-- Live Zoom Controls -->
+    <div class="zoom-controls">
+      <span>🔍 Tamanho:</span>
+      <button class="zoom-btn" onclick="adjustZoom(-0.05)">-</button>
+      <span id="zoom-label" style="font-weight: 600; min-width: 42px; text-align: center; color: #a78bfa;">82%</span>
+      <button class="zoom-btn" onclick="adjustZoom(0.05)">+</button>
+      <button class="zoom-btn" style="width: auto; padding: 0 6px; font-size: 0.7rem;" onclick="resetZoom()">Auto</button>
     </div>
   </header>
 
-  <!-- Floating Exit Presentation Button -->
-  <button class="exit-presentation-btn" id="btn-exit-presentation" onclick="togglePresentationMode()" style="display: none;">
-    ✕ Sair da Apresentação
-  </button>
-
-  <!-- 15 Build Stage Selector Bar -->
-  <div class="build-selector-bar">
-    <span class="build-bar-label">⚡ Selecionar Etapa (Builds 001 - 015):</span>
-    <div class="build-pills">
-      <button class="build-pill" onclick="activateBuild(1)">Build 001: Foundation</button>
-      <button class="build-pill" onclick="activateBuild(2)">Build 002: Auth</button>
-      <button class="build-pill" onclick="activateBuild(3)">Build 003: Onboarding</button>
-      <button class="build-pill" onclick="activateBuild(4)">Build 004: Home</button>
-      <button class="build-pill" onclick="activateBuild(5)">Build 005: Compromissos</button>
-      <button class="build-pill" onclick="activateBuild(6)">Build 006: Evidências</button>
-      <button class="build-pill" onclick="activateBuild(7)">Build 007: Reconhecimento</button>
-      <button class="build-pill" onclick="activateBuild(8)">Build 008: Comms Center</button>
-      <button class="build-pill" onclick="activateBuild(9)">Build 009: Organizações</button>
-      <button class="build-pill" onclick="activateBuild(10)">Build 010: Comunidades</button>
-      <button class="build-pill" onclick="activateBuild(11)">Build 011: Marketplace</button>
-      <button class="build-pill" onclick="activateBuild(12)">Build 012: Oportunidades</button>
-      <button class="build-pill" onclick="activateBuild(13)">Build 013: Integração</button>
-      <button class="build-pill" onclick="activateBuild(14)">Build 014: Segurança</button>
-      <button class="build-pill active" onclick="activateBuild(15)">Build 015: Alpha Release</button>
-    </div>
-  </div>
-
-  <main>
-    <!-- Left Column: Smartphone App Simulator -->
-    <section class="simulator-panel">
-      <div class="smartphone-frame">
+  <div class="phone-container">
+    <section class="simulator-panel" style="padding:0; background:transparent; border:none;">
+      <div class="smartphone-frame" id="phone-frame-elem">
         <div class="smartphone-notch">
           <div class="speaker"></div>
           <div class="camera"></div>
@@ -121,10 +223,6 @@
               <div style="margin-top: 1.5rem;">
                 <button class="btn-primary" onclick="handleLogin()">Entrar / Registrar Membro</button>
               </div>
-              
-              <div class="login-footer">
-                Ao entrar, um ID de membro único será gerado e registrado no ledger de auditoria.
-              </div>
             </div>
             
             <!-- 4. Home Dashboard Screen -->
@@ -185,7 +283,7 @@
               
               <div class="form-group">
                 <label for="commit-title">Título do Compromisso</label>
-                <input type="text" id="commit-title" placeholder="Ex: Subir testes de regressão no emulador">
+                <input type="text" id="commit-title" placeholder="Ex: Entregar relatório de auditoria">
               </div>
               
               <div class="form-group">
@@ -211,7 +309,7 @@
                 <div class="detail-title" id="evidence-commit-title">Título do Compromisso</div>
               </div>
               
-              <p class="evidence-desc">Selecione o tipo de evidência único para comprovar a realização do seu compromisso (conforme Baseline v1.0):</p>
+              <p class="evidence-desc">Selecione o tipo de evidência único para comprovar a realização do seu compromisso:</p>
               
               <div class="evidence-options">
                 <button class="evidence-type-btn" id="ev-type-photo" onclick="selectEvidenceType('photo')">
@@ -234,7 +332,7 @@
               
               <div class="form-group">
                 <label for="evidence-url">Endereço da Evidência</label>
-                <input type="text" id="evidence-url" placeholder="Ex: https://github.com/my-project-baseline">
+                <input type="text" id="evidence-url" placeholder="Ex: https://github.com/my-project">
               </div>
               
               <div class="form-actions mt-auto">
@@ -243,22 +341,22 @@
               </div>
             </div>
             
-            <!-- 7. Recognition / Gold Screen -->
+            <!-- 7. Recognition Screen -->
             <div class="app-screen" id="screen-recognition">
               <div class="badge-glow">🎖️</div>
               <h2>Compromisso Cumprido!</h2>
               <p class="recognition-text">Sua evidência foi enviada com sucesso para validação do impacto gerado.</p>
-
+              
               <!-- Gemini AI Oracle Verification Card -->
               <div class="ai-oracle-card" style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 10px; padding: 0.6rem 0.8rem; margin: 0.5rem 0; font-size: 0.78rem;">
                 <div style="font-weight:700; color:#a78bfa; display:flex; justify-content:space-between; align-items:center;">
                   <span>🤖 Auditado por Gemini AI</span>
-                  <span id="rec-ai-score" style="color:#10b981;">95% Confiança</span>
+                  <span id="rec-ai-score-p" style="color:#10b981;">95% Confiança</span>
                 </div>
-                <div id="rec-ai-notes" style="color:#9ca3af; margin-top:2px; font-size:0.72rem;">Oráculo Gemini API: Evidência de alta reputação validada com sucesso.</div>
-                <div id="rec-fee-info" style="margin-top:4px; font-size:0.72rem; color:#f59e0b; font-weight:500;">Taxa da Org (10%): -25 A$ retidos pelo Administrador.</div>
+                <div id="rec-ai-notes-p" style="color:#9ca3af; margin-top:2px; font-size:0.72rem;">Oráculo Gemini API: Evidência de alta reputação validada com sucesso.</div>
+                <div id="rec-fee-info-p" style="margin-top:4px; font-size:0.72rem; color:#f59e0b; font-weight:500;">Taxa da Org (10%): -25 A$ retidos pelo Administrador.</div>
               </div>
-              
+
               <div class="rewards-card">
                 <div class="reward-item">
                   <span class="reward-icon">⭐</span>
@@ -267,7 +365,7 @@
                 </div>
                 <div class="reward-item">
                   <span class="reward-icon">💰</span>
-                  <span class="reward-val" id="rec-net-val">+225</span>
+                  <span class="reward-val" id="rec-net-val-p">+225</span>
                   <span class="reward-lbl">Patrimônio</span>
                 </div>
                 <div class="reward-item">
@@ -280,7 +378,7 @@
               <button class="btn-primary" onclick="closeRecognition()">Voltar ao Dashboard</button>
             </div>
             
-            <!-- 8. Explore Opportunities Screen -->
+            <!-- 8. Explore Screen -->
             <div class="app-screen" id="screen-explore">
               <div class="create-header">
                 <h2>Oportunidades MVP</h2>
@@ -312,7 +410,7 @@
               </div>
             </div>
 
-            <!-- 9. Comms Center Screen (Build 008) -->
+            <!-- 9. Comms Screen -->
             <div class="app-screen" id="screen-comms">
               <div class="create-header">
                 <h2>Central de Comms</h2>
@@ -320,7 +418,7 @@
               <div class="chat-messages" id="comms-chat-messages">
                 <div class="chat-bubble received">
                   <div class="chat-sender">Sistema CumpreAi</div>
-                  <div class="chat-text">Bem-vindo à Central de Comunicação (Build 008). Envie mensagens para o ledger.</div>
+                  <div class="chat-text">Bem-vindo à Central de Comunicação.</div>
                   <div class="chat-time">12:01</div>
                 </div>
               </div>
@@ -330,7 +428,7 @@
               </div>
             </div>
 
-            <!-- 10. Organizations Lite Screen (Build 009) -->
+            <!-- 10. Orgs Screen -->
             <div class="app-screen" id="screen-orgs">
               <div class="create-header">
                 <h2>Organizações Lite</h2>
@@ -341,13 +439,13 @@
               <div class="org-card" style="border: 1px solid #8b5cf6; background: rgba(139, 92, 246, 0.08);">
                 <div class="org-title" style="color: #a78bfa; display:flex; justify-content:space-between; align-items:center;">
                   <span>⚙️ Taxa de Serviço da Plataforma</span>
-                  <span class="badge" id="super-admin-badge" style="background:#ef4444; font-size:0.65rem;">🔒 Adm do App</span>
+                  <span class="badge" id="super-admin-badge-p" style="background:#ef4444; font-size:0.65rem;">🔒 Adm do App</span>
                 </div>
                 
                 <div class="form-group" style="margin-top: 0.4rem;">
                   <label style="font-size:0.72rem; color:#d1d5db;">Taxa do Cliente (Definida pelo Adm do App %)</label>
                   <div style="display:flex; gap:0.4rem; align-items:center;">
-                    <input type="number" id="org-fee-input" value="10" min="0" max="50" style="width:65px; padding:0.3rem; font-size:0.8rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
+                    <input type="number" id="org-fee-input-p" value="10" min="0" max="50" style="width:65px; padding:0.3rem; font-size:0.8rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
                     <button class="btn-primary" style="padding:0.35rem 0.6rem; font-size:0.72rem;" onclick="saveOrgFeeUI()">Salvar Taxa</button>
                   </div>
                 </div>
@@ -356,13 +454,13 @@
                 <div style="margin-top:0.5rem; padding-top:0.4rem; border-top:1px dashed rgba(255,255,255,0.15);">
                   <label style="font-size:0.72rem; color:#10b981; font-weight:600;">💳 Recarga de Tesouraria em R$ (PIX)</label>
                   <div style="display:flex; gap:0.4rem; align-items:center; margin-top:0.2rem;">
-                    <input type="number" id="pix-deposit-amount" value="1000" style="width:85px; padding:0.3rem; font-size:0.8rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
+                    <input type="number" id="pix-deposit-amount-p" value="1000" style="width:85px; padding:0.3rem; font-size:0.8rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
                     <button class="btn-primary" style="padding:0.35rem 0.6rem; font-size:0.72rem; background:#10b981;" onclick="depositPixUI()">Comprar A$ (PIX)</button>
                   </div>
                 </div>
 
                 <div style="display:flex; gap:0.3rem; margin-top:0.5rem;">
-                  <button class="btn-secondary" style="flex:1; font-size:0.68rem; padding:0.3rem;" onclick="toggleSuperAdminModeUI()" id="btn-toggle-admin">Modo: Adm da Org (Bloqueado)</button>
+                  <button class="btn-secondary" style="flex:1; font-size:0.68rem; padding:0.3rem;" onclick="toggleSuperAdminModeUI()" id="btn-toggle-admin-p">Modo: Adm da Org (Bloqueado)</button>
                   <button class="btn-secondary" style="flex:1; font-size:0.68rem; padding:0.3rem;" onclick="generateInviteTokenUI()">➕ Gerar Convite</button>
                 </div>
               </div>
@@ -379,30 +477,7 @@
               </div>
             </div>
 
-            <!-- 11. Communities Lite Screen (Build 010) -->
-            <div class="app-screen" id="screen-communities">
-              <div class="create-header">
-                <h2>Comunidades Lite</h2>
-              </div>
-              <div class="explore-grid">
-                <div class="opportunity-card">
-                  <div>
-                    <span class="opp-title">🌐 Devs Baseline v1.0</span>
-                    <div class="opp-reward">Membros: 142 • Ativa</div>
-                  </div>
-                  <button class="opp-apply-btn" onclick="joinCommunity('Devs Baseline')">Participar</button>
-                </div>
-                <div class="opportunity-card">
-                  <div>
-                    <span class="opp-title">🌱 Impacto Social & ESG</span>
-                    <div class="opp-reward">Membros: 89 • Ativa</div>
-                  </div>
-                  <button class="opp-apply-btn" onclick="joinCommunity('Impacto Social')">Participar</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 12. Marketplace MVP Screen (Build 011) -->
+            <!-- 11. Marketplace Screen -->
             <div class="app-screen" id="screen-marketplace">
               <div class="create-header">
                 <h2>Marketplace MVP</h2>
@@ -456,41 +531,35 @@
         </div>
       </div>
     </section>
+  </div>
 
-    <!-- Right Column: Dev Console & Virtual DB State -->
-    <section class="console-panel">
-      <!-- Live Console Log -->
-      <div class="panel-card">
-        <div class="panel-header">
-          <span>Monitor de Eventos (Live Event Ledger)</span>
-          <span style="font-size: 0.75rem; color: #ffd700;">● Online</span>
-        </div>
-        <div class="ledger-terminal" id="terminal">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-      
-      <!-- Firestore Virtual State View -->
-      <div class="panel-card firestore-state-viewer">
-        <div class="panel-header">
-          <span>Visualizador Firestore (Virtual Database State)</span>
-        </div>
-        
-        <div class="tab-bar">
-          <button class="tab-btn active" onclick="selectTab('commitments')">commitments</button>
-          <button class="tab-btn" onclick="selectTab('evidences')">evidences</button>
-          <button class="tab-btn" onclick="selectTab('dashboard')">dashboard</button>
-          <button class="tab-btn" onclick="selectTab('comms')">comms</button>
-          <button class="tab-btn" onclick="selectTab('ledger')">ledger</button>
-        </div>
-        
-        <div class="json-viewer" id="json-viewer">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </section>
-  </main>
+  <script src="app.js?v=3"></script>
+  <script>
+    let currentZoom = 0.82;
+    const phoneElem = document.getElementById("phone-frame-elem");
+    const labelElem = document.getElementById("zoom-label");
 
-  <script src="app.js?v=2"></script>
+    function updateZoomUI() {
+      if (window.innerWidth <= 600) return;
+      phoneElem.style.transform = `scale(${currentZoom})`;
+      labelElem.textContent = `${Math.round(currentZoom * 100)}%`;
+    }
+
+    function adjustZoom(delta) {
+      currentZoom = Math.min(1.2, Math.max(0.5, currentZoom + delta));
+      updateZoomUI();
+    }
+
+    function resetZoom() {
+      if (window.innerWidth <= 600) return;
+      const windowH = window.innerHeight - 100;
+      const phoneH = 680;
+      currentZoom = Math.min(1.0, Math.max(0.6, windowH / phoneH));
+      updateZoomUI();
+    }
+
+    window.addEventListener("resize", resetZoom);
+    window.addEventListener("DOMContentLoaded", resetZoom);
+  </script>
 </body>
 </html>
