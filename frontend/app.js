@@ -229,8 +229,10 @@ function logEvent(action, entity, entityId, details = "") {
   logDiv.appendChild(actionSpan);
   logDiv.appendChild(detailSpan);
   
-  terminal.appendChild(logDiv);
-  terminal.scrollTop = terminal.scrollHeight;
+  if (terminal) {
+    terminal.appendChild(logDiv);
+    terminal.scrollTop = terminal.scrollHeight;
+  }
 }
 
 function logSystem(message) {
@@ -248,8 +250,10 @@ function logSystem(message) {
   logDiv.appendChild(timeSpan);
   logDiv.appendChild(sysSpan);
   
-  terminal.appendChild(logDiv);
-  terminal.scrollTop = terminal.scrollHeight;
+  if (terminal) {
+    terminal.appendChild(logDiv);
+    terminal.scrollTop = terminal.scrollHeight;
+  }
 }
 
 // JSON Database State Viewer
@@ -268,7 +272,9 @@ function updateJsonViewer() {
     dataToDisplay = state.ledger;
   }
   
-  jsonViewer.textContent = JSON.stringify(dataToDisplay, null, 2);
+  if (jsonViewer) {
+    jsonViewer.textContent = JSON.stringify(dataToDisplay, null, 2);
+  }
 }
 
 function selectTab(tabName) {
