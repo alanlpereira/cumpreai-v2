@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Build Output
+backend/lib/
+
+# Environment & Logs
+.env
+.env.local
+.firebase/
+*.log
+.ds_store

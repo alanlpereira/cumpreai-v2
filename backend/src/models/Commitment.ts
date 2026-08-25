@@ -1,0 +1,1 @@
+export interface Commitment { id: string; journeyId: string; memberId: string; title: string; dueDate?: FirebaseFirestore.Timestamp; progress: number; status: 'active'|'reviewing'|'validated'|'completed'|'archived'; lastUpdate?: FirebaseFirestore.Timestamp; completedAt?: FirebaseFirestore.Timestamp; createdAt: FirebaseFirestore.Timestamp; updatedAt: FirebaseFirestore.Timestamp; }

@@ -1,0 +1,1 @@
+export interface MemberDashboard { memberId: string; trustScore: number; patrimonyTotal: number; impactScore: number; currentJourneyId?: string; nextCommitmentId?: string; opportunitiesCount: number; lastRecognition?: string; updatedAt: FirebaseFirestore.Timestamp; }

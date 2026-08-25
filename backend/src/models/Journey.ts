@@ -1,0 +1,1 @@
+export interface Journey { id: string; memberId: string; title: string; category?: string; status: 'active'|'completed'|'archived'; progress: number; createdAt: FirebaseFirestore.Timestamp; updatedAt: FirebaseFirestore.Timestamp; }

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CumpreAI OS V2 — Vídeo de Demonstração Guiada</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: radial-gradient(circle at top center, #1e1b4b 0%, #090d16 100%);
+      color: #f3f4f6;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .demo-header {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.8rem 2rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .demo-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn-control {
+      background: rgba(139, 92, 246, 0.25);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      color: #fff;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-control:hover {
+      background: #8b5cf6;
+    }
+
+    .video-viewport {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 1rem 0;
+    }
+
+    /* Perfect Centering for Smartphone Frame */
+    .smartphone-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .smartphone-frame-demo {
+      width: 340px;
+      height: 670px;
+      border-radius: 40px;
+      background: #000;
+      box-shadow: 0 25px 60px rgba(139, 92, 246, 0.4), 0 0 100px rgba(0, 0, 0, 0.9);
+      border: 4px solid #334155;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .smartphone-frame-demo iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      border-radius: 36px;
+    }
+
+    /* Subtitle & Narration Overlay */
+    .narration-overlay {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 650px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      backdrop-filter: blur(16px);
+      padding: 0.9rem 1.4rem;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      z-index: 100;
+    }
+
+    .scene-badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.3);
+      color: #c4b5fd;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+
+    .subtitle-text {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: #f3f4f6;
+      font-weight: 500;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-top: 0.5rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8b5cf6, #10b981);
+      transition: width 0.3s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-header">
+    <div class="demo-title">🎬 CumpreAI OS V2 — Vídeo de Demonstração Guiada</div>
+    <div class="demo-controls">
+      <button class="btn-control" id="btn-play-pause" onclick="togglePlayPause()">▶️ Iniciar Apresentação</button>
+      <button class="btn-control" onclick="restartDemo()">🔄 Reiniciar</button>
+      <a href="presentation.html" style="color:#a78bfa; font-size:0.85rem; margin-left:0.5rem; text-decoration:none;">📲 Modo Manual</a>
+    </div>
+  </div>
+
+  <div class="video-viewport">
+    <div class="smartphone-container">
+      <div class="smartphone-frame-demo">
+        <iframe id="app-frame" src="presentation.html" style="width:100%; height:100%; border:none;"></iframe>
+      </div>
+    </div>
+
+    <!-- Subtitle Overlay (Sem Voz, Apenas Legendas e Música Ambiente) -->
+    <div class="narration-overlay">
+      <span class="scene-badge" id="scene-badge">CENA 1 DE 7</span>
+      <div class="subtitle-text" id="subtitle-text">Bem-vindo ao CumpreAI OS. O primeiro Sistema Operacional de Gestão de Acordos e Compromissos focado em transformar reputação em valor real.</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scenes = [
+      {
+        badge: "CENA 1 DE 7: APRESENTAÇÃO E BOAS-VINDAS",
+        text: "Bem-vindo ao CumpreAI OS. O sistema operacional que transforma seus compromissos e acordos em valor real e reputação mensurável.",
+        duration: 6000,
+        action: (iframeDoc) => {
+          const btn = iframeDoc.getElementById('btn-onboarding-next');
+          if (btn) btn.click();
+        }
+      },
+      {
+        badge: "CENA 2 DE 7: CADASTRO COM TOKEN DE CONVITE",
+        text: "O membro pode entrar como pessoa física ou ser convidado por uma empresa. Digitando o token tok_camelot_vip, o membro associa-se automaticamente à Camelot DAO.",
+        duration: 7000,
+        action: (iframeDoc) => {
+          const tokenInput = iframeDoc.getElementById('login-invite-token');
+          if (tokenInput) tokenInput.value = 'tok_camelot_vip';
+          const nameInput = iframeDoc.getElementById('login-name');
+          if (nameInput) nameInput.value = 'Sir Lancelot';
+          const loginBtn = iframeDoc.querySelector('#screen-login .btn-primary');
+          if (loginBtn) loginBtn.click();
+        }
+      },
+      {
+        badge: "CENA 3 DE 7: DASHBOARD PRINCIPAL E REPUTAÇÃO",
+        text: "No dashboard principal, o membro acompanha seu Score de Confiança, seu Patrimônio em A$ e seu indicador de Impacto acumulado.",
+        duration: 6000,
+        action: (iframeDoc) => {
+          // Stay on dashboard
+        }
+      },
+      {
+        badge: "CENA 4 DE 7: SUBMISSÃO DE EVIDÊNCIA & ORÁCULO GEMINI AI",
+        text: "Ao submeter uma evidência, o Oráculo de IA do Google Gemini analisa o comprovante em tempo real e calcula o Score de Confiança (95%) com análise semântica.",
+        duration: 7000,
+        action: (iframeDoc) => {
+          const commitItems = iframeDoc.querySelectorAll('.commitment-item');
+          if (commitItems.length > 0) commitItems[0].click();
+          setTimeout(() => {
+            const submitBtn = iframeDoc.querySelector('#screen-submit .btn-primary');
+            if (submitBtn) submitBtn.click();
+          }, 1500);
+        }
+      },
+      {
+        badge: "CENA 5 DE 7: RECONHECIMENTO & TAXA DO APP",
+        text: "Compromisso cumprido! Do valor bruto de 250 A$, a taxa da plataforma de 10% (-25 A$) é retida pelo Administrador do App e o líquido (+225 A$) é creditado.",
+        duration: 6500,
+        action: (iframeDoc) => {
+          // On recognition screen
+        }
+      },
+      {
+        badge: "CENA 6 DE 7: TESOURARIA R$ ↔ A$ E SAQUE PIX",
+        text: "O dinheiro real depositado em R$ vira A$ na Tesouraria. O membro pode sacar seus A$ em dinheiro real via PIX direto para sua conta bancária a qualquer momento.",
+        duration: 7000,
+        action: (iframeDoc) => {
+          const backBtn = iframeDoc.querySelector('#screen-recognition .btn-primary');
+          if (backBtn) backBtn.click();
+        }
+      },
+      {
+        badge: "CENA 7 DE 7: SEGURANÇA E CONTROLE DO ADM DO APP",
+        text: "Regra de segurança estrita: A taxa de serviço é de controle exclusivo do Administrador da Plataforma (Adm do App), impedindo alterações não autorizadas por empresas clientes.",
+        duration: 7000,
+        action: (iframeDoc) => {
+          const navOrgs = iframeDoc.getElementById('nav-orgs');
+          if (navOrgs) navOrgs.click();
+        }
+      }
+    ];
+
+    let currentSceneIndex = 0;
+    let isPlaying = false;
+    let sceneTimer = null;
+    let audioCtx = null;
+
+    // Soft Ambient Background Audio Synthesizer (Sem Locução de Voz)
+    function playAmbientMusic() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime); // Soft A3 chord
+        gain.gain.setValueAtTime(0.015, audioCtx.currentTime); // Soft background volume
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+      }
+    }
+
+    function playScene(index) {
+      if (index >= scenes.length) {
+        document.getElementById('subtitle-text').textContent = "Demonstração concluída com sucesso! Clique em Reiniciar para rever.";
+        document.getElementById('btn-play-pause').textContent = "▶️ Reiniciar";
+        isPlaying = false;
+        return;
+      }
+
+      const scene = scenes[index];
+      document.getElementById('scene-badge').textContent = scene.badge;
+      document.getElementById('subtitle-text').textContent = scene.text;
+      
+      // Progress bar animation
+      const fill = document.getElementById('progress-fill');
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      setTimeout(() => {
+        fill.style.transition = `width ${scene.duration}ms linear`;
+        fill.style.width = '100%';
+      }, 50);
+
+      // Trigger iframe DOM action inside smartphone frame
+      const iframe = document.getElementById('app-frame');
+      if (iframe && iframe.contentDocument) {
+        try {
+          scene.action(iframe.contentDocument);
+        } catch (e) {
+          console.warn("Iframe action warning:", e);
+        }
+      }
+
+      sceneTimer = setTimeout(() => {
+        if (isPlaying) {
+          currentSceneIndex++;
+          playScene(currentSceneIndex);
+        }
+      }, scene.duration);
+    }
+
+    function togglePlayPause() {
+      playAmbientMusic();
+      if (isPlaying) {
+        isPlaying = false;
+        clearTimeout(sceneTimer);
+        document.getElementById('btn-play-pause').textContent = "▶️ Continuar";
+      } else {
+        isPlaying = true;
+        document.getElementById('btn-play-pause').textContent = "⏸️ Pausar";
+        playScene(currentSceneIndex);
+      }
+    }
+
+    function restartDemo() {
+      clearTimeout(sceneTimer);
+      currentSceneIndex = 0;
+      isPlaying = false;
+      const iframe = document.getElementById('app-frame');
+      iframe.src = iframe.src; // Reload iframe
+      setTimeout(() => {
+        togglePlayPause();
+      }, 800);
+    }
+  </script>
+
+</body>
+</html>

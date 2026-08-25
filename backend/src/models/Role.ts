@@ -1,0 +1,1 @@
+export interface Role { id: string; userId: string; entityType: 'person'|'organization'|'community'; entityId: string; role: 'person'|'organization_admin'|'community_admin'|'validator'|'mentor'; status: 'active'|'pending'|'revoked'; createdAt: FirebaseFirestore.Timestamp; }
