@@ -910,12 +910,12 @@ function togglePresentationMode() {
 // Setup on load
 window.onload = () => {
   logSystem("Virtual Sandbox Environment Initialized.");
-  logSystem("Ready to compile, deploy, and simulate CumpreAi OS.");
+  logSystem("Directing user to Login & Registration Screen.");
   
-  // Delay slightly to simulate splash screen loading
+  // Transition directly to Login screen (#screen-login)
   setTimeout(() => {
-    showScreen(screenOnboarding);
-  }, 2000);
+    showScreen(screenLogin);
+  }, 500);
   
   updateJsonViewer();
 };
