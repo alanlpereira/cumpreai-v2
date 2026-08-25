@@ -287,8 +287,29 @@
               </div>
               
               <div class="form-group">
-                <label>Jornada Associada</label>
-                <input type="text" value="Consolidação da Baseline v1.0" readonly style="opacity: 0.7;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.2rem;">
+                  <label for="commit-journey-select" style="margin:0;">Jornada de Impacto</label>
+                  <button type="button" style="background:none; border:none; color:#a78bfa; font-size:0.75rem; font-weight:600; cursor:pointer;" onclick="createNewJourneyUI()">➕ Nova Jornada</button>
+                </div>
+                <select id="commit-journey-select" style="width:100%; padding:0.45rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-size:0.8rem;">
+                  <option value="journey_baseline_v1">Consolidação da Baseline v1.0</option>
+                  <option value="journey_ia_v2">Transformação Digital & Oráculo Gemini IA</option>
+                  <option value="journey_fin_v2">Gestão Financeira & Tesouraria PIX</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="commit-duedate">Prazo Limite de Entrega</label>
+                <input type="date" id="commit-duedate" style="width:100%; padding:0.45rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-size:0.8rem;">
+              </div>
+
+              <div class="form-group">
+                <label for="commit-weight">Peso de Complexidade & Recompensa</label>
+                <select id="commit-weight" style="width:100%; padding:0.45rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-size:0.8rem;">
+                  <option value="1">🔹 Leve (1x Recompensa - 250 A$ / +5 Confiança)</option>
+                  <option value="2" selected>🔸 Médio (2x Recompensa - 500 A$ / +10 Confiança)</option>
+                  <option value="3">⚡ Alto (3x Recompensa - 750 A$ / +15 Confiança)</option>
+                </select>
               </div>
               
               <div class="form-actions mt-auto">

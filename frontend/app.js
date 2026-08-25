@@ -350,7 +350,7 @@ function updateDashboardUI() {
   state.commitments.forEach(c => {
     const item = document.createElement("div");
     item.className = "commitment-item";
-    item.onclick = () => openSubmitEvidence(c.id);
+    item.style.cursor = "default";
     
     let statusClass = "active";
     let statusLabel = "Ativo";
@@ -362,23 +362,71 @@ function updateDashboardUI() {
       statusLabel = "Concluído";
     }
     
+    const weightLabel = c.weight === 3 ? "⚡ Alto (3x)" : c.weight === 1 ? "🔹 Leve (1x)" : "🔸 Médio (2x)";
+    const dueDateFormatted = c.dueDate ? new Date(c.dueDate).toLocaleDateString('pt-BR') : 'Sem prazo';
+    
     item.innerHTML = `
-      <div class="commitment-info">
+      <div class="commitment-info" style="cursor:pointer;" onclick="openSubmitEvidence('${c.id}')">
         <span class="commitment-title">${c.title}</span>
         <span class="commitment-status ${statusClass}">${statusLabel}</span>
       </div>
-      <div class="progress-bar-container">
+      <div class="progress-bar-container" style="margin: 0.3rem 0;">
         <div class="progress-bar-fill" style="width: ${c.progress}%"></div>
       </div>
-      <div class="commitment-meta">
-        <span>Progresso: ${c.progress}%</span>
-        <span>Prazo: ${c.dueDate ? new Date(c.dueDate).toLocaleDateString() : 'Sem prazo'}</span>
+      <div class="commitment-meta" style="font-size:0.72rem; color:#9ca3af; display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+        <span>🎯 Peso: <strong style="color:#a78bfa;">${weightLabel}</strong></span>
+        <span>📅 Prazo: <strong style="color:#f59e0b;">${dueDateFormatted}</strong></span>
       </div>
+      ${c.status === "active" ? `
+        <div style="background:rgba(0,0,0,0.25); padding:0.35rem 0.5rem; border-radius:6px; margin-top:0.3rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:#d1d5db; margin-bottom:2px;">
+            <span>Ajustar Progresso: <strong>${c.progress}%</strong></span>
+            <button class="btn-primary" style="padding:0.15rem 0.4rem; font-size:0.65rem;" onclick="openSubmitEvidence('${c.id}')">
+              ${c.progress >= 100 ? '🎖️ Enviar Evidência' : '📷 Enviar Evidência'}
+            </button>
+          </div>
+          <input type="range" min="0" max="100" value="${c.progress}" step="5" style="width:100%; accent-color:#8b5cf6; cursor:pointer;" onchange="updateCommitmentProgress('${c.id}', this.value)">
+        </div>
+      ` : ''}
     `;
     listContainer.appendChild(item);
   });
   
   updateJsonViewer();
+}
+
+// Update Commitment Progress (0% - 100%)
+function updateCommitmentProgress(commitmentId, newProgress) {
+  const commit = state.commitments.find(c => c.id === commitmentId);
+  if (!commit) return;
+  
+  commit.progress = parseInt(newProgress);
+  logSystem(`Progresso do compromisso "${commit.title}" atualizado para ${commit.progress}%`);
+  writeLedger("COMMITMENT_PROGRESS_UPDATED", "commitment", commitmentId, `Novo Progresso: ${commit.progress}%`);
+  updateDashboardUI();
+}
+
+// Create New Journey UI Prompt
+function createNewJourneyUI() {
+  const title = prompt("Digite o título da nova Jornada de Impacto:");
+  if (!title || !title.trim()) return;
+
+  const journeyId = "journey_" + Math.random().toString(36).substr(2, 7);
+  if (!state.journeysList) state.journeysList = [];
+  state.journeysList.push({ id: journeyId, title: title.trim() });
+
+  writeLedger("JOURNEY_CREATED", "journey", journeyId, `Nova Jornada: ${title}`);
+  logSystem(`Nova Jornada criada com sucesso: "${title}"`);
+
+  // Update dropdown in #screen-create
+  const selectElem = document.getElementById("commit-journey-select");
+  if (selectElem) {
+    const opt = document.createElement("option");
+    opt.value = journeyId;
+    opt.textContent = title.trim();
+    opt.selected = true;
+    selectElem.appendChild(opt);
+  }
 }
 
 // Write to Ledger Helper
@@ -399,15 +447,19 @@ function writeLedger(action, entity, entityId, details = "") {
 // Create New Commitment
 async function createCommitment() {
   const title = document.getElementById("commit-title").value;
+  const dueDate = document.getElementById("commit-duedate") ? document.getElementById("commit-duedate").value : "";
+  const weightVal = document.getElementById("commit-weight") ? parseInt(document.getElementById("commit-weight").value) : 2;
+  const journeySelect = document.getElementById("commit-journey-select");
+  const journeyId = journeySelect ? journeySelect.value : "journey_baseline_v1";
+  
   if (!title) {
     alert("Por favor, digite o título do compromisso.");
     return;
   }
   
-  logSystem(`Creating commitment: "${title}"`);
+  logSystem(`Creating commitment: "${title}" (Peso: ${weightVal}x, Prazo: ${dueDate || 'Sem prazo'})`);
   
   if (emulatorMode) {
-    // Emulator mode API call
     try {
       logSystem("Triggering Callable Cloud Function: createCommitment...");
       const response = await fetch("http://localhost:5001/cumpreai-mvp/us-central1/createCommitment", {
@@ -415,8 +467,10 @@ async function createCommitment() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           data: {
-            journeyId: state.member_dashboard.currentJourneyId,
-            title: title
+            journeyId: journeyId,
+            title: title,
+            dueDate: dueDate,
+            weight: weightVal
           }
         })
       });
@@ -429,8 +483,10 @@ async function createCommitment() {
           journeyId: backendData.journeyId,
           memberId: backendData.memberId,
           title: backendData.title,
-          progress: backendData.progress,
-          status: backendData.status,
+          progress: backendData.progress || 0,
+          status: backendData.status || "active",
+          dueDate: dueDate,
+          weight: weightVal,
           createdAt: backendData.createdAt
         });
         writeLedger("COMMITMENT_CREATED", "commitment", backendData.id, `Via Emulator: ${title}`);
@@ -447,16 +503,18 @@ async function createCommitment() {
     // Local Simulation
     const newCommit = {
       id: "commit_" + Math.random().toString(36).substr(2, 9),
-      journeyId: state.member_dashboard.currentJourneyId,
+      journeyId: journeyId,
       memberId: state.member.id,
       title: title,
+      dueDate: dueDate,
+      weight: weightVal,
       progress: 0,
       status: "active",
       createdAt: new Date().toISOString()
     };
     
     state.commitments.push(newCommit);
-    writeLedger("COMMITMENT_CREATED", "commitment", newCommit.id, title);
+    writeLedger("COMMITMENT_CREATED", "commitment", newCommit.id, `${title} | Peso: ${weightVal}x`);
   }
   
   // Reset form and return
@@ -631,15 +689,21 @@ async function submitEvidence() {
 function triggerRecognition(aiScore = 95, aiNotes = "Oráculo Gemini API: Evidência aprovada.") {
   showScreen(screenRecognition);
   
-  const grossA$ = 250;
+  const commit = state.commitments.find(c => c.id === currentActiveCommitmentId);
+  const weight = (commit && commit.weight) ? commit.weight : 2;
+  
+  const grossA$ = 250 * weight;
+  const trustGain = 5 * weight;
+  const impactGain = 10 * weight;
+  
   const feePercentage = state.orgServiceFeePercentage || 10;
   const feeAmount = Math.round((grossA$ * feePercentage) / 100);
   const netA$ = Math.max(0, grossA$ - feeAmount);
 
   // Award Simulation
-  state.member_dashboard.trustScore += 5;
+  state.member_dashboard.trustScore += trustGain;
   state.member_dashboard.patrimonyTotal += netA$;
-  state.member_dashboard.impactScore += 10;
+  state.member_dashboard.impactScore += impactGain;
   state.member_dashboard.updatedAt = new Date().toISOString();
   
   // Update UI Elements (Main and Presentation mode)
