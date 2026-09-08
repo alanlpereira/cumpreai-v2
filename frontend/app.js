@@ -6,12 +6,14 @@ const state = {
     id: "user_simulated_123",
     name: "Arthur Pendragon",
     email: "arthur@camelot.org",
-    photoUrl: ""
+    photoUrl: "",
+    userLevel: "Bronze"
   },
   member_dashboard: {
-    trustScore: 85,
-    patrimonyTotal: 1200,
-    impactScore: 45,
+    trustScore: 15, // Low baseline starting at Bronze level
+    patrimonyTotal: 100, // 100 A$ starter bonus
+    impactScore: 10,
+    momentumStreak: 1, // 1 day streak
     currentJourneyId: "journey_baseline_v1",
     opportunitiesCount: 3,
     updatedAt: new Date().toISOString()
@@ -75,6 +77,10 @@ state.activeInviteToken = null;
 const screenSplash = document.getElementById("screen-splash");
 const screenOnboarding = document.getElementById("screen-onboarding");
 const screenLogin = document.getElementById("screen-login");
+const screenRegisterStep1 = document.getElementById("screen-register-step1");
+const screenRegisterStep2 = document.getElementById("screen-register-step2");
+const screenRegisterStep3 = document.getElementById("screen-register-step3");
+const screenRegisterStep4 = document.getElementById("screen-register-step4");
 const screenHome = document.getElementById("screen-home");
 const screenCreate = document.getElementById("screen-create");
 const screenSubmit = document.getElementById("screen-submit");
@@ -92,8 +98,9 @@ const emulatorToggle = document.getElementById("emulator-toggle");
 // Screen transitions helper
 function showScreen(screenToShow) {
   const screens = [
-    screenSplash, screenOnboarding, screenLogin, screenHome,
-    screenCreate, screenSubmit, screenRecognition, screenExplore,
+    screenSplash, screenOnboarding, screenLogin, 
+    screenRegisterStep1, screenRegisterStep2, screenRegisterStep3, screenRegisterStep4,
+    screenHome, screenCreate, screenSubmit, screenRecognition, screenExplore,
     screenComms, screenOrgs, screenCommunities, screenMarketplace
   ];
   
@@ -106,6 +113,192 @@ function showScreen(screenToShow) {
     logSystem(`Navigation: transitioned to #${screenToShow.id}`);
   }
 }
+
+// ----------------------------------------------------
+// REAL ONBOARDING FLOW WIZARD
+// ----------------------------------------------------
+let pendingRegistration = {};
+
+function submitRegisterStep1() {
+  const accountType = document.getElementById("reg-account-type").value;
+  const name = document.getElementById("reg-name").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
+  const pass = document.getElementById("reg-pass").value;
+
+  if (!name || !email || !pass) {
+    alert("Por favor, preencha todos os campos para continuar.");
+    return;
+  }
+
+  pendingRegistration = { accountType, name, email, pass };
+  logSystem(`ONBOARDING Step 1: User info submitted (${name}, ${email})`);
+  writeLedger("REGISTER_STEP1_COMPLETED", "user", email, `Type: ${accountType}`);
+  showScreen(screenRegisterStep2);
+}
+
+function verifyEmailOTP() {
+  const otpInput = document.getElementById("reg-otp").value.trim();
+  if (otpInput !== "884920" && otpInput.length < 4) {
+    alert("Código inválido! Por favor digite o código de verificação simulado: 884920");
+    return;
+  }
+
+  logSystem(`ONBOARDING Step 2: Email verified successfully via OTP ${otpInput}`);
+  writeLedger("EMAIL_VERIFIED_OTP", "user", pendingRegistration.email, `OTP Code: ${otpInput}`);
+  showScreen(screenRegisterStep3);
+}
+
+function submitMissionStep3() {
+  const missionTitle = document.getElementById("reg-mission-title").value.trim();
+  if (!missionTitle) {
+    alert("Por favor, declare sua missão de vida.");
+    return;
+  }
+
+  pendingRegistration.mission = missionTitle;
+  logSystem(`ONBOARDING Step 3: Mission declared: "${missionTitle}"`);
+  writeLedger("MISSION_DECLARED", "user", pendingRegistration.email, `Mission: ${missionTitle}`);
+  showScreen(screenRegisterStep4);
+}
+
+function completeFullOnboarding() {
+  const firstCommitTitle = document.getElementById("reg-first-commit").value.trim() || "Treinar 3x por semana";
+
+  // Create member state initialized at BRONZE tier
+  state.member.name = pendingRegistration.name || "Novo Membro";
+  state.member.email = pendingRegistration.email || "membro@cumpreai.com";
+  state.member.userLevel = "Bronze";
+  
+  state.member_dashboard.trustScore = 15; // Low starting TrustScore
+  state.member_dashboard.patrimonyTotal = 100; // Starter bonus
+  state.member_dashboard.momentumStreak = 1;
+
+  // Add 1st commitment
+  const newCommit = {
+    id: `commit_onb_${Date.now()}`,
+    journeyId: "journey_baseline_v1",
+    memberId: state.member.id,
+    title: firstCommitTitle,
+    progress: 0,
+    status: "active",
+    createdAt: new Date().toISOString()
+  };
+  state.commitments.unshift(newCommit);
+
+  logSystem(`ONBOARDING REAL COMPLETED: Member registered at BRONZE level with 100 A$ starter bonus.`);
+  writeLedger("MEMBER_ONBOARDING_REAL_COMPLETE", "member", state.member.id, `Name: ${state.member.name} | Starter A$: 100 | TrustScore: 15 (Bronze)`);
+
+  document.getElementById("dash-username").textContent = state.member.name;
+  const mod2MissionElem = document.getElementById("mod2-mission-text");
+  if (mod2MissionElem) mod2MissionElem.textContent = `"${pendingRegistration.mission || "Viver com mais saúde e energia para minha família."}"`;
+
+  updateDashboardUI();
+  showScreen(screenHome);
+}
+
+// ----------------------------------------------------
+// FORGOT PASSWORD MODAL
+// ----------------------------------------------------
+function openForgotPasswordModal() {
+  const modal = document.getElementById("modal-forgot-password");
+  if (modal) modal.classList.add("active");
+}
+function closeForgotPasswordModal() {
+  const modal = document.getElementById("modal-forgot-password");
+  if (modal) modal.classList.remove("active");
+}
+function submitForgotPassword() {
+  const email = document.getElementById("forgot-email").value.trim();
+  if (!email) {
+    alert("Informe seu e-mail cadastrado.");
+    return;
+  }
+  alert(`Link de redefinição de senha enviado para ${email}! Verifique sua caixa de entrada.`);
+  closeForgotPasswordModal();
+  writeLedger("PASSWORD_RESET_REQUESTED", "user", email, "Reset link dispatched via system email");
+}
+
+// ----------------------------------------------------
+// GENESIS 7-MODULE NAVIGATION TABS
+// ----------------------------------------------------
+function switchGenesisModule(moduleNum) {
+  // Hide all modules
+  document.querySelectorAll(".genesis-module-content").forEach(mod => {
+    mod.classList.remove("active");
+  });
+  
+  // Deactivate all tab buttons
+  document.querySelectorAll(".genesis-tab-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  // Activate selected module & tab
+  const targetMod = document.getElementById(`gen-mod-${moduleNum}`);
+  if (targetMod) targetMod.classList.add("active");
+
+  const tabBtns = document.querySelectorAll(".genesis-tab-btn");
+  if (tabBtns[moduleNum - 1]) tabBtns[moduleNum - 1].classList.add("active");
+
+  logSystem(`GENESIS MODULE: Switched to Module ${moduleNum}`);
+}
+
+// ----------------------------------------------------
+// GRANDES DESAFIOS (PÓS) STAKE/COLLATERAL CALCULATOR
+// ----------------------------------------------------
+function openCreateChallengeModal() {
+  const modal = document.getElementById("modal-create-challenge");
+  if (modal) modal.classList.add("active");
+  updateChallengeStakeCalc();
+}
+function closeCreateChallengeModal() {
+  const modal = document.getElementById("modal-create-challenge");
+  if (modal) modal.classList.remove("active");
+}
+function updateChallengeStakeCalc() {
+  const rewardInput = parseFloat(document.getElementById("chal-reward-val").value) || 0;
+  const stakeRequired = Math.round(rewardInput * 1.2);
+  const lblReward = document.getElementById("calc-reward-lbl");
+  const valStake = document.getElementById("calc-stake-val");
+  if (lblReward) lblReward.textContent = rewardInput;
+  if (valStake) valStake.textContent = `${stakeRequired.toLocaleString('pt-BR')} A$`;
+}
+function submitCreateChallenge() {
+  const title = document.getElementById("chal-title").value.trim();
+  const rewardVal = parseFloat(document.getElementById("chal-reward-val").value) || 0;
+  const stakeRequired = Math.round(rewardVal * 1.2);
+
+  if (!title || rewardVal <= 0) {
+    alert("Preencha o título e um valor válido de recompensa.");
+    return;
+  }
+
+  if (state.member_dashboard.patrimonyTotal < stakeRequired) {
+    alert(`Saldo insuficiente! Para lançar este desafio de ${rewardVal} A$, você precisa ter ao menos ${stakeRequired} A$ em saldo de custódia (Seu saldo atual: ${state.member_dashboard.patrimonyTotal} A$). Adquira A$ via PIX para continuar.`);
+    return;
+  }
+
+  // Deduct collateral and create challenge
+  state.member_dashboard.patrimonyTotal -= stakeRequired;
+  updateDashboardUI();
+  closeCreateChallengeModal();
+
+  alert(`🚀 Grande Desafio "${title}" criado com sucesso! ${stakeRequired} A$ foram alocados em fundo de custódia.`);
+  writeLedger("CHALLENGE_CREATED_STAKE_LOCKED", "challenge", title, `Reward: ${rewardVal} A$ | Collateral Locked: ${stakeRequired} A$`);
+}
+
+// Window global bindings for inline handlers & test evaluation
+window.switchGenesisModule = switchGenesisModule;
+window.submitRegisterStep1 = submitRegisterStep1;
+window.verifyEmailOTP = verifyEmailOTP;
+window.submitMissionStep3 = submitMissionStep3;
+window.completeFullOnboarding = completeFullOnboarding;
+window.openForgotPasswordModal = openForgotPasswordModal;
+window.closeForgotPasswordModal = closeForgotPasswordModal;
+window.submitForgotPassword = submitForgotPassword;
+window.openCreateChallengeModal = openCreateChallengeModal;
+window.closeCreateChallengeModal = closeCreateChallengeModal;
+window.updateChallengeStakeCalc = updateChallengeStakeCalc;
+window.submitCreateChallenge = submitCreateChallenge;
 
 // Handle Login & Invitation Token Registration
 function handleLogin() {
@@ -329,29 +522,63 @@ function handleLogin() {
 
 // Update Home UI
 function updateDashboardUI() {
-  document.getElementById("dash-trust-score").textContent = state.member_dashboard.trustScore;
-  document.getElementById("dash-patrimony").textContent = `${state.member_dashboard.patrimonyTotal} A$`;
-  document.getElementById("dash-impact").textContent = state.member_dashboard.impactScore;
-  document.getElementById("dash-opps").textContent = state.member_dashboard.opportunitiesCount;
-  
+  const dashTrust = document.getElementById("dash-trust-score");
+  const dashPatrimony = document.getElementById("dash-patrimony");
+  const dashImpact = document.getElementById("dash-impact");
+  const dashOpps = document.getElementById("dash-opps");
+
+  if (dashTrust) dashTrust.textContent = state.member_dashboard.trustScore;
+  if (dashPatrimony) dashPatrimony.textContent = `${state.member_dashboard.patrimonyTotal} A$`;
+  if (dashImpact) dashImpact.textContent = state.member_dashboard.impactScore;
+  if (dashOpps) dashOpps.textContent = state.member_dashboard.opportunitiesCount;
+
+  // Genesis v1.0 Header elements
+  const genPatrimony = document.getElementById("gen-kpi-patrimony");
+  const genTrust = document.getElementById("gen-kpi-trust");
+  const genLevel = document.getElementById("gen-kpi-level");
+  const genMomentum = document.getElementById("gen-kpi-momentum");
+  const mod4Val = document.getElementById("mod4-patrimony-val");
+  const mod7CommitCount = document.getElementById("mod7-commit-count");
+  const mod7StreakCurr = document.getElementById("mod7-streak-curr");
+  const mod7Name = document.getElementById("mod7-name");
+  const mod7Tier = document.getElementById("mod7-tier");
+  const dashUserContext = document.getElementById("dash-user-context");
+
+  const currentLevel = state.member.userLevel || (state.member_dashboard.trustScore >= 90 ? "Prata" : "Bronze");
+
+  if (genPatrimony) genPatrimony.textContent = `${state.member_dashboard.patrimonyTotal} A$`;
+  if (genTrust) genTrust.textContent = state.member_dashboard.trustScore;
+  if (genLevel) genLevel.textContent = currentLevel === "Prata" ? "🥈 Prata" : "🥉 Bronze";
+  if (genMomentum) genMomentum.textContent = `${state.member_dashboard.momentumStreak || 1}d`;
+  if (mod4Val) mod4Val.textContent = `${state.member_dashboard.patrimonyTotal} A$`;
+  if (mod7CommitCount) mod7CommitCount.textContent = state.commitments.length;
+  if (mod7StreakCurr) mod7StreakCurr.textContent = `${state.member_dashboard.momentumStreak || 1} dia(s)`;
+  if (mod7Name) mod7Name.textContent = state.member.name;
+  if (mod7Tier) mod7Tier.textContent = currentLevel === "Prata" ? "🥈 Nível Prata" : "🥉 Nível Bronze";
+  if (dashUserContext) dashUserContext.textContent = `Pessoa Física (Nível ${currentLevel})`;
+
   const listContainer = document.getElementById("commitments-list-container");
-  listContainer.innerHTML = "";
-  
+  const mod3ListContainer = document.getElementById("mod3-commitments-container");
+  if (listContainer) listContainer.innerHTML = "";
+  if (mod3ListContainer) mod3ListContainer.innerHTML = "";
+
   if (state.commitments.length === 0) {
-    listContainer.innerHTML = `
+    const emptyHtml = `
       <div class="no-commitments">
         <span>📋</span>
         <p>Você não tem compromissos ativos.<br>Crie um novo para começar.</p>
       </div>
     `;
+    if (listContainer) listContainer.innerHTML = emptyHtml;
+    if (mod3ListContainer) mod3ListContainer.innerHTML = emptyHtml;
     return;
   }
-  
+
   state.commitments.forEach(c => {
     const item = document.createElement("div");
     item.className = "commitment-item";
     item.style.cursor = "default";
-    
+
     let statusClass = "active";
     let statusLabel = "Ativo";
     if (c.status === "reviewing") {
@@ -361,10 +588,10 @@ function updateDashboardUI() {
       statusClass = "completed";
       statusLabel = "Concluído";
     }
-    
+
     const weightLabel = c.weight === 3 ? "⚡ Alto (3x)" : c.weight === 1 ? "🔹 Leve (1x)" : "🔸 Médio (2x)";
     const dueDateFormatted = c.dueDate ? new Date(c.dueDate).toLocaleDateString('pt-BR') : 'Sem prazo';
-    
+
     item.innerHTML = `
       <div class="commitment-info" style="cursor:pointer;" onclick="openSubmitEvidence('${c.id}')">
         <span class="commitment-title">${c.title}</span>
@@ -389,9 +616,10 @@ function updateDashboardUI() {
         </div>
       ` : ''}
     `;
-    listContainer.appendChild(item);
+    if (listContainer) listContainer.appendChild(item.cloneNode(true));
+    if (mod3ListContainer) mod3ListContainer.appendChild(item.cloneNode(true));
   });
-  
+
   updateJsonViewer();
 }
 

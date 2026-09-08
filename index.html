@@ -202,73 +202,388 @@
             <div class="app-screen active" id="screen-login">
               <div class="login-header">
                 <h2>Acesse sua Conta</h2>
-                <p>Entre com seus dados para gerenciar seus compromissos</p>
-              </div>
-              
-              <div class="form-group">
-                <label for="login-name">Nome do Membro</label>
-                <input type="text" id="login-name" placeholder="Arthur Pendragon" value="Arthur Pendragon">
+                <p>Entre com seus dados ou crie uma conta no CumpreAi</p>
               </div>
               
               <div class="form-group">
                 <label for="login-email">Endereço de E-mail</label>
-                <input type="email" id="login-email" placeholder="arthur@camelot.org" value="arthur@camelot.org">
+                <input type="email" id="login-email" placeholder="usuario@exemplo.com" value="arthur@camelot.org">
               </div>
 
               <div class="form-group">
-                <label for="login-invite-token">Token de Convite de Organização (Opcional)</label>
-                <input type="text" id="login-invite-token" placeholder="Ex: tok_abc123">
+                <label for="login-pass">Senha</label>
+                <input type="password" id="login-pass" placeholder="••••••••" value="senha123">
               </div>
               
-              <div style="margin-top: 1.5rem;">
-                <button class="btn-primary" onclick="handleLogin()">Entrar / Registrar Membro</button>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <button type="button" style="background:none; border:none; color:#a78bfa; font-size:0.75rem; cursor:pointer;" onclick="openForgotPasswordModal()">Esqueci minha senha</button>
+              </div>
+              
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <button class="btn-primary" onclick="handleLogin()">Entrar na Plataforma</button>
+                <button class="btn-secondary" style="border-color:#a78bfa; color:#a78bfa;" onclick="showScreen(screenRegisterStep1)">✨ Criar Nova Conta (Auto-Cadastro)</button>
               </div>
             </div>
+
+            <!-- 3.1 Onboarding Wizard - Passo 1: Cadastro Inicial -->
+            <div class="app-screen" id="screen-register-step1">
+              <div class="create-header">
+                <button class="back-btn" onclick="showScreen(screenLogin)">←</button>
+                <h2>Auto-Cadastro (1/4)</h2>
+              </div>
+              <p class="evidence-desc" style="margin-bottom:0.8rem;">Escolha seu tipo de perfil e informe seus dados:</p>
+              
+              <div class="form-group">
+                <label>Tipo de Conta</label>
+                <select id="reg-account-type" style="width:100%; padding:0.45rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-size:0.8rem;">
+                  <option value="indiv">👤 Pessoa Física (Membro/Indivíduo)</option>
+                  <option value="org">🏢 Organização / Empresa (B2B)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="reg-name">Nome Completo / Razão Social</label>
+                <input type="text" id="reg-name" placeholder="Ex: Maria Silva ou Nexus Tech">
+              </div>
+
+              <div class="form-group">
+                <label for="reg-email">E-mail Corporativo ou Pessoal</label>
+                <input type="email" id="reg-email" placeholder="membro@exemplo.com">
+              </div>
+
+              <div class="form-group">
+                <label for="reg-pass">Criar Senha Segura</label>
+                <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres">
+              </div>
+
+              <button class="btn-primary" style="margin-top:1rem;" onclick="submitRegisterStep1()">Próximo: Confirmar E-mail ➡️</button>
+            </div>
+
+            <!-- 3.2 Onboarding Wizard - Passo 2: Verificação de E-mail -->
+            <div class="app-screen" id="screen-register-step2">
+              <div class="create-header">
+                <button class="back-btn" onclick="showScreen(screenRegisterStep1)">←</button>
+                <h2>Confirmar E-mail (2/4)</h2>
+              </div>
+              <p class="evidence-desc" style="margin-bottom:0.8rem;">Enviamos um código de 6 dígitos para o seu e-mail cadastrado:</p>
+
+              <div style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:0.6rem; margin-bottom:1rem; text-align:center; font-size:0.75rem; color:#10b981;">
+                📧 Código de verificação enviado! (Simulado: <strong>884920</strong>)
+              </div>
+
+              <div class="form-group">
+                <label for="reg-otp">Código de Validação (OTP)</label>
+                <input type="text" id="reg-otp" placeholder="Digite 884920" style="text-align:center; letter-spacing:4px; font-weight:800; font-size:1.1rem;">
+              </div>
+
+              <div style="display:flex; gap:0.4rem; margin-top:1rem;">
+                <button class="btn-primary" style="flex:1;" onclick="verifyEmailOTP()">Validar E-mail</button>
+                <button class="btn-secondary" style="flex:1;" onclick="alert('Código reenviado!')">Reenviar Código</button>
+              </div>
+            </div>
+
+            <!-- 3.3 Onboarding Wizard - Passo 3: Definição da Missão -->
+            <div class="app-screen" id="screen-register-step3">
+              <div class="create-header">
+                <h2>Minha Missão (3/4)</h2>
+              </div>
+              <p class="evidence-desc" style="margin-bottom:0.8rem;">Defina o seu propósito central no CumpreAi:</p>
+
+              <div class="form-group">
+                <label for="reg-mission-title">Declaração de Propósito / Missão</label>
+                <input type="text" id="reg-mission-title" placeholder="Ex: Viver com mais saúde e energia para minha família." value="Viver com mais saúde e energia para minha família.">
+              </div>
+
+              <div class="form-group">
+                <label>Pilares da Missão (Selecione ao menos 2)</label>
+                <div style="display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.3rem;">
+                  <span class="badge" style="background:#7c3aed; cursor:pointer;" onclick="this.classList.toggle('active')">🌱 Saúde</span>
+                  <span class="badge" style="background:#7c3aed; cursor:pointer;" onclick="this.classList.toggle('active')">⚡ Energia</span>
+                  <span class="badge" style="background:#7c3aed; cursor:pointer;" onclick="this.classList.toggle('active')">👨‍👩‍👧 Família</span>
+                  <span class="badge" style="background:#7c3aed; cursor:pointer;" onclick="this.classList.toggle('active')">💼 Carreira</span>
+                  <span class="badge" style="background:#7c3aed; cursor:pointer;" onclick="this.classList.toggle('active')">🎓 Educação</span>
+                </div>
+              </div>
+
+              <button class="btn-primary" style="margin-top:1rem;" onclick="submitMissionStep3()">Próximo: 1º Compromisso ➡️</button>
+            </div>
+
+            <!-- 3.4 Onboarding Wizard - Passo 4: Primeiros Passos & Bônus Bronze -->
+            <div class="app-screen" id="screen-register-step4">
+              <div class="create-header">
+                <h2>1º Compromisso (4/4)</h2>
+              </div>
+              
+              <div style="background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.4); border-radius:10px; padding:0.6rem; margin-bottom:0.8rem; text-align:center;">
+                <div style="font-weight:700; color:#f59e0b; font-size:0.85rem;">🥉 Nível Inicial Bronze Ativado!</div>
+                <div style="font-size:0.72rem; color:#d1d5db; margin-top:2px;">
+                  Sua jornada começa no Bronze (15 TrustScore, 100 A$ bônus inicial).
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="reg-first-commit">Título do seu 1º Compromisso</label>
+                <input type="text" id="reg-first-commit" placeholder="Ex: Treinar 3x por semana" value="Treinar 3x por semana">
+              </div>
+
+              <button class="btn-primary" style="margin-top:1rem; background:linear-gradient(135deg, #10b981 0%, #059669 100%);" onclick="completeFullOnboarding()">🚀 Finalizar Onboarding e Acessar App</button>
+            </div>
             
-            <!-- 4. Home Dashboard Screen -->
+            <!-- 4. Home Dashboard Screen — Genesis v1.0 (7 Módulos) -->
             <div class="app-screen" id="screen-home">
-              <div class="dashboard-header">
-                <div class="user-profile-small">
-                  <div class="user-avatar">A</div>
-                  <div>
-                    <div class="user-name" id="dash-username">Arthur Pendragon</div>
-                    <div class="context-badge">Pessoa Física</div>
+              <!-- Genesis Top Banner with KPIs -->
+              <div class="genesis-top-banner">
+                <div class="genesis-header-brand">
+                  <div class="genesis-title">CUMPREAI GENESIS v1.0</div>
+                  <div class="genesis-principle-badge">Nº 2B - PATRIMÔNIO FIRST</div>
+                </div>
+
+                <div class="genesis-kpi-row">
+                  <div class="genesis-kpi-card patrimonio">
+                    <div class="genesis-kpi-title">Patrimônio</div>
+                    <div class="genesis-kpi-val" id="gen-kpi-patrimony">100 A$</div>
+                    <div class="genesis-kpi-sub">CumpreCapital®</div>
+                  </div>
+                  <div class="genesis-kpi-card">
+                    <div class="genesis-kpi-title">TrustScore</div>
+                    <div class="genesis-kpi-val" id="gen-kpi-trust">15</div>
+                    <div class="genesis-kpi-sub" id="gen-kpi-level">🥉 Bronze</div>
+                  </div>
+                  <div class="genesis-kpi-card">
+                    <div class="genesis-kpi-title">Momentum</div>
+                    <div class="genesis-kpi-val" id="gen-kpi-momentum">1d</div>
+                    <div class="genesis-kpi-sub">+2,8% sem</div>
+                  </div>
+                  <div class="genesis-kpi-card">
+                    <div class="genesis-kpi-title">Ranking</div>
+                    <div class="genesis-kpi-val">Top 85%</div>
+                    <div class="genesis-kpi-sub">Comunidade</div>
                   </div>
                 </div>
-                <span>🔔</span>
-              </div>
-              
-              <!-- KPI Cards Grid -->
-              <div class="kpi-grid">
-                <div class="kpi-card purple">
-                  <span class="kpi-label">Confiança</span>
-                  <div class="kpi-value" id="dash-trust-score">85</div>
-                </div>
-                <div class="kpi-card emerald">
-                  <span class="kpi-label">Patrimônio</span>
-                  <div class="kpi-value" id="dash-patrimony">1200 A$</div>
-                </div>
-                <div class="kpi-card amber">
-                  <span class="kpi-label">Impacto</span>
-                  <div class="kpi-value" id="dash-impact">45</div>
+
+                <!-- Interactive Line Evolution SVG -->
+                <div style="height:28px; width:100%; margin-top:2px;">
+                  <svg width="100%" height="28" viewBox="0 0 200 28" preserveAspectRatio="none">
+                    <path d="M0,24 Q30,20 60,18 T120,12 T180,6 T200,4" fill="none" stroke="#a78bfa" stroke-width="2"/>
+                    <circle cx="200" cy="4" r="3" fill="#10b981"/>
+                  </svg>
                 </div>
               </div>
-              
-              <!-- Section Commitments -->
-              <div class="section-title">
-                <span>Compromissos</span>
-                <span class="badge" id="dash-opps">3</span>
+
+              <!-- 7 Navigation Tabs for Genesis Modules -->
+              <div class="genesis-nav-tabs">
+                <button class="genesis-tab-btn active" onclick="switchGenesisModule(1)">1 ENTRADA</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(2)">2 MISSÃO</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(3)">3 OPERAÇÃO</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(4)">4 PATRIMÔNIO</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(5)">5 ECOSSISTEMA</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(6)">6 PERFORMANCE</button>
+                <button class="genesis-tab-btn" onclick="switchGenesisModule(7)">7 PERFIL</button>
               </div>
-              
-              <div class="commitments-list" id="commitments-list-container">
-                <!-- Dynamically populated -->
+
+              <!-- Module 1: ENTRADA -->
+              <div class="genesis-module-content active" id="gen-mod-1">
+                <div class="user-profile-small" style="margin-bottom:0.5rem;">
+                  <div class="user-avatar" id="gen-avatar">A</div>
+                  <div>
+                    <div class="user-name" id="dash-username">Arthur Pendragon</div>
+                    <div class="context-badge" id="dash-user-context">Pessoa Física (Nível Bronze)</div>
+                  </div>
+                </div>
+
+                <div class="progress-ring-container">
+                  <div class="ring-circle">
+                    <div class="ring-inner">72%</div>
+                  </div>
+                  <div>
+                    <div style="font-weight:700; color:#10b981; font-size:0.85rem;">Ótimo progresso!</div>
+                    <div style="font-size:0.7rem; color:#9ca3af;">Você está no caminho certo da sua jornada contínua.</div>
+                  </div>
+                </div>
+
+                <div class="section-title">
+                  <span>Próximos Passos Recomendados</span>
+                </div>
+
+                <div class="commitments-list" id="commitments-list-container">
+                  <!-- Dynamic commitments -->
+                </div>
               </div>
-              
-              <div style="display:flex; gap:0.4rem; margin-top: auto;">
-                <button class="btn-primary" style="flex:1;" onclick="showScreen(screenCreate)">
-                  <span>➕</span> Novo Compromisso
-                </button>
-                <button class="btn-secondary" style="flex:1; border-color:#10b981; color:#10b981;" onclick="withdrawPixUI()">
+
+              <!-- Module 2: MISSÃO -->
+              <div class="genesis-module-content" id="gen-mod-2">
+                <div class="detail-card">
+                  <div class="detail-label">Minha Missão de Vida</div>
+                  <div class="detail-title" id="mod2-mission-text">"Viver com mais saúde e energia para minha família."</div>
+                  <div style="font-size:0.65rem; color:#6b7280; margin-top:3px;">Definida no Onboarding Real</div>
+                </div>
+
+                <div class="section-title">
+                  <span>Pilares Ativos da Missão</span>
+                </div>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.75rem;">
+                  <span class="badge" style="background:#7c3aed; padding:0.3rem 0.6rem;">🌱 Saúde</span>
+                  <span class="badge" style="background:#7c3aed; padding:0.3rem 0.6rem;">⚡ Energia</span>
+                  <span class="badge" style="background:#7c3aed; padding:0.3rem 0.6rem;">👨‍👩‍👧 Família</span>
+                </div>
+
+                <div class="detail-card">
+                  <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#9ca3af; margin-bottom:0.2rem;">
+                    <span>Progresso da Missão</span>
+                    <span style="color:#10b981; font-weight:700;">60%</span>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.1); height:8px; border-radius:4px; overflow:hidden;">
+                    <div style="background:linear-gradient(90deg, #7c3aed 0%, #10b981 100%); width:60%; height:100%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Module 3: OPERAÇÃO -->
+              <div class="genesis-module-content" id="gen-mod-3">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                  <div style="font-weight:700; font-size:0.85rem; color:#a78bfa;">Meus Compromissos</div>
+                  <button class="btn-primary" style="padding:0.25rem 0.5rem; font-size:0.7rem;" onclick="showScreen(screenCreate)">➕ Novo</button>
+                </div>
+                
+                <div style="display:flex; gap:0.3rem; margin-bottom:0.6rem;">
+                  <span class="badge" style="background:#8b5cf6;">Ativos (4)</span>
+                  <span class="badge" style="background:rgba(255,255,255,0.1);">Concluídos (12)</span>
+                  <span class="badge" style="background:rgba(255,255,255,0.1);">Atrasados (1)</span>
+                </div>
+
+                <div class="commitments-list" id="mod3-commitments-container">
+                  <!-- Dynamically duplicated for Operação module -->
+                </div>
+              </div>
+
+              <!-- Module 4: PATRIMÔNIO -->
+              <div class="genesis-module-content" id="gen-mod-4">
+                <div class="detail-card" style="background:linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(13,16,35,0.8) 100%); border-color:#a78bfa;">
+                  <div class="detail-label">Meu Patrimônio Total</div>
+                  <div class="detail-title" style="font-size:1.4rem; color:#10b981;" id="mod4-patrimony-val">100 A$</div>
+                  <div style="font-size:0.68rem; color:#9ca3af;">CumpreCapital® Acumulado</div>
+                </div>
+
+                <div class="section-title">
+                  <span>Composição do Patrimônio</span>
+                </div>
+
+                <div style="font-size:0.75rem;">
+                  <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <span>👤 Experiência</span>
+                    <span style="color:#a78bfa; font-weight:700;">60 pts</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <span>🏆 Reconhecimentos</span>
+                    <span style="color:#a78bfa; font-weight:700;">25 pts</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <span>🔗 Conexões</span>
+                    <span style="color:#a78bfa; font-weight:700;">10 pts</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; padding:0.3rem 0;">
+                    <span>🌱 Impacto</span>
+                    <span style="color:#a78bfa; font-weight:700;">5 pts</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Module 5: ECOSSISTEMA -->
+              <div class="genesis-module-content" id="gen-mod-5">
+                <div class="section-title">
+                  <span>Conexões de Confiança</span>
+                </div>
+                <div style="font-size:0.75rem; color:#9ca3af; margin-bottom:0.5rem;">
+                  Pessoas, Organizações e Comunidades conectadas à sua rede.
+                </div>
+
+                <!-- Governance Vault Widget -->
+                <div style="background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:0.6rem; margin-bottom:0.6rem;">
+                  <div style="font-weight:700; color:#a78bfa; font-size:0.78rem;">🏛️ Vault Transparência & Governança</div>
+                  <div style="font-size:0.68rem; color:#d1d5db; margin-top:2px;">
+                    Pool de Custódia Total: <strong style="color:#10b981;">12.500 A$</strong> | Taxa SaaS B2B: <strong>10%</strong>
+                  </div>
+                </div>
+
+                <div class="org-card">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div class="org-title">🏢 Nexus Tech Partner</div>
+                      <div style="font-size:0.68rem; color:#10b981;">Conectado • Verticais B2B</div>
+                    </div>
+                    <span class="badge" style="background:#10b981;">Empresa</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Module 6: PERFORMANCE -->
+              <div class="genesis-module-content" id="gen-mod-6">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                  <div class="section-title" style="margin:0;">
+                    <span>Grandes Desafios (PÓS)</span>
+                  </div>
+                  <button class="btn-primary" style="padding:0.25rem 0.5rem; font-size:0.68rem;" onclick="openCreateChallengeModal()">➕ Criar Desafio</button>
+                </div>
+
+                <div class="opportunity-card" style="border-color:#a78bfa; background:linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(0,0,0,0.4) 100%);">
+                  <div>
+                    <span class="opp-title" style="color:#fff;">⚡ Nike | Just Do It 30 Dias</span>
+                    <div style="font-size:0.68rem; color:#9ca3af; margin-top:2px;">Esportes • Desafio Patrocinado Nike Inc.</div>
+                    <div class="opp-reward" style="color:#10b981; font-weight:700;">Prêmio: +1.000 A$ + Badge Oficial</div>
+                  </div>
+                  <button class="opp-apply-btn" onclick="alert('Inscrito no Grande Desafio Nike 30 Dias!')">Participar</button>
+                </div>
+              </div>
+
+              <!-- Module 7: PERFIL -->
+              <div class="genesis-module-content" id="gen-mod-7">
+                <div class="detail-card" style="text-align:center;">
+                  <div class="user-avatar" style="margin:0 auto 0.5rem auto; width:50px; height:50px; font-size:1.3rem;" id="mod7-avatar">A</div>
+                  <div style="font-weight:800; font-size:1rem; color:#fff;" id="mod7-name">Arthur Pendragon</div>
+                  <div style="font-size:0.72rem; color:#a78bfa;" id="mod7-handle">@arthur.p</div>
+                  <div style="margin-top:0.4rem;">
+                    <span class="badge" style="background:#f59e0b;" id="mod7-tier">🥉 Nível Bronze</span>
+                  </div>
+                </div>
+
+                <div class="kpi-grid" style="margin-top:0.6rem;">
+                  <div class="kpi-card purple">
+                    <span class="kpi-label">Missões</span>
+                    <div class="kpi-value">1</div>
+                  </div>
+                  <div class="kpi-card emerald">
+                    <span class="kpi-label">Compromissos</span>
+                    <div class="kpi-value" id="mod7-commit-count">2</div>
+                  </div>
+                  <div class="kpi-card amber">
+                    <span class="kpi-label">Conquistas</span>
+                    <div class="kpi-value">1</div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:0.6rem; margin-top:0.6rem; font-size:0.72rem;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                    <span>🔥 Sequência Atual:</span>
+                    <strong style="color:#10b981;" id="mod7-streak-curr">1 dia</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between;">
+                    <span>⚡ Maior Sequência:</span>
+                    <strong style="color:#a78bfa;">3 dias</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Architecture Banner -->
+              <div class="genesis-bottom-architecture">
+                <div class="genesis-cycle-steps">
+                  <span>1 Entrada</span> ➔ <span>2 Missão</span> ➔ <span>3 Operação</span> ➔ <span>4 Patrimônio</span> ➔ <span>5 Ecossistema</span> ➔ <span>6 Perf.</span> ➔ <span>7 Perfil</span>
+                </div>
+                <div>CADA COMPROMISSO GERA AÇÃO • EVIDÊNCIA GERA CONFIANÇA • TUDO ISSO GERA PATRIMÔNIO</div>
+                <div class="genesis-status-pill">STATUS: TODOS OS MÓDULOS INTEGRADOS E OPERACIONAIS</div>
+              </div>
+
+              <div style="display:flex; gap:0.4rem; margin-top:0.6rem;">
+                <button class="btn-secondary" style="flex:1; border-color:#10b981; color:#10b981; font-size:0.75rem;" onclick="withdrawPixUI()">
                   <span>💸</span> Saque PIX (R$)
                 </button>
               </div>
@@ -552,6 +867,70 @@
         </div>
       </div>
     </section>
+  </div>
+
+  <!-- Modal: Esqueci Minha Senha -->
+  <div class="modal-overlay" id="modal-forgot-password">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">🔑 Recuperar Senha</div>
+        <button class="modal-close" onclick="closeForgotPasswordModal()">✕</button>
+      </div>
+      <p style="font-size:0.75rem; color:#9ca3af; margin-bottom:1rem;">
+        Informe o e-mail associado à sua conta para receber um link de redefinição de senha.
+      </p>
+      <div class="form-group">
+        <label for="forgot-email">E-mail Cadastrado</label>
+        <input type="email" id="forgot-email" placeholder="usuario@exemplo.com">
+      </div>
+      <div style="display:flex; gap:0.4rem; margin-top:1rem;">
+        <button class="btn-primary" style="flex:1;" onclick="submitForgotPassword()">Enviar Link de Reset</button>
+        <button class="btn-secondary" style="flex:1;" onclick="closeForgotPasswordModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Criar Grande Desafio (PÓS) -->
+  <div class="modal-overlay" id="modal-create-challenge">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">⚡ Criar Grande Desafio</div>
+        <button class="modal-close" onclick="closeCreateChallengeModal()">✕</button>
+      </div>
+      <p style="font-size:0.72rem; color:#9ca3af; margin-bottom:0.8rem;">
+        Desafios distribuem prêmios em A$ e reputação para a comunidade. Requer aporte de custódia inicial (120% da recompensa).
+      </p>
+      
+      <div class="form-group">
+        <label for="chal-title">Título do Desafio</label>
+        <input type="text" id="chal-title" placeholder="Ex: Desafio 30 Dias de Código ou Maratona de Saúde">
+      </div>
+
+      <div class="form-group">
+        <label for="chal-vertical">Vertical do Mercado</label>
+        <select id="chal-vertical" style="width:100%; padding:0.4rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px; font-size:0.8rem;">
+          <option value="esportes">⚽ Esportes & Saúde</option>
+          <option value="empresas">🏢 Empresas & Projetos</option>
+          <option value="educacao">🎓 Educação & Competências</option>
+          <option value="impacto">🌱 Impacto Social & Voluntariado</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="chal-reward-val">Recompensa Total do Prêmio (A$)</label>
+        <input type="number" id="chal-reward-val" value="1000" oninput="updateChallengeStakeCalc()" style="width:100%; padding:0.4rem; background:rgba(0,0,0,0.4); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px; font-size:0.8rem;">
+      </div>
+
+      <div style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:0.5rem; margin-bottom:0.8rem; font-size:0.72rem; color:#f59e0b;">
+        🔒 <strong>Exigência de Custódia Antifraude (120%):</strong><br>
+        Para disponibilizar este prêmio de <span id="calc-reward-lbl">1000</span> A$, você precisará aportar <strong id="calc-stake-val" style="color:#10b981;">1.200 A$</strong> em fundo de garantia.
+      </div>
+
+      <div style="display:flex; gap:0.4rem;">
+        <button class="btn-primary" style="flex:1;" onclick="submitCreateChallenge()">Aportar & Lançar Desafio</button>
+        <button class="btn-secondary" style="flex:1;" onclick="closeCreateChallengeModal()">Cancelar</button>
+      </div>
+    </div>
   </div>
 
   <script src="frontend/app.js?v=3"></script>
