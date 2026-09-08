@@ -300,34 +300,81 @@ window.closeCreateChallengeModal = closeCreateChallengeModal;
 window.updateChallengeStakeCalc = updateChallengeStakeCalc;
 window.submitCreateChallenge = submitCreateChallenge;
 
+// Register Super Users Registry in state
+state.superUsers = [
+  "alan.pereira@alp-nexus.com",
+  "alan@alp-nexus.com",
+  "superadmin@cumpreai.com"
+];
+
+function loginAsSuperUser() {
+  document.getElementById("login-email").value = "alan.pereira@alp-nexus.com";
+  const passInput = document.getElementById("login-pass");
+  if (passInput) passInput.value = "superadmin123";
+  handleLogin();
+}
+
 // Handle Login & Invitation Token Registration
 function handleLogin() {
-  const nameInput = document.getElementById("login-name").value || "Arthur Pendragon";
-  const emailInput = document.getElementById("login-email").value || "arthur@camelot.org";
+  const emailInput = document.getElementById("login-email").value.trim() || "alan.pereira@alp-nexus.com";
+  let nameInput = (document.getElementById("login-name") && document.getElementById("login-name").value) ? document.getElementById("login-name").value : "";
   const inviteTokenInput = document.getElementById("login-invite-token") ? document.getElementById("login-invite-token").value.trim() : "";
-  
-  state.member.name = nameInput;
-  state.member.email = emailInput;
-  
-  const userBadge = document.querySelector(".context-badge");
-  
-  if (inviteTokenInput) {
+
+  // Check if logging in as Super User / Master User
+  if (state.superUsers.includes(emailInput.toLowerCase()) || emailInput.toLowerCase().includes("alan.pereira")) {
+    state.member.id = "user_super_admin_001";
+    state.member.name = nameInput || "Alan Pereira";
+    state.member.email = emailInput;
+    state.member.userLevel = "Ouro";
+    state.member.memberType = "superadmin";
+
+    state.isPlatformSuperAdmin = true;
+    state.member_dashboard.trustScore = 980; // High TrustScore for Master User
+    state.member_dashboard.patrimonyTotal = 25000; // 25.000 A$ Master Treasury Pool
+    state.member_dashboard.momentumStreak = 45;
+
+    const userBadge = document.querySelector(".context-badge");
+    const dashUserContext = document.getElementById("dash-user-context");
+    if (userBadge) userBadge.textContent = "🔒 Super Admin (Master User)";
+    if (dashUserContext) dashUserContext.textContent = "🔒 Super Admin da Plataforma";
+
+    const badge = document.getElementById("super-admin-badge");
+    const badgeP = document.getElementById("super-admin-badge-p");
+    const btn = document.getElementById("btn-toggle-admin");
+    const btnP = document.getElementById("btn-toggle-admin-p");
+
+    if (badge) { badge.textContent = "🔓 Adm do App (Editável)"; badge.style.background = "#10b981"; }
+    if (badgeP) { badgeP.textContent = "🔓 Adm do App (Editável)"; badgeP.style.background = "#10b981"; }
+    if (btn) btn.textContent = "Modo: Adm do App (Editável)";
+    if (btnP) btnP.textContent = "Modo: Adm do App (Editável)";
+
+    writeLedger("SUPER_ADMIN_AUTHENTICATED", "superadmin", state.member.id, `Super User: ${emailInput} | Privileges UNLOCKED`);
+    logSystem(`AUTH: Master User Super Admin authenticated: ${emailInput} (Alan Pereira)`);
+  } else if (inviteTokenInput) {
     state.member.memberType = "organization";
     state.member.orgId = "org_camelot_dao";
+    state.isPlatformSuperAdmin = false;
+    const userBadge = document.querySelector(".context-badge");
     if (userBadge) userBadge.textContent = "Camelot DAO (Membro Org)";
     writeLedger("INVITATION_TOKEN_ACCEPTED", "member", state.member.id, `Token: ${inviteTokenInput} | Joined Org: Camelot DAO`);
     logSystem(`AUTH: User registered via Org Invitation Token (${inviteTokenInput})`);
   } else {
+    state.member.name = nameInput || emailInput.split("@")[0];
+    state.member.email = emailInput;
     state.member.memberType = "individual";
+    state.isPlatformSuperAdmin = false;
+    const userBadge = document.querySelector(".context-badge");
     if (userBadge) userBadge.textContent = "Pessoa Física";
-    writeLedger("MEMBER_BOOTSTRAPPED", "member", state.member.id, `Name: ${nameInput}`);
-    logSystem(`AUTH: User logged in as Independent Member: ${nameInput}`);
+    writeLedger("MEMBER_BOOTSTRAPPED", "member", state.member.id, `Name: ${state.member.name}`);
+    logSystem(`AUTH: User logged in as Independent Member: ${state.member.name}`);
   }
-  
-  document.getElementById("dash-username").textContent = nameInput;
+
+  document.getElementById("dash-username").textContent = state.member.name;
   showScreen(screenHome);
   updateDashboardUI();
 }
+
+window.loginAsSuperUser = loginAsSuperUser;
 
 // 15 Build Stage Activator
 function activateBuild(buildNum) {

@@ -87,6 +87,16 @@ server.listen(8099, async () => {
     await page.screenshot({ path: path.join(artifactDir, 'screenshot_genesis_6_module6_desafios.png') });
     console.log('✓ Screenshot 6: Module 6 Grandes Desafios captured');
 
+    // 7. Test Super User Alan Pereira Login & Privileges
+    await page.evaluate(() => {
+      if (typeof window.loginAsSuperUser === 'function') {
+        window.loginAsSuperUser();
+      }
+    });
+    await new Promise(r => setTimeout(r, 600));
+    await page.screenshot({ path: path.join(artifactDir, 'screenshot_genesis_7_superuser_alan.png') });
+    console.log('✓ Screenshot 7: Super User Alan Pereira Login & Privileges captured');
+
     await browser.close();
     server.close();
     console.log('ALL E2E VERIFICATIONS PASSED SUCCESSFULLY!');
