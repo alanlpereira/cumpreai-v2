@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "localtunnel": "^2.0.2",
     "puppeteer": "^25.10.0"
   }
 }

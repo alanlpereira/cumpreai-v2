@@ -130,16 +130,30 @@ function submitRegisterStep1() {
     return;
   }
 
-  pendingRegistration = { accountType, name, email, pass };
-  logSystem(`ONBOARDING Step 1: User info submitted (${name}, ${email})`);
-  writeLedger("REGISTER_STEP1_COMPLETED", "user", email, `Type: ${accountType}`);
+  const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  pendingRegistration = { accountType, name, email, pass, otp: generatedOTP };
+  
+  logSystem(`ONBOARDING Step 1: User info submitted (${name}, ${email}) | Generated OTP: ${generatedOTP}`);
+  writeLedger("REGISTER_STEP1_COMPLETED", "user", email, `Type: ${accountType} | OTP: ${generatedOTP}`);
+
+  alert(`📧 E-mail de confirmação de conta enviado com sucesso para: ${email}\n\nPara fins de validação no navegador, o seu Código OTP de Ativação é: ${generatedOTP}`);
+
+  const otpInputElem = document.getElementById("reg-otp");
+  if (otpInputElem) otpInputElem.value = generatedOTP;
+
+  const otpEmailDisplay = document.getElementById("reg-otp-email-display");
+  if (otpEmailDisplay) otpEmailDisplay.textContent = email;
+
   showScreen(screenRegisterStep2);
 }
 
 function verifyEmailOTP() {
-  const otpInput = document.getElementById("reg-otp").value.trim();
-  if (otpInput !== "884920" && otpInput.length < 4) {
-    alert("Código inválido! Por favor digite o código de verificação simulado: 884920");
+  const otpInputElem = document.getElementById("reg-otp");
+  const otpInput = otpInputElem ? otpInputElem.value.trim() : "";
+  const expectedOTP = pendingRegistration.otp || "884920";
+
+  if (otpInput !== expectedOTP && otpInput !== "884920" && otpInput.length < 4) {
+    alert(`Código de verificação incorreto! Por favor informe o código enviado (${expectedOTP}).`);
     return;
   }
 
@@ -549,23 +563,7 @@ function nextOnboarding() {
   }
 }
 
-// Handle Login
-function handleLogin() {
-  const nameInput = document.getElementById("login-name").value || "Arthur Pendragon";
-  const emailInput = document.getElementById("login-email").value || "arthur@camelot.org";
-  
-  state.member.name = nameInput;
-  state.member.email = emailInput;
-  
-  document.getElementById("dash-username").textContent = nameInput;
-  
-  // Write to ledger
-  writeLedger("MEMBER_BOOTSTRAPPED", "member", state.member.id, `Name: ${nameInput}`);
-  logSystem(`User logged in: ${nameInput} (${emailInput})`);
-  
-  showScreen(screenHome);
-  updateDashboardUI();
-}
+
 
 // Update Home UI
 function updateDashboardUI() {
@@ -1224,16 +1222,20 @@ function buyMarketItem(itemName, price) {
 }
 
 // Emulator Toggle Listener
-emulatorToggle.addEventListener("change", (e) => {
-  emulatorMode = e.target.checked;
-  if (emulatorMode) {
-    logSystem("MODE CHANGED: Live Integration (Connect to Local Emulator on localhost:5001)");
-    document.querySelector(".mode-selector span").style.color = "#10b981";
-  } else {
-    logSystem("MODE CHANGED: Local Simulation (In-Browser Virtual Database)");
-    document.querySelector(".mode-selector span").style.color = "var(--text-secondary)";
-  }
-});
+if (emulatorToggle) {
+  emulatorToggle.addEventListener("change", (e) => {
+    emulatorMode = e.target.checked;
+    if (emulatorMode) {
+      logSystem("MODE CHANGED: Live Integration (Connect to Local Emulator on localhost:5001)");
+      const modeSpan = document.querySelector(".mode-selector span");
+      if (modeSpan) modeSpan.style.color = "#10b981";
+    } else {
+      logSystem("MODE CHANGED: Local Simulation (In-Browser Virtual Database)");
+      const modeSpan = document.querySelector(".mode-selector span");
+      if (modeSpan) modeSpan.style.color = "var(--text-secondary)";
+    }
+  });
+}
 
 // Presentation Mode Toggle
 let presentationMode = false;
