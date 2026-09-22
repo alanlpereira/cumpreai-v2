@@ -1,0 +1,268 @@
+=== ppt/slides/slide1.xml ===
+CUMPREAI
+A infraestrutura de
+confiança para a
+economia da evolução.
+Transformamos ações verificáveis em reputação e reputação em oportunidades.
+PITCH EXECUTIVO  •  VERSÃO VISUAL
+
+=== ppt/slides/slide2.xml ===
+CUMPREAI  /  INVESTOR DECK
+A tese em uma página
+02
+01
+Problema
+A trajetória real das pessoas está fragmentada e é difícil de comprovar.
+02
+Produto
+Um ciclo contínuo de compromisso, evidência, validação e reconhecimento.
+03
+Ativo
+Patrimônio de Confiança: portátil, auditável e pertencente ao membro.
+04
+Negócio
+Receitas B2C, B2B, comunidades, transações, IA, APIs e conhecimento.
+A oportunidade é criar uma categoria: confiança verificável como infraestrutura econômica.
+
+=== ppt/slides/slide3.xml ===
+CUMPREAI  /  INVESTOR DECK
+Hoje, cada sistema conhece apenas uma parte da pessoa
+O problema não é falta de informação. É falta de continuidade.
+03
+Educação
+Trabalho
+Projetos
+Comunidades
+Vida digital
+CERTIFICADOS
+AVALIAÇÕES
+ENTREGAS
+CONTRIBUIÇÕES
+PERFIS
+A confiança se perde nas transições
+Resultado: talento invisível, repetição de verificações, seleção mais cara e oportunidades desperdiçadas.
+
+=== ppt/slides/slide4.xml ===
+CUMPREAI  /  INVESTOR DECK
+O CumpreAI conecta toda a trajetória em um ciclo permanente
+04
+1
+Jornada
+2
+Compromisso
+3
+Evidência
+4
+Validação
+5
+Reconhecimento
+6
+Patrimônio
+7
+Oportunidade
+Cada novo ciclo produz dados, contexto e confiança, fortalecendo a qualidade das próximas decisões.
+
+=== ppt/slides/slide5.xml ===
+CUMPREAI  /  INVESTOR DECK
+Uma jornada já entrega valor ao usuário
+05
+EXPERIÊNCIA PESSOAL
+Uma ação real deixa de ser apenas uma lembrança.
+O compromisso organiza a intenção.
+A evidência demonstra a realização.
+A validação acrescenta credibilidade.
+A oportunidade inicia o próximo ciclo.
+Mockups conceituais
+
+=== ppt/slides/slide6.xml ===
+CUMPREAI  /  INVESTOR DECK
+Evidência e validação transformam intenção em confiança
+06
+Decisão humana, apoiada por IA e registrada para auditoria.
+Mockup conceitual
+
+=== ppt/slides/slide7.xml ===
+CUMPREAI  /  INVESTOR DECK
+Três indicadores tornam a evolução visível
+07
+TRUSTSCORE
+780
+Confiança construída
+Evidências, validações, coerência e contexto.
+CUMPREMOMENTUM
+12
+Consistência em movimento
+Frequência, continuidade e capacidade de cumprir.
+CUMPRECAPITAL
+4,8k
+Patrimônio acumulado
+Reconhecimentos, impacto e valor criado ao longo da jornada.
+Valores ilustrativos • A metodologia de cálculo será calibrada no Alpha.
+O score organiza evidências e torna as decisões mais explicáveis.
+
+=== ppt/slides/slide8.xml ===
+CUMPREAI  /  INVESTOR DECK
+A pessoa é o ativo permanente do ecossistema
+08
+PESSOA
+ORGANIZAÇÕES
+Programas privados
+Desenvolvimento
+Validação institucional
+Oportunidades
+COMUNIDADES
+Desafios coletivos
+Pertencimento
+Reconhecimento
+Inteligência coletiva
+Cada interação fortalece o patrimônio individual e a inteligência coletiva.
+
+=== ppt/slides/slide9.xml ===
+CUMPREAI  /  INVESTOR DECK
+Para organizações, confiança vira capacidade de execução
+09
+VALOR B2B
+Programas conectam desenvolvimento, desempenho e oportunidade.
+✓
+Acompanhar jornadas, não apenas cursos.
+✓
+Validar entregas com contexto e rastreabilidade.
+✓
+Mapear competências demonstradas.
+✓
+Formar equipes e reduzir risco de decisão.
+Dashboard conceitual • Dados ilustrativos
+
+=== ppt/slides/slide10.xml ===
+CUMPREAI  /  INVESTOR DECK
+A mesma infraestrutura atende múltiplos mercados
+O ponto de entrada muda; o ciclo de confiança permanece.
+10
+Empresas
+Desenvolvimento, compliance, projetos e mobilidade interna.
+Educação
+Projetos, competências demonstradas e transição para oportunidades.
+Esportes
+Metas, desafios, desempenho, comunidades e marcas.
+Impacto social
+Voluntariado, mobilização, comprovação e reconhecimento.
+Tese de categoria: reputação verificável conecta HR Tech, EdTech, comunidades, marketplaces e infraestrutura de identidade.
+
+=== ppt/slides/slide11.xml ===
+CUMPREAI  /  INVESTOR DECK
+A receita cresce em camadas com a maturidade
+11
+NÚCLEO
+Premium pessoal
+B2C
+ADOÇÃO
+Organizações + comunidades
+SaaS B2B
+LIQUIDEZ
+Marketplace de oportunidades
+Transações
+PLATAFORMA
+Agentes de IA + APIs
+Ecossistema
+CONHECIMENTO
+Cursos, mentorias e ativos
+Economia
+Princípio: monetizar ferramentas e infraestrutura — nunca vender o patrimônio de confiança do membro.
+
+=== ppt/slides/slide12.xml ===
+CUMPREAI  /  INVESTOR DECK
+O Vault transforma receita em prosperidade compartilhada
+12
+Receitas
+Vault
+Distribuição
+Reinvestir
+Novo ciclo
+Assinaturas
+SaaS
+Transações
+Custódia
+Regras
+Auditoria
+Plataforma
+Fundadores
+Investidores
+Pessoas
+Comunidades
+Inovação
+Jornadas
+Impacto
+Oportunidades
+Governança aplica critérios transparentes, auditáveis e previamente definidos.
+
+=== ppt/slides/slide13.xml ===
+CUMPREAI  /  INVESTOR DECK
+A defensibilidade é técnica, relacional e institucional
+13
+REDE
+Pessoas, organizações, comunidades e parceiros
+CONFIANÇA
+Ledger, privacidade e explicabilidade
+INTELIGÊNCIA
+Knowledge Graph + memória contextual
+DADOS
+Trajetórias longitudinais verificáveis
+EXPERIÊNCIA
+Ciclo recorrente e baixo atrito
+Quanto maior a história verificada, maior o custo de replicar o contexto e a qualidade das conexões.
+
+=== ppt/slides/slide14.xml ===
+CUMPREAI  /  INVESTOR DECK
+A entrada começa onde confiança já tem propósito e contexto
+14
+1
+Alpha fechado
+Pessoas e grupos selecionados validam o primeiro valor.
+2
+Pilotos patrocinados
+Empresas e comunidades originam jornadas reais.
+3
+Casos comprovados
+Retenção, evidências, validação e disposição a pagar.
+4
+Expansão em rede
+Convites, integrações, parceiros e oportunidades.
+Métrica norte: membros que concluem um ciclo verificável e iniciam o próximo.
+
+=== ppt/slides/slide15.xml ===
+CUMPREAI  /  INVESTOR DECK
+O roadmap amplia escopo somente após validar o núcleo
+15
+0–6 MESES
+Core MVP
+Identidade, jornadas, compromissos, evidências, validação e reconhecimento.
+6–12 MESES
+Alpha + pilotos
+Uso real, governança operacional, antifraude, métricas e pricing.
+12–24 MESES
+Escala B2B
+Programas, comunidades, análises, integrações e marketplace inicial.
+24+ MESES
+Plataforma global
+APIs, agentes de IA, Vault maduro e expansão internacional.
+Sequência indicativa • Datas finais dependem de equipe, capital e aprendizados do Alpha.
+
+=== ppt/slides/slide16.xml ===
+CUMPREAI  /  INVESTOR DECK
+O investimento financia quatro provas decisivas
+16
+PRODUTO
+01
+O ciclo funciona ponta a ponta com baixo atrito.
+ADOÇÃO
+02
+Usuários retornam e organizações patrocinam jornadas.
+CONFIANÇA
+03
+Validação, segurança e governança resistem ao uso real.
+ECONOMIA
+04
+Receita prioritária, pricing e unidade econômica podem ser testados.
+Próximo passo
+Definir o valor da rodada, o runway e os marcos de liberação por evidência.
+CUMPREAI  •  CONFIANÇA QUE ABRE CAMINHOS

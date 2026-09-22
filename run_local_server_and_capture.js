@@ -36,8 +36,8 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(8085, async () => {
-  console.log('Static server running on http://localhost:8085');
+server.listen(8088, async () => {
+  console.log('Static server running on http://localhost:8088');
   const browser = await puppeteer.launch({
     executablePath: chromePath,
     headless: true
@@ -46,7 +46,7 @@ server.listen(8085, async () => {
   const page = await browser.newPage();
   await page.setViewport({ width: 1366, height: 768 });
 
-  const pageUrl = 'http://localhost:8085';
+  const pageUrl = 'http://localhost:8088';
 
   // 1. Login Page & Super User Button
   await page.goto(pageUrl, { waitUntil: 'networkidle2' });

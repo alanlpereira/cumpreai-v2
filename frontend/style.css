@@ -1554,3 +1554,147 @@ body.presentation-mode .smartphone-frame {
   cursor: pointer;
 }
 
+/* ====================================================
+   TEMA VISUAL CLARO EXECUTIVO (PITCH VISUAL CLARO V2)
+   ==================================================== */
+body.theme-visual-claro {
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  --panel-bg: #ffffff;
+  --panel-border: rgba(15, 23, 42, 0.12);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-color: #2563eb;
+  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --danger-color: #dc2626;
+  --phone-bg: #ffffff;
+  --glow-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background: var(--bg-gradient) !important;
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .pres-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.theme-visual-claro .pres-title {
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .zoom-controls span {
+  color: #475569 !important;
+}
+
+body.theme-visual-claro .zoom-btn {
+  background: rgba(15, 23, 42, 0.06) !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .phone-frame {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 10px #e2e8f0 !important;
+}
+
+body.theme-visual-claro .phone-screen {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .app-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body.theme-visual-claro .app-header h1 {
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .metric-card,
+body.theme-visual-claro .card,
+body.theme-visual-claro .glass-card,
+body.theme-visual-claro .module-nav-bar,
+body.theme-visual-claro .evidence-card,
+body.theme-visual-claro .challenge-card,
+body.theme-visual-claro .login-header,
+body.theme-visual-claro .create-header {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.theme-visual-claro .metric-label,
+body.theme-visual-claro .card-subtext,
+body.theme-visual-claro .evidence-desc,
+body.theme-visual-claro .journey-desc,
+body.theme-visual-claro p {
+  color: #475569;
+}
+
+body.theme-visual-claro h1,
+body.theme-visual-claro h2,
+body.theme-visual-claro h3,
+body.theme-visual-claro h4,
+body.theme-visual-claro h5,
+body.theme-visual-claro label {
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .form-group input,
+body.theme-visual-claro .form-group select,
+body.theme-visual-claro .form-group textarea {
+  background: #f1f5f9 !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .modal-content {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  color: #0f172a !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+body.theme-visual-claro .modal-title,
+body.theme-visual-claro .modal-header h3 {
+  color: #0f172a !important;
+}
+
+body.theme-visual-claro .nav-module-btn {
+  background: rgba(15, 23, 42, 0.05) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #334155 !important;
+}
+
+body.theme-visual-claro .nav-module-btn.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+}
+
+body.theme-visual-claro .bottom-nav {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-top-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body.theme-visual-claro .nav-item {
+  color: #64748b !important;
+}
+
+body.theme-visual-claro .nav-item.active {
+  color: #2563eb !important;
+}
+
+body.theme-visual-claro #terminal,
+body.theme-visual-claro #json-viewer {
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+

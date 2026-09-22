@@ -314,6 +314,51 @@ window.closeCreateChallengeModal = closeCreateChallengeModal;
 window.updateChallengeStakeCalc = updateChallengeStakeCalc;
 window.submitCreateChallenge = submitCreateChallenge;
 
+// Theme Toggle Management (Cyberpunk Dark vs Visual Claro Executivo)
+function toggleTheme() {
+  const currentTheme = document.body.classList.contains("theme-visual-claro") ? "dark" : "visual_claro";
+  applyTheme(currentTheme);
+}
+
+function applyTheme(themeName) {
+  const btn = document.getElementById("theme-toggle-btn");
+  if (themeName === "visual_claro") {
+    document.body.classList.add("theme-visual-claro");
+    if (btn) {
+      btn.innerHTML = "🌙 Modo Cyberpunk";
+      btn.style.background = "#0f172a";
+      btn.style.color = "#f8fafc";
+      btn.style.borderColor = "rgba(15, 23, 42, 0.2)";
+    }
+    localStorage.setItem("cumpreai_theme", "visual_claro");
+    logSystem("THEME CHANGED: Visual Claro Executivo (Pitch v2 Theme)");
+  } else {
+    document.body.classList.remove("theme-visual-claro");
+    if (btn) {
+      btn.innerHTML = "☀️ Visual Claro Executivo";
+      btn.style.background = "rgba(255,255,255,0.08)";
+      btn.style.color = "#ffffff";
+      btn.style.borderColor = "rgba(255,255,255,0.15)";
+    }
+    localStorage.setItem("cumpreai_theme", "dark");
+    logSystem("THEME CHANGED: Cyberpunk Dark Mode (Original Genesis Theme)");
+  }
+}
+
+function initTheme() {
+  const savedTheme = localStorage.getItem("cumpreai_theme") || "dark";
+  applyTheme(savedTheme);
+}
+
+window.toggleTheme = toggleTheme;
+window.applyTheme = applyTheme;
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initTheme);
+} else {
+  initTheme();
+}
+
 // Register Super Users Registry in state
 state.superUsers = [
   "alan.pereira@alp-nexus.com",

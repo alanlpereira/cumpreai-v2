@@ -147,13 +147,19 @@
       <span class="pres-badge">Cliente & Usuário</span>
     </div>
 
-    <!-- Live Zoom Controls -->
-    <div class="zoom-controls">
-      <span>🔍 Tamanho:</span>
-      <button class="zoom-btn" onclick="adjustZoom(-0.05)">-</button>
-      <span id="zoom-label" style="font-weight: 600; min-width: 42px; text-align: center; color: #a78bfa;">82%</span>
-      <button class="zoom-btn" onclick="adjustZoom(0.05)">+</button>
-      <button class="zoom-btn" style="width: auto; padding: 0 6px; font-size: 0.7rem;" onclick="resetZoom()">Auto</button>
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <button id="theme-toggle-btn" class="zoom-btn" style="width:auto; padding:0.35rem 0.75rem; font-size:0.75rem; font-weight:600; display:flex; align-items:center; gap:0.4rem; border-radius:8px; cursor:pointer;" onclick="toggleTheme()">
+        ☀️ Visual Claro Executivo
+      </button>
+
+      <!-- Live Zoom Controls -->
+      <div class="zoom-controls">
+        <span>🔍 Tamanho:</span>
+        <button class="zoom-btn" onclick="adjustZoom(-0.05)">-</button>
+        <span id="zoom-label" style="font-weight: 600; min-width: 42px; text-align: center; color: #a78bfa;">82%</span>
+        <button class="zoom-btn" onclick="adjustZoom(0.05)">+</button>
+        <button class="zoom-btn" style="width: auto; padding: 0 6px; font-size: 0.7rem;" onclick="resetZoom()">Auto</button>
+      </div>
     </div>
   </header>
 
