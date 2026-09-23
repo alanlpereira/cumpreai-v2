@@ -210,26 +210,34 @@
                 <h2>Acesse sua Conta</h2>
                 <p>Entre com seus dados ou crie uma conta no CumpreAi</p>
               </div>
-              
-              <div class="form-group">
-                <label for="login-email">Endereço de E-mail</label>
-                <input type="email" id="login-email" placeholder="usuario@exemplo.com">
-              </div>
 
-              <div class="form-group">
-                <label for="login-pass">Senha</label>
-                <input type="password" id="login-pass" placeholder="••••••••">
-              </div>
-              
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                <button type="button" style="background:none; border:none; color:#a78bfa; font-size:0.75rem; cursor:pointer;" onclick="openForgotPasswordModal()">Esqueci minha senha</button>
-              </div>
-              
-              <div style="display:flex; flex-direction:column; gap:0.4rem;">
-                <button class="btn-primary" onclick="handleLogin()">Entrar na Plataforma</button>
-                <button class="btn-secondary" style="border-color:#10b981; color:#10b981; font-size:0.75rem;" onclick="loginAsSuperUser()">👑 Entrar como Super User (alan.pereira@lp-nexus.com)</button>
-                <button class="btn-secondary" style="border-color:#a78bfa; color:#a78bfa; font-size:0.75rem;" onclick="showScreen(screenRegisterStep1)">✨ Criar Nova Conta (Auto-Cadastro)</button>
-              </div>
+              <form id="login-form" action="javascript:void(0);" onsubmit="handleLogin(); return false;">
+                <div class="form-group">
+                  <label for="login-email">Endereço de E-mail</label>
+                  <input type="email" id="login-email" name="username" autocomplete="username" placeholder="usuario@exemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="login-pass">Senha</label>
+                  <input type="password" id="login-pass" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                  <label style="font-size:0.72rem; color:var(--text-secondary); display:flex; align-items:center; gap:0.4rem; cursor:pointer;">
+                    <input type="checkbox" id="remember-credentials" checked> 🔒 Salvar credenciais no cofre
+                  </label>
+                  <button type="button" style="background:none; border:none; color:#a78bfa; font-size:0.72rem; cursor:pointer;" onclick="openForgotPasswordModal()">Esqueci minha senha</button>
+                </div>
+
+                <div id="login-notice" style="font-size:0.72rem; color:#10b981; margin-bottom:0.6rem; display:none; text-align:center; background:rgba(16, 185, 129, 0.1); padding:0.4rem; border-radius:6px; border:1px solid rgba(16, 185, 129, 0.3);"></div>
+
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                  <button type="submit" class="btn-primary">Entrar na Plataforma</button>
+                  <button type="button" class="btn-secondary" style="border-color:#10b981; color:#10b981; font-size:0.72rem;" onclick="loginAsSuperUser()">👑 Autopreencher Super User (alan.pereira@lp-nexus.com)</button>
+                  <button type="button" class="btn-secondary" style="border-color:#3b82f6; color:#3b82f6; font-size:0.72rem;" onclick="loginAsOrgManager()">🏢 Autopreencher Gestor de Organização (arthur@camelot.org)</button>
+                  <button type="button" class="btn-secondary" style="border-color:#a78bfa; color:#a78bfa; font-size:0.72rem;" onclick="showScreen(screenRegisterStep1)">✨ Criar Nova Conta (Auto-Cadastro)</button>
+                </div>
+              </form>
             </div>
 
             <!-- 3.1 Onboarding Wizard - Passo 1: Cadastro Inicial -->

@@ -370,17 +370,45 @@ state.superUsers = [
 
 function loginAsSuperUser() {
   const emailInput = document.getElementById("login-email");
-  if (emailInput) emailInput.value = "alan.pereira@lp-nexus.com";
   const passInput = document.getElementById("login-pass");
+  const noticeElem = document.getElementById("login-notice");
+
+  if (emailInput) emailInput.value = "alan.pereira@lp-nexus.com";
   if (passInput) passInput.value = "superadmin123";
-  handleLogin();
+
+  if (noticeElem) {
+    noticeElem.textContent = "👑 Credenciais de Super User autopreenchidas! Clique em 'Entrar na Plataforma' para confirmar ou salvar no cofre.";
+    noticeElem.style.display = "block";
+  }
 }
+
+function loginAsOrgManager() {
+  const emailInput = document.getElementById("login-email");
+  const passInput = document.getElementById("login-pass");
+  const noticeElem = document.getElementById("login-notice");
+
+  if (emailInput) emailInput.value = "arthur@camelot.org";
+  if (passInput) passInput.value = "orgmanager123";
+
+  if (noticeElem) {
+    noticeElem.textContent = "🏢 Credenciais de Gestor de Organização autopreenchidas! Clique em 'Entrar na Plataforma' para confirmar.";
+    noticeElem.style.display = "block";
+  }
+}
+
+window.loginAsSuperUser = loginAsSuperUser;
+window.loginAsOrgManager = loginAsOrgManager;
 
 // Handle Login & Invitation Token Registration
 function handleLogin() {
   const emailInput = (document.getElementById("login-email") && document.getElementById("login-email").value) ? document.getElementById("login-email").value.trim() : "alan.pereira@lp-nexus.com";
   let nameInput = (document.getElementById("login-name") && document.getElementById("login-name").value) ? document.getElementById("login-name").value : "";
   const inviteTokenInput = document.getElementById("login-invite-token") ? document.getElementById("login-invite-token").value.trim() : "";
+  const rememberCheckbox = document.getElementById("remember-credentials");
+
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem("saved_user_email", emailInput);
+  }
 
   const lowerEmail = emailInput.toLowerCase();
   const isSuperAdmin = state.superUsers.includes(lowerEmail) || 
@@ -418,14 +446,25 @@ function handleLogin() {
 
     writeLedger("SUPER_ADMIN_AUTHENTICATED", "superadmin", state.member.id, `Super User: ${emailInput} | Privileges UNLOCKED`);
     logSystem(`AUTH: Master User Super Admin authenticated: ${emailInput} (Alan Pereira)`);
-  } else if (inviteTokenInput) {
+  } else if (inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager")) {
     state.member.memberType = "organization";
     state.member.orgId = "org_camelot_dao";
+    state.member.name = nameInput || "Gestor Camelot DAO";
+    state.member.email = emailInput;
+    state.member.userLevel = "Prata";
     state.isPlatformSuperAdmin = false;
+    
+    state.member_dashboard.trustScore = 450;
+    state.member_dashboard.patrimonyTotal = 12000;
+    state.member_dashboard.momentumStreak = 18;
+
     const userBadge = document.querySelector(".context-badge");
-    if (userBadge) userBadge.textContent = "Camelot DAO (Membro Org)";
-    writeLedger("INVITATION_TOKEN_ACCEPTED", "member", state.member.id, `Token: ${inviteTokenInput} | Joined Org: Camelot DAO`);
-    logSystem(`AUTH: User registered via Org Invitation Token (${inviteTokenInput})`);
+    const dashUserContext = document.getElementById("dash-user-context");
+    if (userBadge) userBadge.textContent = "🏢 Gestor de Organização (Camelot DAO)";
+    if (dashUserContext) dashUserContext.textContent = "🏢 Gestor de Organização (Camelot DAO)";
+
+    writeLedger("ORG_MANAGER_AUTHENTICATED", "organization", state.member.id, `Org Manager: ${emailInput} | Org: Camelot DAO`);
+    logSystem(`AUTH: Organization Manager authenticated: ${emailInput} (Camelot DAO)`);
   } else {
     state.member.name = nameInput || emailInput.split("@")[0];
     state.member.email = emailInput;
