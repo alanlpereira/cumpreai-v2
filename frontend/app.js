@@ -361,13 +361,16 @@ if (document.readyState === "loading") {
 
 // Register Super Users Registry in state
 state.superUsers = [
+  "alan.pereira@lp-nexus.com",
   "alan.pereira@alp-nexus.com",
+  "alan@lp-nexus.com",
   "alan@alp-nexus.com",
   "superadmin@cumpreai.com"
 ];
 
 function loginAsSuperUser() {
-  document.getElementById("login-email").value = "alan.pereira@alp-nexus.com";
+  const emailInput = document.getElementById("login-email");
+  if (emailInput) emailInput.value = "alan.pereira@lp-nexus.com";
   const passInput = document.getElementById("login-pass");
   if (passInput) passInput.value = "superadmin123";
   handleLogin();
@@ -375,12 +378,18 @@ function loginAsSuperUser() {
 
 // Handle Login & Invitation Token Registration
 function handleLogin() {
-  const emailInput = document.getElementById("login-email").value.trim() || "alan.pereira@alp-nexus.com";
+  const emailInput = (document.getElementById("login-email") && document.getElementById("login-email").value) ? document.getElementById("login-email").value.trim() : "alan.pereira@lp-nexus.com";
   let nameInput = (document.getElementById("login-name") && document.getElementById("login-name").value) ? document.getElementById("login-name").value : "";
   const inviteTokenInput = document.getElementById("login-invite-token") ? document.getElementById("login-invite-token").value.trim() : "";
 
+  const lowerEmail = emailInput.toLowerCase();
+  const isSuperAdmin = state.superUsers.includes(lowerEmail) || 
+                       lowerEmail.includes("alan.pereira") || 
+                       lowerEmail.includes("alan@lp-nexus") || 
+                       lowerEmail.includes("alan@alp-nexus");
+
   // Check if logging in as Super User / Master User
-  if (state.superUsers.includes(emailInput.toLowerCase()) || emailInput.toLowerCase().includes("alan.pereira")) {
+  if (isSuperAdmin) {
     state.member.id = "user_super_admin_001";
     state.member.name = nameInput || "Alan Pereira";
     state.member.email = emailInput;
