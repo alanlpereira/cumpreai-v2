@@ -1697,4 +1697,19 @@ body.theme-visual-claro #json-viewer {
   color: #f1f5f9 !important;
 }
 
+/* Master User Performance & Clean View Controls */
+.perf-view-container {
+  display: none;
+}
+.perf-view-container.active {
+  display: block !important;
+}
+.act-type-btn.active {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  font-weight: 700 !important;
+}
+
+
 

@@ -1359,3 +1359,111 @@ window.onload = () => {
   
   updateJsonViewer();
 };
+
+// --- MASTER USER PERFORMANCE & CLEAN VIEW HANDLERS (WA0019 & WA0020) ---
+let selectedActivityType = 'Corrida';
+
+function switchMasterPerformanceMode(mode) {
+  const darkView = document.getElementById("perf-view-dark");
+  const cleanView = document.getElementById("perf-view-clean");
+  const btnDark = document.getElementById("btn-perf-mode-dark");
+  const btnClean = document.getElementById("btn-perf-mode-clean");
+
+  if (mode === "performance") {
+    if (darkView) darkView.style.display = "block";
+    if (cleanView) cleanView.style.display = "none";
+    if (btnDark) btnDark.classList.add("active");
+    if (btnClean) btnClean.classList.remove("active");
+    logSystem("Modo Performance ativado (WA0020).");
+  } else {
+    if (darkView) darkView.style.display = "none";
+    if (cleanView) cleanView.style.display = "block";
+    if (btnClean) btnClean.classList.add("active");
+    if (btnDark) btnDark.classList.remove("active");
+    logSystem("Visão Clean ativada (WA0019).");
+  }
+}
+
+function openRegisterActivityModal() {
+  const modal = document.getElementById("modal-register-activity");
+  if (modal) modal.classList.add("active");
+}
+
+function closeRegisterActivityModal() {
+  const modal = document.getElementById("modal-register-activity");
+  if (modal) modal.classList.remove("active");
+}
+
+function selectActivityType(type) {
+  selectedActivityType = type;
+  const buttons = document.querySelectorAll(".act-type-btn");
+  buttons.forEach(btn => {
+    btn.classList.remove("active");
+    btn.style.borderColor = "";
+    btn.style.color = "";
+  });
+
+  let targetId = "act-btn-run";
+  if (type === "Caminhada") targetId = "act-btn-walk";
+  if (type === "Bicicleta") targetId = "act-btn-bike";
+  if (type === "Treino") targetId = "act-btn-workout";
+
+  const targetBtn = document.getElementById(targetId);
+  if (targetBtn) {
+    targetBtn.classList.add("active");
+    targetBtn.style.borderColor = "#10b981";
+    targetBtn.style.color = "#10b981";
+  }
+}
+
+function submitRegisterActivity() {
+  const distInput = document.getElementById("act-dist-input");
+  const durationInput = document.getElementById("act-duration-input");
+
+  const distVal = parseFloat(distInput ? distInput.value : "1.8") || 1.8;
+  const durationVal = parseInt(durationInput ? durationInput.value : "15") || 15;
+
+  // Rewards: +250 CumpreCapital, +5 TrustScore
+  const capitalEarned = 250;
+  const trustScoreEarned = 5;
+
+  if (typeof state !== 'undefined' && state && state.member_dashboard) {
+    state.member_dashboard.patrimonyTotal = (state.member_dashboard.patrimonyTotal || 12600) + capitalEarned;
+    state.member_dashboard.trustScore = Math.min(100, (state.member_dashboard.trustScore || 92) + trustScoreEarned);
+  }
+
+  // Update Active Challenge Progress (3.2 + distVal -> max 5km)
+  const currentKm = 3.2 + distVal;
+  const targetKm = 5.0;
+  const finalKm = Math.min(targetKm, currentKm);
+  const pct = Math.min(100, Math.round((finalKm / targetKm) * 100));
+
+  const kmElem = document.getElementById("perf-chal-km");
+  const pctElem = document.getElementById("perf-chal-pct");
+  const barElem = document.getElementById("perf-chal-bar");
+  const rankKmElem = document.getElementById("rank-user-km");
+
+  if (kmElem) kmElem.textContent = `${finalKm.toFixed(1).replace('.', ',')} km / 5 km`;
+  if (pctElem) pctElem.textContent = `${pct}% Concluído`;
+  if (barElem) barElem.style.width = `${pct}%`;
+  if (rankKmElem) rankKmElem.textContent = `${finalKm.toFixed(1).replace('.', ',')} km`;
+
+  // Write to ledger
+  if (typeof logLedgerEvent === 'function') {
+    logLedgerEvent(`Atividade ${selectedActivityType} (${distVal} km em ${durationVal} min) registrada. +250 A$ | +5 TrustScore`);
+  }
+
+  if (typeof updateMemberDashboardUI === 'function') updateMemberDashboardUI();
+  if (typeof renderLedger === 'function') renderLedger();
+  if (typeof updateJsonViewer === 'function') updateJsonViewer();
+
+  alert(`✅ Atividade de ${selectedActivityType} (${distVal} km) registrada com sucesso!\n\n💎 +${capitalEarned} CumpreCapital® adicionados ao seu patrimônio.\n🛡️ +${trustScoreEarned} TrustScore® conquistados.`);
+  closeRegisterActivityModal();
+}
+
+function togglePersonalizationSetting(settingKey) {
+  if (typeof logSystem === 'function') {
+    logSystem(`Configuração de personalização atualizada: ${settingKey}`);
+  }
+}
+
