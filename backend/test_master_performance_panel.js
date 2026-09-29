@@ -33,6 +33,9 @@ const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     if (typeof loginAsSuperUser === 'function') {
       loginAsSuperUser();
     }
+    if (typeof handleLogin === 'function') {
+      handleLogin();
+    }
   });
 
   await new Promise(r => setTimeout(r, 1000));

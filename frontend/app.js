@@ -232,6 +232,92 @@ function submitForgotPassword() {
   writeLedger("PASSWORD_RESET_REQUESTED", "user", email, "Reset link dispatched via system email");
 }
 
+function applyDesktopLayout(enableDesktop) {
+  const phoneElem = document.getElementById("phone-frame-elem");
+  const phoneContainer = document.querySelector(".phone-container");
+  const simulatorPanel = document.querySelector(".simulator-panel");
+  const screenWrapper = document.querySelector(".screen-wrapper");
+  const presHeader = document.querySelector(".pres-header");
+  const notchElem = document.querySelector(".smartphone-notch");
+  const statusBarElem = document.querySelector(".status-bar");
+  const bottomNav = document.querySelector(".bottom-nav");
+
+  if (enableDesktop) {
+    document.body.classList.add("desktop-admin-active");
+    if (phoneElem) {
+      phoneElem.style.setProperty("width", "100%", "important");
+      phoneElem.style.setProperty("max-width", "1440px", "important");
+      phoneElem.style.setProperty("height", "auto", "important");
+      phoneElem.style.setProperty("min-height", "90vh", "important");
+      phoneElem.style.setProperty("transform", "none", "important");
+      phoneElem.style.setProperty("box-shadow", "0 25px 80px rgba(0,0,0,0.6)", "important");
+      phoneElem.style.setProperty("border", "1px solid rgba(255,255,255,0.15)", "important");
+      phoneElem.style.setProperty("border-radius", "14px", "important");
+      phoneElem.style.setProperty("margin", "10px auto", "important");
+      phoneElem.style.setProperty("padding", "0", "important");
+      phoneElem.style.setProperty("background", "transparent", "important");
+    }
+    if (phoneContainer) {
+      phoneContainer.style.setProperty("width", "100%", "important");
+      phoneContainer.style.setProperty("max-width", "1440px", "important");
+      phoneContainer.style.setProperty("height", "auto", "important");
+      phoneContainer.style.setProperty("padding", "0 1rem", "important");
+      phoneContainer.style.setProperty("margin", "0 auto", "important");
+    }
+    if (simulatorPanel) {
+      simulatorPanel.style.setProperty("width", "100%", "important");
+      simulatorPanel.style.setProperty("max-width", "1440px", "important");
+      simulatorPanel.style.setProperty("padding", "0", "important");
+    }
+    if (screenWrapper) {
+      screenWrapper.style.setProperty("width", "100%", "important");
+      screenWrapper.style.setProperty("height", "auto", "important");
+      screenWrapper.style.setProperty("overflow", "visible", "important");
+    }
+    if (presHeader) presHeader.style.setProperty("display", "none", "important");
+    if (notchElem) notchElem.style.setProperty("display", "none", "important");
+    if (statusBarElem) statusBarElem.style.setProperty("display", "none", "important");
+    if (bottomNav) bottomNav.style.setProperty("display", "none", "important");
+  } else {
+    document.body.classList.remove("desktop-admin-active");
+    if (phoneElem) {
+      phoneElem.style.width = "";
+      phoneElem.style.maxWidth = "";
+      phoneElem.style.height = "";
+      phoneElem.style.minHeight = "";
+      phoneElem.style.transform = "";
+      phoneElem.style.boxShadow = "";
+      phoneElem.style.border = "";
+      phoneElem.style.borderRadius = "";
+      phoneElem.style.margin = "";
+      phoneElem.style.padding = "";
+      phoneElem.style.background = "";
+    }
+    if (phoneContainer) {
+      phoneContainer.style.width = "";
+      phoneContainer.style.maxWidth = "";
+      phoneContainer.style.height = "";
+      phoneContainer.style.padding = "";
+      phoneContainer.style.margin = "";
+    }
+    if (simulatorPanel) {
+      simulatorPanel.style.width = "";
+      simulatorPanel.style.maxWidth = "";
+      simulatorPanel.style.padding = "";
+    }
+    if (screenWrapper) {
+      screenWrapper.style.width = "";
+      screenWrapper.style.height = "";
+      screenWrapper.style.overflow = "";
+    }
+    if (presHeader) presHeader.style.display = "";
+    if (notchElem) notchElem.style.display = "";
+    if (statusBarElem) statusBarElem.style.display = "";
+    if (bottomNav) bottomNav.style.display = "";
+  }
+}
+window.applyDesktopLayout = applyDesktopLayout;
+
 // ----------------------------------------------------
 // GENESIS 7-MODULE NAVIGATION TABS
 // ----------------------------------------------------
@@ -252,6 +338,10 @@ function switchGenesisModule(moduleNum) {
 
   const tabBtns = document.querySelectorAll(".genesis-tab-btn");
   if (tabBtns[moduleNum - 1]) tabBtns[moduleNum - 1].classList.add("active");
+
+  if (moduleNum === 6 && (state.isPlatformSuperAdmin || (state.member && state.member.memberType === "superadmin"))) {
+    applyDesktopLayout(true);
+  }
 
   logSystem(`GENESIS MODULE: Switched to Module ${moduleNum}`);
 }
@@ -418,7 +508,7 @@ function handleLogin() {
 
   // Check if logging in as Super User / Master User
   if (isSuperAdmin) {
-    document.body.classList.add("desktop-admin-active");
+    applyDesktopLayout(true);
     state.member.id = "user_super_admin_001";
     state.member.name = nameInput || "Alan Pereira";
     state.member.email = emailInput;
@@ -448,7 +538,7 @@ function handleLogin() {
     writeLedger("SUPER_ADMIN_AUTHENTICATED", "superadmin", state.member.id, `Super User: ${emailInput} | Privileges UNLOCKED`);
     logSystem(`AUTH: Master User Super Admin authenticated: ${emailInput} (Alan Pereira)`);
   } else if (inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager")) {
-    document.body.classList.add("desktop-admin-active");
+    applyDesktopLayout(true);
     state.member.memberType = "organization";
     state.member.orgId = "org_camelot_dao";
     state.member.name = nameInput || "Gestor Camelot DAO";
@@ -468,7 +558,7 @@ function handleLogin() {
     writeLedger("ORG_MANAGER_AUTHENTICATED", "organization", state.member.id, `Org Manager: ${emailInput} | Org: Camelot DAO`);
     logSystem(`AUTH: Organization Manager authenticated: ${emailInput} (Camelot DAO)`);
   } else {
-    document.body.classList.remove("desktop-admin-active");
+    applyDesktopLayout(false);
     state.member.name = nameInput || emailInput.split("@")[0];
     state.member.email = emailInput;
     state.member.memberType = "individual";

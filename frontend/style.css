@@ -1714,24 +1714,60 @@ body.theme-visual-claro #json-viewer {
 /* WIDESCREEN DESKTOP COMPUTER DASHBOARD (WA0019 & WA0020) */
 body.desktop-admin-active {
   overflow-y: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  background: radial-gradient(circle at center, #1b1638 0%, #070913 80%) !important;
 }
 
-body.desktop-admin-active #phone-frame-elem {
+body.theme-visual-claro.desktop-admin-active {
+  background: #f8fafc !important;
+}
+
+body.desktop-admin-active .pres-header,
+body.desktop-admin-active .smartphone-notch,
+body.desktop-admin-active .status-bar,
+body.desktop-admin-active .zoom-controls,
+body.desktop-admin-active .bottom-nav {
+  display: none !important;
+}
+
+body.desktop-admin-active .phone-container,
+body.desktop-admin-active .simulator-panel {
   width: 100% !important;
-  max-width: 1380px !important;
+  max-width: 1440px !important;
   height: auto !important;
-  min-height: 92vh !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
-  transform: none !important;
-  margin: 10px auto !important;
+  padding: 0 1rem !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  border: none !important;
 }
 
-body.desktop-admin-active .screen-container {
+body.desktop-admin-active .smartphone-frame {
+  width: 100% !important;
+  max-width: 1440px !important;
   height: auto !important;
-  min-height: 85vh !important;
-  overflow-y: visible !important;
+  min-height: 90vh !important;
+  transform: none !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6) !important;
+  margin: 10px auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+body.desktop-admin-active .smartphone-screen,
+body.desktop-admin-active .screen-wrapper,
+body.desktop-admin-active .app-screen {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  position: relative !important;
 }
 
 /* Desktop Widescreen Layout Grid */
@@ -1823,6 +1859,7 @@ body.theme-visual-claro .desktop-footer-banner {
   background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%) !important;
   color: #ffffff !important;
 }
+
 
 
 
