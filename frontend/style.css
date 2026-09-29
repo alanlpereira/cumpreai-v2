@@ -1711,5 +1711,119 @@ body.theme-visual-claro #json-viewer {
   font-weight: 700 !important;
 }
 
+/* WIDESCREEN DESKTOP COMPUTER DASHBOARD (WA0019 & WA0020) */
+body.desktop-admin-active {
+  overflow-y: auto !important;
+}
+
+body.desktop-admin-active #phone-frame-elem {
+  width: 100% !important;
+  max-width: 1380px !important;
+  height: auto !important;
+  min-height: 92vh !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
+  transform: none !important;
+  margin: 10px auto !important;
+}
+
+body.desktop-admin-active .screen-container {
+  height: auto !important;
+  min-height: 85vh !important;
+  overflow-y: visible !important;
+}
+
+/* Desktop Widescreen Layout Grid */
+.desktop-board-container {
+  display: grid;
+  grid-template-columns: 240px 1fr 320px;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.desktop-board-sidebar {
+  background: rgba(10, 14, 29, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.desktop-board-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.desktop-board-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Theme adaptation for Widescreen Desktop */
+body.theme-visual-claro .desktop-board-sidebar {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04) !important;
+}
+
+.desktop-step-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+body.theme-visual-claro .desktop-step-flow {
+  background: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+.desktop-podium-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  text-align: center;
+  padding: 0.8rem 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.theme-visual-claro .desktop-podium-box {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.desktop-footer-banner {
+  background: linear-gradient(90deg, #070913 0%, #1e1b4b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.75rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #a78bfa;
+}
+
+body.theme-visual-claro .desktop-footer-banner {
+  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+}
+
+
 
 

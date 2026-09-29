@@ -531,143 +531,342 @@
                 </div>
               </div>
 
-              <!-- Module 6: PERFORMANCE & DESAFIOS (MASTER USER) -->
+              <!-- Module 6: PERFORMANCE & DESAFIOS (MASTER USER & ADM DESKTOP COMPUTER BOARD) -->
               <div class="genesis-module-content" id="gen-mod-6">
                 <!-- Mode Switcher Controls -->
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; background:rgba(0,0,0,0.3); padding:0.35rem; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
-                  <div style="display:flex; gap:0.3rem;">
-                    <button class="nav-module-btn active" id="btn-perf-mode-dark" style="padding:0.25rem 0.55rem; font-size:0.68rem;" onclick="switchMasterPerformanceMode('performance')">⚡ Performance</button>
-                    <button class="nav-module-btn" id="btn-perf-mode-clean" style="padding:0.25rem 0.55rem; font-size:0.68rem;" onclick="switchMasterPerformanceMode('clean')">☀️ Visão Clean</button>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; background:rgba(0,0,0,0.3); padding:0.4rem 0.8rem; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <span style="font-weight:700; font-size:0.75rem; color:#a78bfa;">💻 PAINEL DESKTOP COMPUTADOR (MASTER USER):</span>
+                    <button class="nav-module-btn active" id="btn-perf-mode-dark" style="padding:0.3rem 0.7rem; font-size:0.72rem;" onclick="switchMasterPerformanceMode('performance')">⚡ Modo Performance (WA0020)</button>
+                    <button class="nav-module-btn" id="btn-perf-mode-clean" style="padding:0.3rem 0.7rem; font-size:0.72rem;" onclick="switchMasterPerformanceMode('clean')">☀️ Visão Clean (WA0019)</button>
                   </div>
-                  <button class="btn-primary" style="padding:0.25rem 0.5rem; font-size:0.65rem;" onclick="openCreateChallengeModal()">➕ Criar Desafio</button>
+                  <button class="btn-primary" style="padding:0.3rem 0.6rem; font-size:0.72rem;" onclick="openCreateChallengeModal()">➕ Criar Desafio Executivo</button>
                 </div>
 
-                <!-- 1. MODO PERFORMANCE (WA0020) -->
+                <!-- 1. MODO PERFORMANCE WIDESCREEN DESKTOP (WA0020) -->
                 <div id="perf-view-dark" class="perf-view-container active">
-                  <!-- Active Challenge Hero Card -->
-                  <div class="opportunity-card" style="border-color:#10b981; background:linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(7,9,19,0.9) 100%); margin-bottom:0.6rem; padding:0.75rem;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                      <span class="badge" style="background:#10b981; font-size:0.65rem;">⚡ DESAFIO ATIVO</span>
-                      <span style="font-size:0.65rem; color:#9ca3af;">⏱️ 7 dias restantes</span>
-                    </div>
-                    <div style="font-weight:800; font-size:1rem; color:#fff;">Desafio 5K</div>
-                    <div style="font-size:0.68rem; color:#9ca3af;">Corra 5 quilômetros esta semana • Individual</div>
+                  <div class="desktop-board-container">
                     
-                    <!-- Progress Bar -->
-                    <div style="margin:0.5rem 0;">
-                      <div style="display:flex; justify-content:space-between; font-size:0.72rem; margin-bottom:0.2rem;">
-                        <span style="color:#d1d5db;">Progresso: <strong style="color:#10b981;" id="perf-chal-km">3,2 km / 5 km</strong></span>
-                        <strong style="color:#10b981;" id="perf-chal-pct">64% Concluído</strong>
+                    <!-- LEFT SIDEBAR -->
+                    <div class="desktop-board-sidebar">
+                      <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:#fff; display:flex; align-items:center; gap:0.4rem; margin-bottom:0.8rem;">
+                          <span style="color:#10b981;">✔</span> CumpreAi <span style="font-size:0.7rem; color:#3b82f6; font-weight:600;">PERFORMANCE</span>
+                        </div>
+                        <div style="font-size:0.68rem; color:#9ca3af; margin-bottom:1rem; line-height:1.4;">
+                          Ambiente criado para desafios, esporte e competições.<br>
+                          <strong>Mais energia. Mais foco. Mais resultado.</strong>
+                        </div>
+
+                        <div style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.72rem;">
+                          <div style="background:rgba(255,255,255,0.03); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#3b82f6; margin-bottom:0.2rem;">💎 SEU PATRIMÔNIO NUNCA PARA</div>
+                            <div style="font-size:0.65rem; color:#9ca3af;">Cada desafio concluído fortalece seu patrimônio e reputação.</div>
+                          </div>
+
+                          <div style="background:rgba(255,255,255,0.03); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#10b981; margin-bottom:0.2rem;">🏃 Desafios que movem você</div>
+                            <div style="font-size:0.65rem; color:#9ca3af;">Supere seus limites e evolua constantemente.</div>
+                          </div>
+
+                          <div style="background:rgba(255,255,255,0.03); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#a78bfa; margin-bottom:0.2rem;">🤝 Compita com propósito</div>
+                            <div style="font-size:0.65rem; color:#9ca3af;">Ranking saudável para você ir cada vez mais longe.</div>
+                          </div>
+                        </div>
                       </div>
-                      <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
-                        <div id="perf-chal-bar" style="width:64%; height:100%; background:linear-gradient(90deg, #10b981, #3b82f6); border-radius:99px;"></div>
+
+                      <div style="margin-top:1rem; background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(59,130,246,0.15)); border:1px solid rgba(16,185,129,0.3); padding:0.6rem; border-radius:10px; text-align:center;">
+                        <div style="font-size:0.72rem; font-weight:700; color:#fff;">Você no modo performance.</div>
+                        <div style="font-size:0.68rem; color:#10b981;">É hora de acelerar. 🚀</div>
                       </div>
                     </div>
 
-                    <!-- Rewards & Stats -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; background:rgba(0,0,0,0.4); padding:0.4rem; border-radius:8px; margin-bottom:0.5rem; font-size:0.68rem; text-align:center;">
-                      <div>
-                        <span style="color:#9ca3af;">CumpreCapital®</span>
-                        <div style="color:#3b82f6; font-weight:700;">💎 +250 A$</div>
+                    <!-- CENTER MAIN BOARD -->
+                    <div class="desktop-board-main">
+                      <!-- Step flow -->
+                      <div class="desktop-step-flow">
+                        <div>
+                          <div style="font-size:1.1rem;">💎</div>
+                          <div style="font-size:0.65rem; font-weight:700; color:#fff;">Você Executa</div>
+                          <div style="font-size:0.6rem; color:#9ca3af;">Ação com foco</div>
+                        </div>
+                        <div>
+                          <div style="font-size:1.1rem;">🟢</div>
+                          <div style="font-size:0.65rem; font-weight:700; color:#10b981;">Gera Impacto</div>
+                          <div style="font-size:0.6rem; color:#9ca3af;">Resultado real</div>
+                        </div>
+                        <div>
+                          <div style="font-size:1.1rem;">👥</div>
+                          <div style="font-size:0.65rem; font-weight:700; color:#a78bfa;">Validações</div>
+                          <div style="font-size:0.6rem; color:#9ca3af;">Confirmam você</div>
+                        </div>
+                        <div>
+                          <div style="font-size:1.1rem;">🏆</div>
+                          <div style="font-size:0.65rem; font-weight:700; color:#f59e0b;">Patrimônio Cresce</div>
+                          <div style="font-size:0.6rem; color:#9ca3af;">Valor que fica</div>
+                        </div>
                       </div>
-                      <div>
-                        <span style="color:#9ca3af;">TrustScore®</span>
-                        <div style="color:#10b981; font-weight:700;">🛡️ +5 pts</div>
+
+                      <!-- Active Challenge Card (WA0020) -->
+                      <div class="opportunity-card" style="border-color:#10b981; background:linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(7,9,19,0.95) 100%); padding:1rem; border-radius:14px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                          <span class="badge" style="background:#10b981; font-size:0.7rem;">⚡ DESAFIO ATIVO</span>
+                          <span style="font-size:0.7rem; color:#9ca3af;">⏱️ 7 dias restantes</span>
+                        </div>
+                        <div style="font-weight:900; font-size:1.3rem; color:#fff;">Desafio 5K</div>
+                        <div style="font-size:0.75rem; color:#9ca3af;">Corra 5 quilômetros esta semana • Individual</div>
+                        
+                        <!-- Progress Bar -->
+                        <div style="margin:0.8rem 0;">
+                          <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:0.3rem;">
+                            <span style="color:#d1d5db;">Progresso: <strong style="color:#10b981;" id="perf-chal-km">3,2 km / 5 km</strong></span>
+                            <strong style="color:#10b981;" id="perf-chal-pct">64% Concluído</strong>
+                          </div>
+                          <div style="height:8px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
+                            <div id="perf-chal-bar" style="width:64%; height:100%; background:linear-gradient(90deg, #10b981, #3b82f6); border-radius:99px;"></div>
+                          </div>
+                        </div>
+
+                        <!-- Rewards & Stats Grid -->
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; background:rgba(0,0,0,0.5); padding:0.6rem; border-radius:10px; margin-bottom:0.8rem; text-align:center;">
+                          <div>
+                            <span style="font-size:0.68rem; color:#9ca3af;">CumpreCapital®</span>
+                            <div style="color:#3b82f6; font-weight:800; font-size:0.95rem;">💎 +250 A$</div>
+                          </div>
+                          <div>
+                            <span style="font-size:0.68rem; color:#9ca3af;">TrustScore®</span>
+                            <div style="color:#10b981; font-weight:800; font-size:0.95rem;">🛡️ +5 pts</div>
+                          </div>
+                        </div>
+
+                        <!-- 4 Stat Pills -->
+                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.4rem; text-align:center; font-size:0.68rem; color:#9ca3af; margin-bottom:0.8rem;">
+                          <div style="background:rgba(255,255,255,0.03); padding:0.4rem; border-radius:6px;">⏱️ 7<br><span style="font-size:0.6rem;">Dias restantes</span></div>
+                          <div style="background:rgba(255,255,255,0.03); padding:0.4rem; border-radius:6px;">👥 238<br><span style="font-size:0.6rem;">Participantes</span></div>
+                          <div style="background:rgba(255,255,255,0.03); padding:0.4rem; border-radius:6px;">👥 12<br><span style="font-size:0.6rem;">Na sua frente</span></div>
+                          <div style="background:rgba(255,255,255,0.03); padding:0.4rem; border-radius:6px;">🏆 Top 15%<br><span style="font-size:0.6rem;">Sua posição</span></div>
+                        </div>
+
+                        <button class="btn-primary" style="width:100%; font-size:0.85rem; padding:0.55rem; background:linear-gradient(135deg, #10b981, #059669);" onclick="openRegisterActivityModal()">⚡ Registrar Atividade</button>
+                      </div>
+
+                      <!-- Summary KPIs -->
+                      <div class="kpi-grid">
+                        <div class="kpi-card purple">
+                          <span class="kpi-label">CumpreCapital®</span>
+                          <div class="kpi-value" style="font-size:1.2rem; color:#3b82f6;">12.850 A$</div>
+                          <div style="font-size:0.65rem; color:#10b981;">📈 +350 esta semana</div>
+                        </div>
+                        <div class="kpi-card emerald">
+                          <span class="kpi-label">TrustScore®</span>
+                          <div class="kpi-value" style="font-size:1.2rem; color:#10b981;">92 pts</div>
+                          <div style="font-size:0.65rem; color:#9ca3af;">🛡️ Nível Muito Alto</div>
+                        </div>
+                      </div>
+
+                      <!-- Vitrine Desafios em Destaque -->
+                      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:0.8rem;">
+                        <div style="font-weight:700; font-size:0.82rem; color:#fff; margin-bottom:0.5rem;">🔥 DESAFIOS EM DESTAQUE</div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; font-size:0.7rem;">
+                          <div style="background:rgba(0,0,0,0.3); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#f59e0b;">🔥 10K Challenge</div>
+                            <div style="font-size:0.62rem; color:#9ca3af;">Corra 10 km em 10 dias</div>
+                            <div style="font-size:0.62rem; color:#10b981; margin-top:0.2rem;">412 participantes</div>
+                          </div>
+                          <div style="background:rgba(0,0,0,0.3); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#3b82f6;">💪 Força Total</div>
+                            <div style="font-size:0.62rem; color:#9ca3af;">Treino de força 4x semana</div>
+                            <div style="font-size:0.62rem; color:#10b981; margin-top:0.2rem;">346 participantes</div>
+                          </div>
+                          <div style="background:rgba(0,0,0,0.3); padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-weight:700; color:#10b981;">🚴 Bike Week</div>
+                            <div style="font-size:0.62rem; color:#9ca3af;">100 km na semana</div>
+                            <div style="font-size:0.62rem; color:#10b981; margin-top:0.2rem;">280 participantes</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <button class="btn-primary" style="width:100%; font-size:0.75rem; padding:0.45rem; background:linear-gradient(135deg, #10b981, #059669);" onclick="openRegisterActivityModal()">⚡ Registrar Atividade</button>
+                    <!-- RIGHT COLUMN (ANALYTICS & RANKING) -->
+                    <div class="desktop-board-right">
+                      <!-- Zona de Desempenho (87%) -->
+                      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:0.8rem;">
+                        <div style="font-weight:700; font-size:0.82rem; color:#fff; margin-bottom:0.5rem;">🎯 ZONA DE DESEMPENHO (87%)</div>
+                        <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
+                          <div style="width:60px; height:60px; border-radius:50%; border:4px solid #10b981; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.1rem; color:#10b981;">87%</div>
+                          <div style="font-size:0.7rem; color:#d1d5db;">
+                            <div>🟢 Consistência: <strong style="color:#10b981;">Alta</strong></div>
+                            <div>🟢 Frequência: <strong style="color:#10b981;">Boa</strong></div>
+                            <div>🟣 Intensidade: <strong style="color:#a78bfa;">Alta</strong></div>
+                            <div>⚪ Recuperação: <strong style="color:#d1d5db;">Ótima</strong></div>
+                          </div>
+                        </div>
+                        <div style="font-size:0.68rem; color:#10b981; text-align:center; background:rgba(16,185,129,0.1); padding:0.3rem; border-radius:6px;">Seu desempenho está excelente! 🚀</div>
+                      </div>
+
+                      <!-- Próximas Metas -->
+                      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:0.8rem;">
+                        <div style="font-weight:700; font-size:0.82rem; color:#fff; margin-bottom:0.5rem;">🎯 PRÓXIMAS METAS</div>
+                        <div style="font-size:0.7rem; color:#d1d5db; display:flex; flex-direction:column; gap:0.4rem;">
+                          <div>
+                            <div style="display:flex; justify-content:space-between;"><span>Meta semanal: 5 km</span><strong style="color:#10b981;">3,2/5 km (64%)</strong></div>
+                            <div style="height:4px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden; margin-top:2px;"><div style="width:64%; height:100%; background:#10b981;"></div></div>
+                          </div>
+                          <div>
+                            <div style="display:flex; justify-content:space-between;"><span>Meta mensal: 20 km</span><strong style="color:#3b82f6;">12,8/20 km (64%)</strong></div>
+                            <div style="height:4px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden; margin-top:2px;"><div style="width:64%; height:100%; background:#3b82f6;"></div></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Ranking Pódio & Lista -->
+                      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:0.8rem;">
+                        <div style="font-weight:700; font-size:0.82rem; color:#fff; margin-bottom:0.5rem;">🏆 RANKING (ESTA SEMANA)</div>
+                        <div class="desktop-podium-box">
+                          <div>
+                            <div style="font-size:1.2rem;">🥈</div>
+                            <div style="font-size:0.72rem; font-weight:700; color:#fff;">Carlos M.</div>
+                            <div style="font-size:0.65rem; color:#a78bfa;">4,1 km</div>
+                          </div>
+                          <div style="transform:scale(1.15);">
+                            <div style="font-size:1.4rem;">🥇</div>
+                            <div style="font-size:0.75rem; font-weight:800; color:#f59e0b;">Ana Clara</div>
+                            <div style="font-size:0.65rem; color:#10b981;">4,8 km</div>
+                          </div>
+                          <div>
+                            <div style="font-size:1.2rem;">🥉</div>
+                            <div style="font-size:0.72rem; font-weight:700; color:#fff;">Você (Master)</div>
+                            <div style="font-size:0.65rem; color:#3b82f6;" id="rank-user-km">3,2 km</div>
+                          </div>
+                        </div>
+
+                        <div style="margin-top:0.6rem; display:flex; flex-direction:column; gap:0.3rem; font-size:0.68rem; color:#d1d5db;">
+                          <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:0.3rem 0.5rem; border-radius:6px;"><span>4. Rafael N.</span><span>2,9 km</span></div>
+                          <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:0.3rem 0.5rem; border-radius:6px;"><span>5. Juliana P.</span><span>2,5 km</span></div>
+                          <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.3); padding:0.3rem 0.5rem; border-radius:6px;"><span>6. Mariana S.</span><span>2,3 km</span></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <!-- Summary & Patrimônio -->
-                  <div class="kpi-grid" style="margin-bottom:0.6rem;">
-                    <div class="kpi-card purple">
-                      <span class="kpi-label">CumpreCapital®</span>
-                      <div class="kpi-value" style="font-size:1.1rem; color:#3b82f6;">12.850 A$</div>
-                      <div style="font-size:0.62rem; color:#10b981;">📈 +350 esta semana</div>
-                    </div>
-                    <div class="kpi-card emerald">
-                      <span class="kpi-label">TrustScore®</span>
-                      <div class="kpi-value" style="font-size:1.1rem; color:#10b981;">92 pts</div>
-                      <div style="font-size:0.62rem; color:#9ca3af;">🛡️ Nível Muito Alto</div>
-                    </div>
-                  </div>
-
-                  <!-- Performance Zone & Goals -->
-                  <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:0.6rem; margin-bottom:0.6rem;">
-                    <div style="font-weight:700; font-size:0.78rem; color:#fff; margin-bottom:0.4rem;">🎯 Zona de Desempenho (87%)</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.3rem; font-size:0.68rem;">
-                      <div>🟢 Consistência: <strong style="color:#10b981;">Alta</strong></div>
-                      <div>🟢 Frequência: <strong style="color:#10b981;">Boa</strong></div>
-                      <div>🟣 Intensidade: <strong style="color:#a78bfa;">Alta</strong></div>
-                      <div>⚪ Recuperação: <strong style="color:#d1d5db;">Ótima</strong></div>
-                    </div>
-                  </div>
-
-                  <!-- Podium Ranking Top 3 -->
-                  <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:0.6rem;">
-                    <div style="font-weight:700; font-size:0.78rem; color:#fff; margin-bottom:0.4rem;">🏆 Ranking Top 3 (Esta semana)</div>
-                    <div style="display:flex; justify-content:space-around; align-items:flex-end; text-align:center; padding:0.4rem 0;">
-                      <div>
-                        <div style="font-size:1.1rem;">🥈</div>
-                        <div style="font-size:0.7rem; font-weight:700; color:#fff;">Carlos M.</div>
-                        <div style="font-size:0.65rem; color:#a78bfa;">4,1 km</div>
-                      </div>
-                      <div style="transform:scale(1.15);">
-                        <div style="font-size:1.3rem;">🥇</div>
-                        <div style="font-size:0.72rem; font-weight:800; color:#f59e0b;">Ana Clara</div>
-                        <div style="font-size:0.65rem; color:#10b981;">4,8 km</div>
-                      </div>
-                      <div>
-                        <div style="font-size:1.1rem;">🥉</div>
-                        <div style="font-size:0.7rem; font-weight:700; color:#fff;">Você (Master)</div>
-                        <div style="font-size:0.65rem; color:#3b82f6;" id="rank-user-km">3,2 km</div>
-                      </div>
-                    </div>
+                  <!-- Bottom Footer Banner WA0020 -->
+                  <div class="desktop-footer-banner">
+                    <span>⚡ Seu patrimônio te acompanha em cada desafio que você encara.</span>
+                    <span style="font-weight:700;">CumpreAi OS v2 • Master User Desktop View</span>
                   </div>
                 </div>
 
-                <!-- 2. MODO CLEAN / SPORT (WA0019) -->
+                <!-- 2. MODO CLEAN WIDESCREEN DESKTOP (WA0019) -->
                 <div id="perf-view-clean" class="perf-view-container" style="display:none;">
-                  <div style="font-size:0.75rem; color:#475569; margin-bottom:0.5rem; font-weight:600;">Explore desafios integrados à sua missão de vida:</div>
+                  <div class="desktop-board-container">
+                    
+                    <!-- LEFT SIDEBAR CLEAN -->
+                    <div class="desktop-board-sidebar">
+                      <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:#0f172a; display:flex; align-items:center; gap:0.4rem; margin-bottom:0.4rem;">
+                          <span style="color:#2563eb;">✔</span> CumpreAi
+                        </div>
+                        <div style="font-size:0.68rem; color:#475569; margin-bottom:1rem;">
+                          Sua missão. Sua reputação. Seu legado.
+                        </div>
 
-                  <!-- Categories Filter -->
-                  <div style="display:flex; gap:0.3rem; overflow-x:auto; padding-bottom:0.4rem; margin-bottom:0.6rem;">
-                    <span class="badge" style="background:#2563eb; color:#fff;">Todos</span>
-                    <span class="badge" style="background:rgba(0,0,0,0.05); color:#475569;">🏃 Esportes</span>
-                    <span class="badge" style="background:rgba(0,0,0,0.05); color:#475569;">📚 Estudos</span>
-                    <span class="badge" style="background:rgba(0,0,0,0.05); color:#475569;">🌱 Bem-estar</span>
-                    <span class="badge" style="background:rgba(0,0,0,0.05); color:#475569;">🤝 Social</span>
-                  </div>
+                        <div style="font-weight:800; font-size:0.75rem; color:#1e3a8a; margin-bottom:0.6rem;">MODELO OPCIONAL VISÃO SPORT / DESAFIOS</div>
 
-                  <!-- Leagues Section -->
-                  <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:10px; padding:0.65rem; margin-bottom:0.6rem; box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-                    <div style="font-weight:700; font-size:0.8rem; color:#0f172a; margin-bottom:0.3rem;">🏆 Liga CumpreAi Running (Temporada 2025)</div>
-                    <div style="font-size:0.68rem; color:#475569; margin-bottom:0.4rem;">12 Equipes • 146 Participantes competindo por saúde e constância.</div>
-                    <button class="btn-secondary" style="width:100%; font-size:0.72rem; border-color:#2563eb; color:#2563eb;" onclick="alert('Inscrito na Liga CumpreAi Running!')">Ver Classificação da Liga</button>
-                  </div>
+                        <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.72rem; color:#334155;">
+                          <div>⭐ <strong>Motivação diária</strong><br><span style="font-size:0.65rem; color:#64748b;">Desafios que inspiram ação e constância.</span></div>
+                          <div>👥 <strong>Competição saudável</strong><br><span style="font-size:0.65rem; color:#64748b;">Participe com amigos e equipes.</span></div>
+                          <div>💡 <strong>Propósito maior</strong><br><span style="font-size:0.65rem; color:#64748b;">Cada desafio gera impacto para você e para o mundo.</span></div>
+                          <div>⛓️ <strong>Integração total</strong><br><span style="font-size:0.65rem; color:#64748b;">Tudo conectado à sua missão e ao patrimônio.</span></div>
+                        </div>
+                      </div>
 
-                  <!-- Personalization Toggles (WA0019) -->
-                  <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:10px; padding:0.65rem; box-shadow:0 4px 12px rgba(0,0,0,0.04);">
-                    <div style="font-weight:700; font-size:0.8rem; color:#0f172a; margin-bottom:0.5rem;">⚙️ Personalização do Master User</div>
-                    <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.72rem; color:#334155;">
-                      <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                        <span>🏃 Ativar Desafios e Metas</span>
-                        <input type="checkbox" checked onchange="togglePersonalizationSetting('challenges')">
-                      </label>
-                      <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                        <span>🤖 Receber Recomendações de IA</span>
-                        <input type="checkbox" checked onchange="togglePersonalizationSetting('recommendations')">
-                      </label>
-                      <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                        <span>🏆 Participar de Ligas e Equipes</span>
-                        <input type="checkbox" checked onchange="togglePersonalizationSetting('leagues')">
-                      </label>
-                      <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                        <span>📊 Comparar Performance com Amigos</span>
-                        <input type="checkbox" checked onchange="togglePersonalizationSetting('social_ranking')">
-                      </label>
+                      <div style="margin-top:1rem; background:#eff6ff; border:1px solid #bfdbfe; padding:0.6rem; border-radius:10px; text-align:center;">
+                        <div style="font-size:0.72rem; font-weight:700; color:#1d4ed8;">Opcional para o usuário.</div>
+                        <div style="font-size:0.68rem; color:#2563eb;">Sempre conectado à sua missão.</div>
+                      </div>
                     </div>
+
+                    <!-- CENTER MAIN BOARD CLEAN -->
+                    <div class="desktop-board-main">
+                      <!-- Categories Filter -->
+                      <div style="display:flex; gap:0.4rem; overflow-x:auto; padding-bottom:0.3rem;">
+                        <span class="badge" style="background:#2563eb; color:#fff; padding:0.35rem 0.7rem; font-size:0.72rem;">Todos</span>
+                        <span class="badge" style="background:rgba(15,23,42,0.06); color:#334155; padding:0.35rem 0.7rem; font-size:0.72rem;">🏃 Esportes</span>
+                        <span class="badge" style="background:rgba(15,23,42,0.06); color:#334155; padding:0.35rem 0.7rem; font-size:0.72rem;">📚 Estudos</span>
+                        <span class="badge" style="background:rgba(15,23,42,0.06); color:#334155; padding:0.35rem 0.7rem; font-size:0.72rem;">🌱 Bem-estar</span>
+                        <span class="badge" style="background:rgba(15,23,42,0.06); color:#334155; padding:0.35rem 0.7rem; font-size:0.72rem;">🤝 Social</span>
+                      </div>
+
+                      <!-- Leagues Section -->
+                      <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:14px; padding:0.9rem; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div style="font-weight:800; font-size:0.9rem; color:#0f172a; margin-bottom:0.3rem;">🏆 Liga CumpreAi Running (Temporada 2025)</div>
+                        <div style="font-size:0.72rem; color:#475569; margin-bottom:0.6rem;">12 Equipes • 146 Participantes competindo por saúde e constância.</div>
+                        <button class="btn-secondary" style="width:100%; font-size:0.75rem; border-color:#2563eb; color:#2563eb;" onclick="alert('Inscrito na Liga CumpreAi Running!')">Ver Classificação da Liga</button>
+                      </div>
+
+                      <!-- Recommended Challenges -->
+                      <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:14px; padding:0.9rem; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div style="font-weight:700; font-size:0.82rem; color:#0f172a; margin-bottom:0.5rem;">🔥 EXEMPLO DE RECOMENDAÇÃO INTELIGENTE</div>
+                        <div style="font-size:0.72rem; color:#16a34a; font-weight:600; margin-bottom:0.4rem;">✔ Sua missão: Melhorar minha saúde</div>
+                        <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:0.6rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                          <div>
+                            <div style="font-weight:800; font-size:0.8rem; color:#0f172a;">Desafio 10.000 passos</div>
+                            <div style="font-size:0.65rem; color:#64748b;">7 dias • Individual • Perfeito para sua missão</div>
+                          </div>
+                          <button class="btn-primary" style="font-size:0.7rem; padding:0.3rem 0.7rem; background:#16a34a;" onclick="alert('Inscrito no Desafio 10.000 Passos!')">Participar</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN CLEAN (GOVERNANCE & PERSONALIZATION) -->
+                    <div class="desktop-board-right">
+                      <!-- Progresso Geral (78%) -->
+                      <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:14px; padding:0.9rem; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div style="font-weight:700; font-size:0.82rem; color:#0f172a; margin-bottom:0.5rem;">📊 SEU PROGRESSO GERAL (78%)</div>
+                        <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
+                          <div style="width:55px; height:55px; border-radius:50%; border:4px solid #2563eb; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1rem; color:#2563eb;">78%</div>
+                          <div style="font-size:0.72rem; color:#334155;">
+                            <strong style="color:#2563eb;">Evolução da missão</strong><br>
+                            <span style="color:#16a34a;">+12% este mês</span>
+                          </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.3rem; text-align:center; font-size:0.65rem; color:#475569;">
+                          <div style="background:#f1f5f9; padding:0.3rem; border-radius:6px;"><strong>18</strong><br>Compromissos</div>
+                          <div style="background:#f1f5f9; padding:0.3rem; border-radius:6px;"><strong>12</strong><br>Desafios</div>
+                          <div style="background:#f1f5f9; padding:0.3rem; border-radius:6px;"><strong>7</strong><br>Hábitos</div>
+                        </div>
+                      </div>
+
+                      <!-- Personalização WA0019 -->
+                      <div style="background:#ffffff; border:1px solid rgba(15,23,42,0.12); border-radius:14px; padding:0.9rem; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+                        <div style="font-weight:800; font-size:0.82rem; color:#0f172a; margin-bottom:0.6rem;">⚙️ PERSONALIZAÇÃO DO MASTER USER</div>
+                        <div style="display:flex; flex-direction:column; gap:0.45rem; font-size:0.72rem; color:#334155;">
+                          <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>🏃 Ativar Desafios e Metas</span>
+                            <input type="checkbox" checked onchange="togglePersonalizationSetting('challenges')">
+                          </label>
+                          <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>🤖 Receber Recomendações de IA</span>
+                            <input type="checkbox" checked onchange="togglePersonalizationSetting('recommendations')">
+                          </label>
+                          <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>🏆 Participar de Ligas e Equipes</span>
+                            <input type="checkbox" checked onchange="togglePersonalizationSetting('leagues')">
+                          </label>
+                          <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>📊 Comparar Performance com Amigos</span>
+                            <input type="checkbox" checked onchange="togglePersonalizationSetting('social_ranking')">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Footer Banner WA0019 -->
+                  <div class="desktop-footer-banner">
+                    <span>🌱 Cada passo conta. Cada desafio transforma. Cada conquista fica para sempre.</span>
+                    <span style="font-weight:700;">CumpreAi • Simples. Humano. Confiável.</span>
                   </div>
                 </div>
               </div>

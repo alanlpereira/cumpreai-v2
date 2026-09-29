@@ -14,7 +14,7 @@ const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
   });
 
   const page = await browser.newPage();
-  await page.setViewport({ width: 1280, height: 900 });
+  await page.setViewport({ width: 1680, height: 1050 });
 
   page.on('dialog', async dialog => {
     console.log('[ALERT]', dialog.message());

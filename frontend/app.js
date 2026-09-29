@@ -418,6 +418,7 @@ function handleLogin() {
 
   // Check if logging in as Super User / Master User
   if (isSuperAdmin) {
+    document.body.classList.add("desktop-admin-active");
     state.member.id = "user_super_admin_001";
     state.member.name = nameInput || "Alan Pereira";
     state.member.email = emailInput;
@@ -447,6 +448,7 @@ function handleLogin() {
     writeLedger("SUPER_ADMIN_AUTHENTICATED", "superadmin", state.member.id, `Super User: ${emailInput} | Privileges UNLOCKED`);
     logSystem(`AUTH: Master User Super Admin authenticated: ${emailInput} (Alan Pereira)`);
   } else if (inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager")) {
+    document.body.classList.add("desktop-admin-active");
     state.member.memberType = "organization";
     state.member.orgId = "org_camelot_dao";
     state.member.name = nameInput || "Gestor Camelot DAO";
@@ -466,6 +468,7 @@ function handleLogin() {
     writeLedger("ORG_MANAGER_AUTHENTICATED", "organization", state.member.id, `Org Manager: ${emailInput} | Org: Camelot DAO`);
     logSystem(`AUTH: Organization Manager authenticated: ${emailInput} (Camelot DAO)`);
   } else {
+    document.body.classList.remove("desktop-admin-active");
     state.member.name = nameInput || emailInput.split("@")[0];
     state.member.email = emailInput;
     state.member.memberType = "individual";
