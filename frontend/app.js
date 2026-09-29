@@ -458,6 +458,22 @@ state.superUsers = [
   "superadmin@cumpreai.com"
 ];
 
+// Toggle password visibility
+function togglePasswordVisibility(inputId, btnId) {
+  const input = document.getElementById(inputId);
+  const btn = document.getElementById(btnId);
+  if (input) {
+    if (input.type === "password") {
+      input.type = "text";
+      if (btn) btn.textContent = "🙈";
+    } else {
+      input.type = "password";
+      if (btn) btn.textContent = "👁️";
+    }
+  }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+
 function loginAsSuperUser() {
   const emailInput = document.getElementById("login-email");
   const passInput = document.getElementById("login-pass");
@@ -467,8 +483,11 @@ function loginAsSuperUser() {
   if (passInput) passInput.value = "superadmin123";
 
   if (noticeElem) {
-    noticeElem.textContent = "👑 Credenciais de Super User autopreenchidas! Clique em 'Entrar na Plataforma' para confirmar ou salvar no cofre.";
+    noticeElem.textContent = "👑 Credenciais de Master User autopreenchidas! Clique em 'Entrar na Plataforma' para acessar diretamente o Painel de Gestão.";
     noticeElem.style.display = "block";
+    noticeElem.style.borderColor = "rgba(16, 185, 129, 0.4)";
+    noticeElem.style.color = "#10b981";
+    noticeElem.style.background = "rgba(16, 185, 129, 0.1)";
   }
 }
 
@@ -481,8 +500,11 @@ function loginAsOrgManager() {
   if (passInput) passInput.value = "orgmanager123";
 
   if (noticeElem) {
-    noticeElem.textContent = "🏢 Credenciais de Gestor de Organização autopreenchidas! Clique em 'Entrar na Plataforma' para confirmar.";
+    noticeElem.textContent = "🏢 Credenciais de Gestor de Organização autopreenchidas! Clique em 'Entrar na Plataforma' para acessar o Painel de Gestão.";
     noticeElem.style.display = "block";
+    noticeElem.style.borderColor = "rgba(59, 130, 246, 0.4)";
+    noticeElem.style.color = "#3b82f6";
+    noticeElem.style.background = "rgba(59, 130, 246, 0.1)";
   }
 }
 
@@ -491,10 +513,27 @@ window.loginAsOrgManager = loginAsOrgManager;
 
 // Handle Login & Invitation Token Registration
 function handleLogin() {
-  const emailInput = (document.getElementById("login-email") && document.getElementById("login-email").value) ? document.getElementById("login-email").value.trim() : "alan.pereira@lp-nexus.com";
+  const emailEl = document.getElementById("login-email");
+  const passEl = document.getElementById("login-pass");
+  const noticeElem = document.getElementById("login-notice");
+
+  const emailInput = emailEl ? emailEl.value.trim() : "";
+  const passInput = passEl ? passEl.value.trim() : "";
   let nameInput = (document.getElementById("login-name") && document.getElementById("login-name").value) ? document.getElementById("login-name").value : "";
   const inviteTokenInput = document.getElementById("login-invite-token") ? document.getElementById("login-invite-token").value.trim() : "";
   const rememberCheckbox = document.getElementById("remember-credentials");
+
+  // Validate E-mail & Password input
+  if (!emailInput || !passInput) {
+    if (noticeElem) {
+      noticeElem.textContent = "⚠️ Por favor, informe seu e-mail e sua senha de acesso.";
+      noticeElem.style.display = "block";
+      noticeElem.style.borderColor = "rgba(239, 68, 68, 0.4)";
+      noticeElem.style.color = "#ef4444";
+      noticeElem.style.background = "rgba(239, 68, 68, 0.1)";
+    }
+    return;
+  }
 
   if (rememberCheckbox && rememberCheckbox.checked) {
     localStorage.setItem("saved_user_email", emailInput);
@@ -505,6 +544,10 @@ function handleLogin() {
                        lowerEmail.includes("alan.pereira") || 
                        lowerEmail.includes("alan@lp-nexus") || 
                        lowerEmail.includes("alan@alp-nexus");
+
+  // Show header logout button
+  const logoutHeaderBtn = document.getElementById("logout-btn-header");
+  if (logoutHeaderBtn) logoutHeaderBtn.style.display = "inline-flex";
 
   // Check if logging in as Super User / Master User
   if (isSuperAdmin) {
@@ -537,6 +580,11 @@ function handleLogin() {
 
     writeLedger("SUPER_ADMIN_AUTHENTICATED", "superadmin", state.member.id, `Super User: ${emailInput} | Privileges UNLOCKED`);
     logSystem(`AUTH: Master User Super Admin authenticated: ${emailInput} (Alan Pereira)`);
+
+    document.getElementById("dash-username").textContent = state.member.name;
+    showScreen(screenHome);
+    switchGenesisModule(6); // Master User directs STRAIGHT to Management Panel!
+    updateDashboardUI();
   } else if (inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager")) {
     applyDesktopLayout(true);
     state.member.memberType = "organization";
@@ -557,6 +605,11 @@ function handleLogin() {
 
     writeLedger("ORG_MANAGER_AUTHENTICATED", "organization", state.member.id, `Org Manager: ${emailInput} | Org: Camelot DAO`);
     logSystem(`AUTH: Organization Manager authenticated: ${emailInput} (Camelot DAO)`);
+
+    document.getElementById("dash-username").textContent = state.member.name;
+    showScreen(screenHome);
+    switchGenesisModule(6); // Org Manager directs STRAIGHT to Management Panel!
+    updateDashboardUI();
   } else {
     applyDesktopLayout(false);
     state.member.name = nameInput || emailInput.split("@")[0];
@@ -567,12 +620,44 @@ function handleLogin() {
     if (userBadge) userBadge.textContent = "Pessoa Física";
     writeLedger("MEMBER_BOOTSTRAPPED", "member", state.member.id, `Name: ${state.member.name}`);
     logSystem(`AUTH: User logged in as Independent Member: ${state.member.name}`);
+
+    document.getElementById("dash-username").textContent = state.member.name;
+    showScreen(screenHome);
+    switchGenesisModule(1); // Standard member directs to Home
+    updateDashboardUI();
+  }
+}
+
+// Handle Logout
+function handleLogout() {
+  state.member = {
+    id: "user_guest_00",
+    name: "",
+    email: "",
+    userLevel: "Bronze",
+    memberType: "guest"
+  };
+  state.isPlatformSuperAdmin = false;
+  applyDesktopLayout(false);
+
+  const logoutHeaderBtn = document.getElementById("logout-btn-header");
+  if (logoutHeaderBtn) logoutHeaderBtn.style.display = "none";
+
+  const noticeElem = document.getElementById("login-notice");
+  if (noticeElem) {
+    noticeElem.textContent = "🔒 Você encerrou sua sessão com segurança. Informe seus dados para entrar novamente.";
+    noticeElem.style.display = "block";
+    noticeElem.style.borderColor = "rgba(59, 130, 246, 0.4)";
+    noticeElem.style.color = "#3b82f6";
+    noticeElem.style.background = "rgba(59, 130, 246, 0.1)";
   }
 
-  document.getElementById("dash-username").textContent = state.member.name;
-  showScreen(screenHome);
-  updateDashboardUI();
+  writeLedger("USER_LOGGED_OUT", "auth", "guest", "User logged out successfully");
+  logSystem("AUTH: User logged out successfully. Redirecting to login screen.");
+  showScreen(screenLogin);
 }
+
+window.handleLogout = handleLogout;
 
 window.loginAsSuperUser = loginAsSuperUser;
 

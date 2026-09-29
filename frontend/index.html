@@ -187,6 +187,10 @@
     </div>
 
     <div style="display:flex; align-items:center; gap:0.6rem;">
+      <button id="logout-btn-header" class="zoom-btn" style="width:auto; padding:0.35rem 0.75rem; font-size:0.75rem; font-weight:600; background:rgba(239, 68, 68, 0.2); border:1px solid rgba(239, 68, 68, 0.4); color:#ef4444; border-radius:8px; cursor:pointer; display:none;" onclick="handleLogout()">
+        🚪 Sair do App
+      </button>
+
       <button id="theme-toggle-btn" class="zoom-btn" style="width:auto; padding:0.35rem 0.75rem; font-size:0.75rem; font-weight:600; display:flex; align-items:center; gap:0.4rem; border-radius:8px; cursor:pointer;" onclick="toggleTheme()">
         ☀️ Visual Claro Executivo
       </button>
@@ -247,18 +251,21 @@
             <div class="app-screen active" id="screen-login">
               <div class="login-header">
                 <h2>Acesse sua Conta</h2>
-                <p>Entre com seus dados ou crie uma conta no CumpreAi</p>
+                <p>Entre com seus dados para acessar seus painéis</p>
               </div>
 
               <form id="login-form" action="javascript:void(0);" onsubmit="handleLogin(); return false;">
                 <div class="form-group">
-                  <label for="login-email">Endereço de E-mail</label>
-                  <input type="email" id="login-email" name="username" autocomplete="username" placeholder="usuario@exemplo.com" required>
+                  <label for="login-email" style="font-weight:600; color:#d1d5db; font-size:0.78rem;">Endereço de E-mail</label>
+                  <input type="email" id="login-email" name="username" autocomplete="username" placeholder="alan.pereira@lp-nexus.com" required style="width:100%; padding:0.5rem; background:rgba(0,0,0,0.5); color:#fff; border:1px solid rgba(255,255,255,0.25); border-radius:8px; font-size:0.82rem;">
                 </div>
 
                 <div class="form-group">
-                  <label for="login-pass">Senha</label>
-                  <input type="password" id="login-pass" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                  <label for="login-pass" style="font-weight:600; color:#d1d5db; font-size:0.78rem;">Senha de Acesso</label>
+                  <div style="position:relative; display:flex; align-items:center;">
+                    <input type="password" id="login-pass" name="password" autocomplete="current-password" placeholder="Digite sua senha de acesso" required style="width:100%; padding:0.5rem; padding-right:2.5rem; background:rgba(0,0,0,0.5); color:#fff; border:1px solid rgba(255,255,255,0.25); border-radius:8px; font-size:0.82rem;">
+                    <button type="button" id="toggle-login-pass-btn" onclick="togglePasswordVisibility('login-pass', 'toggle-login-pass-btn')" style="position:absolute; right:0.5rem; background:none; border:none; color:#a78bfa; cursor:pointer; font-size:1.1rem; padding:2px;" title="Mostrar/Ocultar Senha">👁️</button>
+                  </div>
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
@@ -268,12 +275,12 @@
                   <button type="button" style="background:none; border:none; color:#a78bfa; font-size:0.72rem; cursor:pointer;" onclick="openForgotPasswordModal()">Esqueci minha senha</button>
                 </div>
 
-                <div id="login-notice" style="font-size:0.72rem; color:#10b981; margin-bottom:0.6rem; display:none; text-align:center; background:rgba(16, 185, 129, 0.1); padding:0.4rem; border-radius:6px; border:1px solid rgba(16, 185, 129, 0.3);"></div>
+                <div id="login-notice" style="font-size:0.72rem; color:#10b981; margin-bottom:0.6rem; display:none; text-align:center; background:rgba(16, 185, 129, 0.1); padding:0.5rem; border-radius:8px; border:1px solid rgba(16, 185, 129, 0.3);"></div>
 
-                <div style="display:flex; flex-direction:column; gap:0.4rem;">
-                  <button type="submit" class="btn-primary">Entrar na Plataforma</button>
+                <div style="display:flex; flex-direction:column; gap:0.45rem;">
+                  <button type="submit" class="btn-primary" style="font-weight:700; padding:0.6rem;">🔑 Entrar na Plataforma</button>
                   <button type="button" class="btn-secondary" style="border-color:#10b981; color:#10b981; font-size:0.72rem;" onclick="loginAsSuperUser()">👑 Autopreencher Super User (alan.pereira@lp-nexus.com)</button>
-                  <button type="button" class="btn-secondary" style="border-color:#3b82f6; color:#3b82f6; font-size:0.72rem;" onclick="loginAsOrgManager()">🏢 Autopreencher Gestor de Organização (arthur@camelot.org)</button>
+                  <button type="button" class="btn-secondary" style="border-color:#3b82f6; color:#3b82f6; font-size:0.72rem;" onclick="loginAsOrgManager()">🏢 Autopreencher Gestor (arthur@camelot.org)</button>
                   <button type="button" class="btn-secondary" style="border-color:#a78bfa; color:#a78bfa; font-size:0.72rem;" onclick="showScreen(screenRegisterStep1)">✨ Criar Nova Conta (Auto-Cadastro)</button>
                 </div>
               </form>
@@ -618,6 +625,9 @@
                       <div style="margin-top:1rem; background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(59,130,246,0.15)); border:1px solid rgba(16,185,129,0.3); padding:0.6rem; border-radius:10px; text-align:center;">
                         <div style="font-size:0.72rem; font-weight:700; color:#fff;">Você no modo performance.</div>
                         <div style="font-size:0.68rem; color:#10b981;">É hora de acelerar. 🚀</div>
+                        <button class="btn-secondary" style="width:100%; margin-top:0.6rem; border-color:#ef4444; color:#ef4444; font-size:0.72rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; padding:0.35rem;" onclick="handleLogout()">
+                          🚪 Sair da Conta (Logout)
+                        </button>
                       </div>
                     </div>
 
@@ -823,6 +833,9 @@
                       <div style="margin-top:1rem; background:#eff6ff; border:1px solid #bfdbfe; padding:0.6rem; border-radius:10px; text-align:center;">
                         <div style="font-size:0.72rem; font-weight:700; color:#1d4ed8;">Opcional para o usuário.</div>
                         <div style="font-size:0.68rem; color:#2563eb;">Sempre conectado à sua missão.</div>
+                        <button class="btn-secondary" style="width:100%; margin-top:0.6rem; border-color:#ef4444; color:#ef4444; font-size:0.72rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; padding:0.35rem;" onclick="handleLogout()">
+                          🚪 Sair da Conta (Logout)
+                        </button>
                       </div>
                     </div>
 
