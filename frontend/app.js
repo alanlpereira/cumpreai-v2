@@ -530,8 +530,11 @@ function clearVaultCredentials() {
 
   const emailInput = document.getElementById("login-email");
   const passInput = document.getElementById("login-pass");
+  const rememberCheckbox = document.getElementById("remember-credentials");
+
   if (emailInput) emailInput.value = "";
   if (passInput) passInput.value = "";
+  if (rememberCheckbox) rememberCheckbox.checked = false;
 
   const noticeElem = document.getElementById("login-notice");
   if (noticeElem) {
@@ -572,15 +575,48 @@ function handleLogin() {
     return;
   }
 
-  if (rememberCheckbox && rememberCheckbox.checked) {
-    localStorage.setItem("saved_user_email", emailInput);
-  }
-
   const lowerEmail = emailInput.toLowerCase();
   const isSuperAdmin = state.superUsers.includes(lowerEmail) || 
                        lowerEmail.includes("alan.pereira") || 
                        lowerEmail.includes("alan@lp-nexus") || 
                        lowerEmail.includes("alan@alp-nexus");
+
+  // STRICT PASSWORD VALIDATION: Super Admin / Master User
+  if (isSuperAdmin) {
+    if (passInput !== "superadmin123") {
+      if (noticeElem) {
+        noticeElem.textContent = "❌ Senha Incorreta: A senha informada para a conta Master User (Super Admin) está incorreta. Verifique suas credenciais.";
+        noticeElem.style.display = "block";
+        noticeElem.style.borderColor = "rgba(239, 68, 68, 0.4)";
+        noticeElem.style.color = "#ef4444";
+        noticeElem.style.background = "rgba(239, 68, 68, 0.1)";
+      }
+      logSystem(`AUTH REJECTED: Invalid password for Master User ${emailInput}`);
+      return;
+    }
+  }
+
+  // STRICT PASSWORD VALIDATION: Org Manager
+  const isOrgManager = inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager");
+  if (isOrgManager && !isSuperAdmin) {
+    if (passInput !== "orgmanager123") {
+      if (noticeElem) {
+        noticeElem.textContent = "❌ Senha Incorreta: A senha informada para o Gestor de Organização está incorreta. Verifique suas credenciais.";
+        noticeElem.style.display = "block";
+        noticeElem.style.borderColor = "rgba(239, 68, 68, 0.4)";
+        noticeElem.style.color = "#ef4444";
+        noticeElem.style.background = "rgba(239, 68, 68, 0.1)";
+      }
+      logSystem(`AUTH REJECTED: Invalid password for Org Manager ${emailInput}`);
+      return;
+    }
+  }
+
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem("saved_user_email", emailInput);
+  } else {
+    localStorage.removeItem("saved_user_email");
+  }
 
   // Show header logout button
   const logoutHeaderBtn = document.getElementById("logout-btn-header");
@@ -622,7 +658,7 @@ function handleLogin() {
     showScreen(screenHome);
     switchGenesisModule(6); // Master User directs STRAIGHT to Management Panel!
     updateDashboardUI();
-  } else if (inviteTokenInput || lowerEmail.includes("camelot") || lowerEmail.includes("orgmanager")) {
+  } else if (isOrgManager) {
     applyDesktopLayout(true);
     state.member.memberType = "organization";
     state.member.orgId = "org_camelot_dao";
@@ -1581,12 +1617,26 @@ function togglePresentationMode() {
 window.onload = () => {
   logSystem("Virtual Sandbox Environment Initialized.");
   logSystem("Directing user to Login & Registration Screen.");
-  
+
+  const savedEmail = localStorage.getItem("saved_user_email");
+  const emailInput = document.getElementById("login-email");
+  const passInput = document.getElementById("login-pass");
+  const rememberCheckbox = document.getElementById("remember-credentials");
+
+  if (!savedEmail) {
+    if (emailInput) emailInput.value = "";
+    if (passInput) passInput.value = "";
+    if (rememberCheckbox) rememberCheckbox.checked = false;
+  } else {
+    if (emailInput) emailInput.value = savedEmail;
+    if (rememberCheckbox) rememberCheckbox.checked = true;
+  }
+
   // Transition directly to Login screen (#screen-login)
   setTimeout(() => {
     showScreen(screenLogin);
   }, 500);
-  
+
   updateJsonViewer();
 };
 
