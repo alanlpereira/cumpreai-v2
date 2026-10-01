@@ -145,8 +145,13 @@
     body.desktop-admin-active {
       overflow-y: auto !important;
       height: auto !important;
+      min-height: 100vh !important;
       max-height: none !important;
+      padding-top: 1.5rem !important;
+      padding-bottom: 2rem !important;
+      box-sizing: border-box !important;
     }
+    body.desktop-admin-active .pres-header,
     body.desktop-admin-active .smartphone-notch,
     body.desktop-admin-active .status-bar,
     body.desktop-admin-active .zoom-controls {
@@ -167,7 +172,7 @@
       border-radius: 14px !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6) !important;
-      margin: 10px auto !important;
+      margin: 15px auto 30px auto !important;
       background: transparent !important;
     }
     body.desktop-admin-active .smartphone-screen,
@@ -178,6 +183,8 @@
       max-height: none !important;
       overflow: visible !important;
       border-radius: 0 !important;
+      position: relative !important;
+      padding-top: 0.5rem !important;
     }
   </style>
 </head>
