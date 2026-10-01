@@ -1,0 +1,130 @@
+<div class="genesis-module-content active" id="gen-mod-6">
+  <!-- Role Switcher Header Bar -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; background:rgba(15,23,42,0.8); padding:0.6rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(10px);">
+    <div style="display:flex; gap:0.6rem; align-items:center;">
+      <span style="font-weight:800; font-size:0.8rem; color:#a78bfa;">💻 VISÃO DE GESTÃO EXECUTIVA:</span>
+      <button class="nav-module-btn active" id="btn-view-master" style="padding:0.35rem 0.8rem; font-size:0.75rem; border-color:#10b981; color:#10b981;" onclick="toggleDashboardRoleView('master')">👑 Master User (Plataforma Global)</button>
+      <button class="nav-module-btn" id="btn-view-org" style="padding:0.35rem 0.8rem; font-size:0.75rem; border-color:#3b82f6; color:#3b82f6;" onclick="toggleDashboardRoleView('org')">🏢 Gestor de Organização (Camelot DAO)</button>
+    </div>
+    <div style="display:flex; gap:0.5rem;">
+      <button class="btn-primary" style="padding:0.35rem 0.75rem; font-size:0.75rem; background:linear-gradient(135deg, #10b981, #059669);" onclick="openCreateChallengeModal()">➕ Criar Desafio Executivo</button>
+    </div>
+  </div>
+
+  <!-- 1. DASHBOARD DO MASTER USER (SUPER ADMIN DA PLATAFORMA GLOBAL) -->
+  <div id="dash-master-user-container" class="perf-view-container active">
+    
+    <!-- KPIs GLOBAIS DA PLATAFORMA -->
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.75rem; margin-bottom:1rem;">
+      <div class="kpi-card" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:0.85rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#9ca3af; text-transform:uppercase; font-weight:700;">👥 Usuários Ativos na Plataforma</span>
+        <div style="font-size:1.5rem; font-weight:900; color:#10b981; margin-top:0.2rem;" id="kpi-master-users">1.480 Membros</div>
+        <div style="font-size:0.65rem; color:#10b981; margin-top:0.2rem;">📈 +14% de crescimento este mês</div>
+      </div>
+
+      <div class="kpi-card" style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); padding:0.85rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#9ca3af; text-transform:uppercase; font-weight:700;">📊 Receita de Taxas da Plataforma</span>
+        <div style="font-size:1.5rem; font-weight:900; color:#3b82f6; margin-top:0.2rem;" id="kpi-master-revenue">2,5% (38.450 A$)</div>
+        <div style="font-size:0.65rem; color:#3b82f6; margin-top:0.2rem;">💳 Taxas de mediação & governança</div>
+      </div>
+
+      <div class="kpi-card" style="background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.3); padding:0.85rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#9ca3af; text-transform:uppercase; font-weight:700;">🔒 Custódia Total de Garantias</span>
+        <div style="font-size:1.5rem; font-weight:900; color:#a78bfa; margin-top:0.2rem;" id="kpi-master-custody">84.500 A$</div>
+        <div style="font-size:0.65rem; color:#a78bfa; margin-top:0.2rem;">🛡️ Fundos bloqueados antifraude (120%)</div>
+      </div>
+
+      <div class="kpi-card" style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); padding:0.85rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#9ca3af; text-transform:uppercase; font-weight:700;">🏢 Organizações Cadastradas</span>
+        <div style="font-size:1.5rem; font-weight:900; color:#f59e0b; margin-top:0.2rem;" id="kpi-master-orgs">12 Organizações</div>
+        <div style="font-size:0.65rem; color:#f59e0b; margin-top:0.2rem;">🏛️ DAOs & Empresas B2B ativas</div>
+      </div>
+    </div>
+
+    <!-- PAINEL DE CONTROLE DE ORGANIZAÇÕES DA PLATAFORMA -->
+    <div style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:1rem; margin-bottom:1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+        <div>
+          <div style="font-size:1rem; font-weight:800; color:#fff;">🏛️ Gestão Executiva de Organizações Parceiras (B2B)</div>
+          <div style="font-size:0.7rem; color:#9ca3af;">Monitore o saldo de tesouraria, taxas cobradas e status de cada empresa parceira.</div>
+        </div>
+        <button class="btn-primary" style="font-size:0.75rem; padding:0.4rem 0.8rem; background:#3b82f6;" onclick="addNewOrganization()">➕ Cadastrar Nova Organização</button>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.78rem;">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.15); color:#a78bfa;">
+              <th style="padding:0.6rem;">ORGANIZAÇÃO</th>
+              <th style="padding:0.6rem;">GESTOR PRINCIPAL</th>
+              <th style="padding:0.6rem;">SALDO TESOURARIA</th>
+              <th style="padding:0.6rem;">TAXA DA PLATAFORMA</th>
+              <th style="padding:0.6rem;">STATUS</th>
+              <th style="padding:0.6rem; text-align:right;">AÇÕES EXECUTIVAS</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-master-orgs-body">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem; font-weight:700; color:#fff;">🛡️ Camelot DAO</td>
+              <td style="padding:0.6rem; color:#d1d5db;">Arthur Pendragon (arthur@camelot.org)</td>
+              <td style="padding:0.6rem; font-weight:700; color:#10b981;">12.000 A$</td>
+              <td style="padding:0.6rem; color:#3b82f6;">2,5%</td>
+              <td style="padding:0.6rem;"><span style="background:rgba(16,185,129,0.2); color:#10b981; padding:0.15rem 0.5rem; border-radius:999px; font-size:0.68rem; font-weight:700;">🟢 Ativa</span></td>
+              <td style="padding:0.6rem; text-align:right;">
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#3b82f6; color:#3b82f6; margin-right:0.3rem;" onclick="editOrgFee('org_camelot_dao')">⚙️ Alterar Taxa</button>
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#ef4444; color:#ef4444;" onclick="toggleOrgStatus('org_camelot_dao')">🔒 Suspender</button>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem; font-weight:700; color:#fff;">👑 LP-Nexus Corp</td>
+              <td style="padding:0.6rem; color:#d1d5db;">Alan Pereira (alan.pereira@lp-nexus.com)</td>
+              <td style="padding:0.6rem; font-weight:700; color:#10b981;">25.000 A$</td>
+              <td style="padding:0.6rem; color:#3b82f6;">1,5% (Master)</td>
+              <td style="padding:0.6rem;"><span style="background:rgba(16,185,129,0.2); color:#10b981; padding:0.15rem 0.5rem; border-radius:999px; font-size:0.68rem; font-weight:700;">🟢 Ativa</span></td>
+              <td style="padding:0.6rem; text-align:right;">
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#3b82f6; color:#3b82f6; margin-right:0.3rem;" onclick="editOrgFee('org_lp_nexus')">⚙️ Alterar Taxa</button>
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#ef4444; color:#ef4444;" onclick="toggleOrgStatus('org_lp_nexus')">🔒 Suspender</button>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:0.6rem; font-weight:700; color:#fff;">⚡ Stark Industries</td>
+              <td style="padding:0.6rem; color:#d1d5db;">Tony Stark (tony@stark.com)</td>
+              <td style="padding:0.6rem; font-weight:700; color:#10b981;">45.000 A$</td>
+              <td style="padding:0.6rem; color:#3b82f6;">2,0%</td>
+              <td style="padding:0.6rem;"><span style="background:rgba(16,185,129,0.2); color:#10b981; padding:0.15rem 0.5rem; border-radius:999px; font-size:0.68rem; font-weight:700;">🟢 Ativa</span></td>
+              <td style="padding:0.6rem; text-align:right;">
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#3b82f6; color:#3b82f6; margin-right:0.3rem;" onclick="editOrgFee('org_stark')">⚙️ Alterar Taxa</button>
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#ef4444; color:#ef4444;" onclick="toggleOrgStatus('org_stark')">🔒 Suspender</button>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0.6rem; font-weight:700; color:#fff;">⚔️ Valhalla Hub</td>
+              <td style="padding:0.6rem; color:#d1d5db;">Odin Allfather (odin@valhalla.io)</td>
+              <td style="padding:0.6rem; font-weight:700; color:#f59e0b;">8.500 A$</td>
+              <td style="padding:0.6rem; color:#3b82f6;">3,0%</td>
+              <td style="padding:0.6rem;"><span style="background:rgba(245,158,11,0.2); color:#f59e0b; padding:0.15rem 0.5rem; border-radius:999px; font-size:0.68rem; font-weight:700;">🟡 Em Análise</span></td>
+              <td style="padding:0.6rem; text-align:right;">
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#10b981; color:#10b981; margin-right:0.3rem;" onclick="toggleOrgStatus('org_valhalla')">Aprovar</button>
+                <button class="btn-secondary" style="font-size:0.68rem; padding:0.2rem 0.5rem; border-color:#3b82f6; color:#3b82f6;" onclick="editOrgFee('org_valhalla')">⚙️ Taxa</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FEED DO LEDGER DE AUDITORIA DA PLATAFORMA EM TEMPO REAL -->
+    <div style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+        <div style="font-size:0.9rem; font-weight:800; color:#fff;">📜 Ledger de Auditoria da Infraestrutura Global (Tempo Real)</div>
+        <span style="font-size:0.68rem; color:#10b981; background:rgba(16,185,129,0.1); padding:0.2rem 0.5rem; border-radius:6px;">● Sincronizado</span>
+      </div>
+      <div style="font-size:0.7rem; color:#9ca3af; margin-bottom:0.5rem;">Registro imutável de todas as autenticações, aportes, emissões e acordos celebrados no CumpreAi OS.</div>
+      
+      <div style="max-height:180px; overflow-y:auto; background:rgba(0,0,0,0.6); padding:0.6rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05); font-family:monospace; font-size:0.7rem; color:#d1d5db;" id="master-ledger-feed">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+
+  </div>
+</div>

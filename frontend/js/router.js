@@ -108,8 +108,39 @@ class CumpreAiRouter {
       }
     }
 
+    // Load sub-page HTML asynchronously if available
+    this.loadSubpageHTML(routeConfig);
+
     // Reset window scroll position to top
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  /**
+   * Async Sub-Page HTML Loader
+   * Fetches sub-page HTML template from frontend/pages/ and renders into DOM
+   */
+  async loadSubpageHTML(routeConfig) {
+    if (!routeConfig || !routeConfig.subpage) return;
+    try {
+      const baseUrl = window.location.pathname.includes('/frontend/') ? '' : 'frontend/';
+      const subpageUrl = baseUrl + routeConfig.subpage;
+      const resp = await fetch(subpageUrl);
+      if (resp.ok) {
+        const html = await resp.text();
+        const container = document.getElementById('page-content-container');
+        if (container) {
+          container.innerHTML = html;
+          if (typeof logSystem === 'function') {
+            logSystem(`SUB-PAGE RENDER: Dynamic HTML loaded from ${subpageUrl}`);
+          }
+        }
+      }
+    } catch (err) {
+      // Fallback silently if running under strict local file:// protocol
+      if (typeof logSystem === 'function') {
+        logSystem(`SUB-PAGE LOADER: Using built-in DOM fallback for ${routeConfig.subpage}`);
+      }
+    }
   }
 }
 
