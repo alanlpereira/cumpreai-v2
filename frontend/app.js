@@ -729,6 +729,9 @@ function handleLogout() {
   const logoutHeaderBtn = document.getElementById("logout-btn-header");
   if (logoutHeaderBtn) logoutHeaderBtn.style.display = "none";
 
+  const userBadge = document.querySelector(".context-badge");
+  if (userBadge) userBadge.textContent = "🔒 Não Autenticado";
+
   const noticeElem = document.getElementById("login-notice");
   if (noticeElem) {
     noticeElem.textContent = "🔒 Você encerrou sua sessão com segurança. Informe seus dados para entrar novamente.";
