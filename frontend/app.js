@@ -3,11 +3,12 @@
 // Simulated State (Local Memory Database)
 const state = {
   member: {
-    id: "user_simulated_123",
-    name: "Arthur Pendragon",
-    email: "arthur@camelot.org",
+    id: "user_guest_00",
+    name: "Visitante",
+    email: "",
     photoUrl: "",
-    userLevel: "Bronze"
+    userLevel: "Guest",
+    memberType: "guest"
   },
   member_dashboard: {
     trustScore: 15, // Low baseline starting at Bronze level
@@ -322,6 +323,21 @@ window.applyDesktopLayout = applyDesktopLayout;
 // GENESIS 7-MODULE NAVIGATION TABS
 // ----------------------------------------------------
 function switchGenesisModule(moduleNum) {
+  // Security Navigation Guard: Block unauthenticated users
+  if (!state.member || state.member.memberType === "guest" || !state.member.email) {
+    logSystem(`SECURITY BLOCK: Unauthenticated user blocked from accessing module ${moduleNum}`);
+    showScreen(screenLogin);
+    const notice = document.getElementById("login-notice");
+    if (notice) {
+      notice.textContent = "🔒 Acesso Negado: Faça login com sua conta para acessar os módulos da plataforma.";
+      notice.style.display = "block";
+      notice.style.borderColor = "rgba(239, 68, 68, 0.4)";
+      notice.style.color = "#ef4444";
+      notice.style.background = "rgba(239, 68, 68, 0.1)";
+    }
+    return;
+  }
+
   // Hide all modules
   document.querySelectorAll(".genesis-module-content").forEach(mod => {
     mod.classList.remove("active");
@@ -508,6 +524,27 @@ function loginAsOrgManager() {
   }
 }
 
+function clearVaultCredentials() {
+  localStorage.removeItem("saved_user_email");
+  localStorage.removeItem("saved_user_pass");
+
+  const emailInput = document.getElementById("login-email");
+  const passInput = document.getElementById("login-pass");
+  if (emailInput) emailInput.value = "";
+  if (passInput) passInput.value = "";
+
+  const noticeElem = document.getElementById("login-notice");
+  if (noticeElem) {
+    noticeElem.textContent = "🗑️ Credenciais do cofre limpas com sucesso. Os campos de e-mail e senha foram resetados.";
+    noticeElem.style.display = "block";
+    noticeElem.style.borderColor = "rgba(16, 185, 129, 0.4)";
+    noticeElem.style.color = "#10b981";
+    noticeElem.style.background = "rgba(16, 185, 129, 0.1)";
+  }
+  logSystem("VAULT: Saved credentials purged successfully from local vault.");
+}
+
+window.clearVaultCredentials = clearVaultCredentials;
 window.loginAsSuperUser = loginAsSuperUser;
 window.loginAsOrgManager = loginAsOrgManager;
 
@@ -1388,6 +1425,21 @@ function closeRecognition() {
 
 // Tab navigation handler
 function navigateToTab(tabName) {
+  // Security Navigation Guard: Block unauthenticated users
+  if (!state.member || state.member.memberType === "guest" || !state.member.email) {
+    logSystem(`SECURITY BLOCK: Unauthenticated user blocked from accessing tab ${tabName}`);
+    showScreen(screenLogin);
+    const notice = document.getElementById("login-notice");
+    if (notice) {
+      notice.textContent = "🔒 Acesso Negado: Faça login com sua conta para navegar pelo aplicativo.";
+      notice.style.display = "block";
+      notice.style.borderColor = "rgba(239, 68, 68, 0.4)";
+      notice.style.color = "#ef4444";
+      notice.style.background = "rgba(239, 68, 68, 0.1)";
+    }
+    return;
+  }
+
   document.querySelectorAll(".nav-item").forEach(item => {
     item.classList.remove("active");
   });
