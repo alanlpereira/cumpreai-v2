@@ -1,5 +1,11 @@
 {
-  "dependencies": {
+  "name": "cumpreai-v2",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'No build step required for static assets'"
+  },
+  "devDependencies": {
     "localtunnel": "^2.0.2",
     "puppeteer": "^25.10.0"
   }
