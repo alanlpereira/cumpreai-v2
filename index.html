@@ -7,12 +7,13 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>CumpreAi OS</title>
-  <link rel="stylesheet" href="frontend/style.css?v=20261001_v7_extra_top_padding">
+  <link rel="stylesheet" href="frontend/style.css?v=20261001_v15_overflow_fix">
   <style>
     html, body {
-      height: 100vh;
-      max-height: 100vh;
-      overflow: hidden;
+      min-height: 100vh !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow-y: auto !important;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -21,22 +22,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      user-select: none;
+      user-select: auto;
     }
 
     .pres-header {
-      width: 92%;
-      max-width: 1000px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0.75rem 0 0.5rem 0;
-      padding: 0.5rem 1.25rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      z-index: 100;
+      width: 100% !important;
+      max-width: 100% !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin: 0 !important;
+      padding: 0.75rem 1.5rem !important;
+      background: rgba(7, 9, 19, 0.96) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 0 !important;
+      backdrop-filter: blur(16px) !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 99999 !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important;
     }
 
     .pres-title {
@@ -97,15 +101,17 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      align-items: flex-start !important;
+      overflow-y: auto !important;
+      padding: 1.5rem 0 3rem 0 !important;
+      margin: 0 auto;
     }
 
     .smartphone-frame {
       width: 340px;
       height: 680px;
       transform: scale(0.82);
-      transform-origin: center center;
+      transform-origin: top center !important;
       transition: transform 0.2s ease-out;
       box-shadow: 0 20px 60px rgba(139, 92, 246, 0.35), 0 0 100px rgba(0, 0, 0, 0.9);
       margin: 0 auto;
