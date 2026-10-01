@@ -434,28 +434,31 @@ function toggleTheme() {
 }
 
 function applyTheme(themeName) {
-  const btn = document.getElementById("theme-toggle-btn");
-  if (themeName === "visual_claro") {
+  const isClaro = themeName === "visual_claro";
+  if (isClaro) {
     document.body.classList.add("theme-visual-claro");
-    if (btn) {
-      btn.innerHTML = "🌙 Modo Cyberpunk";
-      btn.style.background = "#0f172a";
-      btn.style.color = "#f8fafc";
-      btn.style.borderColor = "rgba(15, 23, 42, 0.2)";
-    }
     localStorage.setItem("cumpreai_theme", "visual_claro");
     logSystem("THEME CHANGED: Visual Claro Executivo (Pitch v2 Theme)");
   } else {
     document.body.classList.remove("theme-visual-claro");
-    if (btn) {
+    localStorage.setItem("cumpreai_theme", "dark");
+    logSystem("THEME CHANGED: Cyberpunk Dark Mode (Original Genesis Theme)");
+  }
+
+  // Update ALL theme toggle buttons across the DOM
+  document.querySelectorAll(".theme-toggle-btn-elem, #theme-toggle-btn, #inapp-theme-toggle-btn, #sidebar-theme-toggle-btn").forEach(btn => {
+    if (isClaro) {
+      btn.innerHTML = "🌙 Modo Cyberpunk";
+      btn.style.background = "#0f172a";
+      btn.style.color = "#f8fafc";
+      btn.style.borderColor = "rgba(15, 23, 42, 0.2)";
+    } else {
       btn.innerHTML = "☀️ Visual Claro Executivo";
       btn.style.background = "rgba(255,255,255,0.08)";
       btn.style.color = "#ffffff";
       btn.style.borderColor = "rgba(255,255,255,0.15)";
     }
-    localStorage.setItem("cumpreai_theme", "dark");
-    logSystem("THEME CHANGED: Cyberpunk Dark Mode (Original Genesis Theme)");
-  }
+  });
 }
 
 function initTheme() {
@@ -730,7 +733,9 @@ function handleLogout() {
   if (logoutHeaderBtn) logoutHeaderBtn.style.display = "none";
 
   const userBadge = document.querySelector(".context-badge");
+  const dashUserContext = document.getElementById("dash-user-context");
   if (userBadge) userBadge.textContent = "🔒 Não Autenticado";
+  if (dashUserContext) dashUserContext.textContent = "🔒 Não Autenticado";
 
   const noticeElem = document.getElementById("login-notice");
   if (noticeElem) {

@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>CumpreAi OS</title>
-  <link rel="stylesheet" href="frontend/style.css?v=20261001_v15_overflow_fix">
+  <link rel="stylesheet" href="frontend/style.css?v=20261001_v16_phase3_complete">
   <style>
     html, body {
       min-height: 100vh !important;
@@ -561,6 +561,21 @@
                   <div style="font-size:0.68rem; color:#9ca3af;">CumpreCapital® Acumulado</div>
                 </div>
 
+                <!-- Ações Executivas de Custódia e Garantia -->
+                <div style="display:flex; flex-direction:column; gap:0.4rem; margin:0.6rem 0;">
+                  <button class="btn-primary" style="font-size:0.75rem; background:linear-gradient(135deg, #8b5cf6, #6d28d9);" onclick="openCreateChallengeModal()">
+                    🔒 Aportar Garantia Antifraude (120%)
+                  </button>
+                  <div style="display:flex; gap:0.4rem;">
+                    <button class="btn-secondary" style="flex:1; border-color:#10b981; color:#10b981; font-size:0.72rem;" onclick="depositPixUI()">
+                      💳 Recarga PIX (R$ ➔ A$)
+                    </button>
+                    <button class="btn-secondary" style="flex:1; border-color:#f59e0b; color:#f59e0b; font-size:0.72rem;" onclick="withdrawPixUI()">
+                      💸 Saque PIX (R$)
+                    </button>
+                  </div>
+                </div>
+
                 <div class="section-title">
                   <span>Composição do Patrimônio</span>
                 </div>
@@ -899,6 +914,17 @@
                     <span>⚡ Maior Sequência:</span>
                     <strong style="color:#a78bfa;">3 dias</strong>
                   </div>
+                </div>
+
+                <!-- CONFIGURAÇÕES NATIVAS DO USUÁRIO & TEMA NATIVO -->
+                <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:0.8rem; margin-top:0.6rem;">
+                  <div style="font-weight:700; font-size:0.8rem; color:#fff; margin-bottom:0.5rem;">⚙️ Configurações & Tema Nativo</div>
+                  <button class="btn-secondary theme-toggle-btn-elem" id="inapp-theme-toggle-btn" style="width:100%; font-size:0.75rem; margin-bottom:0.4rem;" onclick="toggleTheme()">
+                    ☀️ Visual Claro Executivo
+                  </button>
+                  <button class="btn-secondary" style="width:100%; border-color:#ef4444; color:#ef4444; font-size:0.75rem;" onclick="handleLogout()">
+                    🚪 Saída Segura (Logout)
+                  </button>
                 </div>
               </div>
 
@@ -1304,7 +1330,7 @@
     </div>
   </div>
 
-  <script src="frontend/app.js?v=20261001_v14_final_scroll_header"></script>
+  <script src="frontend/app.js?v=20261001_v16_phase3_complete"></script>
   <script>
     let currentZoom = 0.82;
     const phoneElem = document.getElementById("phone-frame-elem");
