@@ -496,10 +496,13 @@ function loginAsSuperUser() {
   const noticeElem = document.getElementById("login-notice");
 
   if (emailInput) emailInput.value = "alan.pereira@lp-nexus.com";
-  if (passInput) passInput.value = "superadmin123";
+  if (passInput) {
+    passInput.value = "";
+    passInput.focus();
+  }
 
   if (noticeElem) {
-    noticeElem.textContent = "👑 Credenciais de Master User autopreenchidas! Clique em 'Entrar na Plataforma' para acessar diretamente o Painel de Gestão.";
+    noticeElem.textContent = "👑 E-mail de Master User preenchido (alan.pereira@lp-nexus.com). Digite sua senha de acesso no campo acima para entrar.";
     noticeElem.style.display = "block";
     noticeElem.style.borderColor = "rgba(16, 185, 129, 0.4)";
     noticeElem.style.color = "#10b981";
@@ -513,10 +516,13 @@ function loginAsOrgManager() {
   const noticeElem = document.getElementById("login-notice");
 
   if (emailInput) emailInput.value = "arthur@camelot.org";
-  if (passInput) passInput.value = "orgmanager123";
+  if (passInput) {
+    passInput.value = "";
+    passInput.focus();
+  }
 
   if (noticeElem) {
-    noticeElem.textContent = "🏢 Credenciais de Gestor de Organização autopreenchidas! Clique em 'Entrar na Plataforma' para acessar o Painel de Gestão.";
+    noticeElem.textContent = "🏢 E-mail de Gestor de Organização preenchido (arthur@camelot.org). Digite sua senha de acesso no campo acima para entrar.";
     noticeElem.style.display = "block";
     noticeElem.style.borderColor = "rgba(59, 130, 246, 0.4)";
     noticeElem.style.color = "#3b82f6";

@@ -6,7 +6,7 @@ const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const ARTIFACTS_DIR = 'C:\\Users\\HP\\.gemini\\antigravity\\brain\\50f2b3ed-d65a-4584-967c-385849aa4889';
 
 (async () => {
-  console.log('🚀 Launching E2E test for Strict Password Validation & Security...');
+  console.log('🚀 Launching E2E test for Email-Only Prefill & Password Security...');
   const browser = await puppeteer.launch({
     executablePath: fs.existsSync(CHROME_PATH) ? CHROME_PATH : undefined,
     headless: 'new',
@@ -26,10 +26,22 @@ const ARTIFACTS_DIR = 'C:\\Users\\HP\\.gemini\\antigravity\\brain\\50f2b3ed-d65a
   await page.goto(htmlPath, { waitUntil: 'load' });
   await new Promise(r => setTimeout(r, 1000));
 
-  // 1. Test Wrong Password Rejection for Master User
-  console.log('--- TEST 1: Rejeição de Senha Incorreta para Master User ---');
+  // 1. Test helper button loginAsSuperUser() -> Email only, Password MUST BE EMPTY
+  console.log('--- TEST 1: Botão loginAsSuperUser() preenche APENAS o E-mail ---');
+  await page.evaluate(() => loginAsSuperUser());
+  await new Promise(r => setTimeout(r, 300));
+
+  const emailValPrefill = await page.$eval('#login-email', el => el.value);
+  const passValPrefill = await page.$eval('#login-pass', el => el.value);
+  console.log(`Helper button test - Email: "${emailValPrefill}", Password: "${passValPrefill}"`);
+
+  if (passValPrefill !== '') {
+    throw new Error('SECURITY FAILURE: Helper button filled password automatically!');
+  }
+
+  // 2. Test Wrong Password Rejection
+  console.log('--- TEST 2: Rejeição de Senha Incorreta para Master User ---');
   await page.evaluate(() => {
-    document.getElementById('login-email').value = 'alan.pereira@lp-nexus.com';
     document.getElementById('login-pass').value = 'senha_errada_123';
     handleLogin();
   });
@@ -43,10 +55,9 @@ const ARTIFACTS_DIR = 'C:\\Users\\HP\\.gemini\\antigravity\\brain\\50f2b3ed-d65a
     throw new Error('SECURITY FAILURE: Master User logged in with wrong password!');
   }
 
-  // 2. Test Correct Password Acceptance for Master User
-  console.log('--- TEST 2: Login Aceito com Senha Correta para Master User ---');
+  // 3. Test Manual Entry of Correct Password
+  console.log('--- TEST 3: Login Aceito com Digitação Manual da Senha Correta ---');
   await page.evaluate(() => {
-    document.getElementById('login-email').value = 'alan.pereira@lp-nexus.com';
     document.getElementById('login-pass').value = 'superadmin123';
     handleLogin();
   });
@@ -59,18 +70,8 @@ const ARTIFACTS_DIR = 'C:\\Users\\HP\\.gemini\\antigravity\\brain\\50f2b3ed-d65a
     throw new Error('AUTH FAILURE: Master User failed to log in with correct password!');
   }
 
-  // 3. Test Logout & Clear Vault
-  console.log('--- TEST 3: Logout & Limpar Cofre ---');
-  await page.evaluate(() => handleLogout());
-  await page.evaluate(() => clearVaultCredentials());
-  await new Promise(r => setTimeout(r, 500));
-
-  const emailVal = await page.$eval('#login-email', el => el.value);
-  const passVal = await page.$eval('#login-pass', el => el.value);
-  console.log(`Vault cleared - Email: "${emailVal}", Password: "${passVal}"`);
-
   await browser.close();
-  console.log('✅ ALL STRICT PASSWORD & SECURITY TESTS PASSED PERFECTLY!');
+  console.log('✅ ALL EMAIL-ONLY PREFILL & PASSWORD SECURITY TESTS PASSED PERFECTLY!');
 })().catch(err => {
   console.error('❌ Test failed:', err);
   process.exit(1);
