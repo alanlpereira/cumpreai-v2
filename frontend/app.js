@@ -275,12 +275,13 @@ function applyDesktopLayout(enableDesktop) {
       screenWrapper.style.setProperty("height", "auto", "important");
       screenWrapper.style.setProperty("overflow", "visible", "important");
     }
-    if (presHeader) presHeader.style.setProperty("display", "none", "important");
+    if (presHeader) presHeader.style.setProperty("display", "flex", "important");
     if (notchElem) notchElem.style.setProperty("display", "none", "important");
     if (statusBarElem) statusBarElem.style.setProperty("display", "none", "important");
     if (bottomNav) bottomNav.style.setProperty("display", "none", "important");
   } else {
     document.body.classList.remove("desktop-admin-active");
+    if (presHeader) presHeader.style.setProperty("display", "flex", "important");
     if (phoneElem) {
       phoneElem.style.width = "";
       phoneElem.style.maxWidth = "";
