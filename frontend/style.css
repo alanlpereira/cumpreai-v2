@@ -1717,8 +1717,8 @@ body.desktop-admin-active {
   height: auto !important;
   min-height: 100vh !important;
   max-height: none !important;
-  padding-top: 1.5rem !important;
-  padding-bottom: 2rem !important;
+  padding-top: 4rem !important;
+  padding-bottom: 3rem !important;
   box-sizing: border-box !important;
   background: radial-gradient(circle at center, #1b1638 0%, #070913 80%) !important;
 }
@@ -1755,8 +1755,8 @@ body.desktop-admin-active .smartphone-frame {
   border-radius: 14px !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6) !important;
-  margin: 15px auto 30px auto !important;
-  padding: 0 !important;
+  margin: 20px auto 40px auto !important;
+  padding: 1rem 0 0 0 !important;
   background: transparent !important;
 }
 
@@ -1772,7 +1772,7 @@ body.desktop-admin-active .app-screen {
   border-radius: 0 !important;
   background: transparent !important;
   position: relative !important;
-  padding-top: 0.5rem !important;
+  padding-top: 1rem !important;
 }
 
 /* Desktop Widescreen Layout Grid */
@@ -1780,7 +1780,7 @@ body.desktop-admin-active .app-screen {
   display: grid;
   grid-template-columns: 240px 1fr 320px;
   gap: 1rem;
-  padding: 1.25rem 1rem 1rem 1rem;
+  padding: 1.5rem 1.25rem 1.25rem 1.25rem !important;
   width: 100%;
   box-sizing: border-box;
   text-align: left;
