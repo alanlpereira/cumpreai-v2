@@ -165,21 +165,9 @@ main {
   flex-direction: column;
 }
 
-/* Phone Speaker and Camera Notch */
+/* Phone Speaker and Camera Notch (Disabled to prevent top content overlap) */
 .smartphone-notch {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 24px;
-  background: #000;
-  border-radius: 20px;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  display: none !important;
 }
 
 .speaker {
