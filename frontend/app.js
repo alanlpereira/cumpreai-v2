@@ -63,6 +63,7 @@ const state = {
     }
   ]
 };
+window.state = state;
 
 // Simulation settings
 let emulatorMode = false;
@@ -368,6 +369,20 @@ function switchGenesisModule(moduleNum) {
   }
 
   logSystem(`GENESIS MODULE: Switched to Module ${moduleNum}`);
+
+  const routeMap = {
+    1: '/membro/entrada',
+    2: '/membro/missao',
+    3: '/membro/operacao',
+    4: '/membro/patrimonio',
+    5: '/membro/ecossistema',
+    6: (state.member && state.member.memberType === 'organization') ? '/gestao/org' : '/gestao/master',
+    7: '/membro/perfil'
+  };
+  const targetRoute = routeMap[moduleNum];
+  if (targetRoute && window.router && window.location.hash !== '#' + targetRoute) {
+    window.location.hash = '#' + targetRoute;
+  }
 }
 
 // ----------------------------------------------------
@@ -674,6 +689,7 @@ function handleLogin() {
     document.getElementById("dash-username").textContent = state.member.name;
     showScreen(screenHome);
     switchGenesisModule(6); // Master User directs STRAIGHT to Management Panel!
+    if (window.router) window.router.navigate('/gestao/master');
     updateDashboardUI();
   } else if (isOrgManager) {
     applyDesktopLayout(true);
@@ -699,6 +715,7 @@ function handleLogin() {
     document.getElementById("dash-username").textContent = state.member.name;
     showScreen(screenHome);
     switchGenesisModule(6); // Org Manager directs STRAIGHT to Management Panel!
+    if (window.router) window.router.navigate('/gestao/org');
     updateDashboardUI();
   } else {
     applyDesktopLayout(false);
@@ -714,6 +731,7 @@ function handleLogin() {
     document.getElementById("dash-username").textContent = state.member.name;
     showScreen(screenHome);
     switchGenesisModule(1); // Standard member directs to Home
+    if (window.router) window.router.navigate('/membro/entrada');
     updateDashboardUI();
   }
 }
@@ -750,6 +768,7 @@ function handleLogout() {
   writeLedger("USER_LOGGED_OUT", "auth", "guest", "User logged out successfully");
   logSystem("AUTH: User logged out successfully. Redirecting to login screen.");
   showScreen(screenLogin);
+  if (window.router) window.router.navigate('/auth/login');
 }
 
 window.handleLogout = handleLogout;
