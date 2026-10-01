@@ -1,7 +1,7 @@
 // CumpreAi Simulator Core Logic
 
 // Simulated State (Local Memory Database)
-const state = {
+var state = window.state || {
   member: {
     id: "user_guest_00",
     name: "Visitante",
