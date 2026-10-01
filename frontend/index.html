@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>CumpreAi OS</title>
-  <link rel="stylesheet" href="style.css?v=20261001_v16_phase3_complete">
+  <link rel="stylesheet" href="style.css?v=20261001_v17_zero_space_fix">
   <style>
     html, body {
       min-height: 100vh !important;
@@ -181,15 +181,30 @@
       background: transparent !important;
     }
     body.desktop-admin-active .smartphone-screen,
-    body.desktop-admin-active .screen-wrapper,
-    body.desktop-admin-active .app-screen {
+    body.desktop-admin-active .screen-wrapper {
       width: 100% !important;
       height: auto !important;
       max-height: none !important;
       overflow: visible !important;
       border-radius: 0 !important;
       position: relative !important;
-      padding-top: 1rem !important;
+      padding-top: 0.25rem !important;
+    }
+    body.desktop-admin-active .app-screen {
+      display: none !important;
+    }
+    body.desktop-admin-active .app-screen.active {
+      display: flex !important;
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      border-radius: 0 !important;
+      position: relative !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+      padding-top: 0.5rem !important;
     }
 
     .pres-header {
@@ -1428,7 +1443,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261001_v16_phase3_complete"></script>
+  <script src="app.js?v=20261001_v17_zero_space_fix"></script>
   <script>
     let currentZoom = 0.82;
     const phoneElem = document.getElementById("phone-frame-elem");

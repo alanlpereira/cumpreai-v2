@@ -113,6 +113,7 @@ function showScreen(screenToShow) {
     screenToShow.classList.add("active");
     logSystem(`Navigation: transitioned to #${screenToShow.id}`);
   }
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 // ----------------------------------------------------
