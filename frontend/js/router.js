@@ -13,6 +13,8 @@ class CumpreAiRouter {
       '/membro/operacao': { title: 'Módulo 3 - Operação', screenId: 'screen-home', moduleNum: 3, subpage: 'pages/membro/operacao.html' },
       '/membro/patrimonio': { title: 'Módulo 4 - Patrimônio', screenId: 'screen-home', moduleNum: 4, subpage: 'pages/membro/patrimonio.html' },
       '/membro/ecossistema': { title: 'Módulo 5 - Ecossistema', screenId: 'screen-home', moduleNum: 5, subpage: 'pages/membro/ecossistema.html' },
+      '/membro/performance': { title: 'Módulo Performance & Esportes', screenId: 'screen-home', subpage: 'pages/membro/performance.html' },
+      '/membro/ligas': { title: 'Ligas & Equipes', screenId: 'screen-home', subpage: 'pages/membro/ligas.html' },
       '/gestao/master': { title: 'Módulo 6 - Master User Global', screenId: 'screen-home', moduleNum: 6, roleView: 'master', subpage: 'pages/gestao/master.html' },
       '/gestao/org': { title: 'Módulo 6 - Gestor de Organização', screenId: 'screen-home', moduleNum: 6, roleView: 'org', subpage: 'pages/gestao/org.html' },
       '/membro/perfil': { title: 'Módulo 7 - Perfil & Configurações', screenId: 'screen-home', moduleNum: 7, subpage: 'pages/membro/perfil.html' },

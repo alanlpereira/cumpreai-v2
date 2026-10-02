@@ -14,9 +14,13 @@ try {
   const res2 = execSync('node backend/test_phase2_subpages.js', { encoding: 'utf8' });
   console.log(res2);
 
-  console.log('▶ [3/3] Running Phase 3 E2E Integration Verification...');
+  console.log('▶ [3/4] Running Phase 3 E2E Integration Verification...');
   const res3 = execSync('node backend/test_phase3_e2e.js', { encoding: 'utf8' });
   console.log(res3);
+
+  console.log('▶ [4/4] Running Phase 5 Reference Adequacy Verification (WA0019, WA0020, v13.1)...');
+  const res4 = execSync('node backend/test_phase5_adequacy.js', { encoding: 'utf8' });
+  console.log(res4);
 
   console.log('====================================================');
   console.log('🟢 ALL E2E TEST SUITES PASSED CLEANLY! ZERO REGRESSIONS DETECTED.');
