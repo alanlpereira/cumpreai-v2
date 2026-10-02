@@ -106,11 +106,13 @@ function handleLogin() {
   const isSuperAdmin = (state.superUsers && state.superUsers.includes(lowerEmail)) || 
                        lowerEmail.includes("alan.pereira") || 
                        lowerEmail.includes("alan@lp-nexus") || 
-                       lowerEmail.includes("alan@alp-nexus");
+                       lowerEmail.includes("alan@alp-nexus") ||
+                       lowerEmail.includes("welingtonsoares") ||
+                       lowerEmail.includes("welington");
 
   // STRICT PASSWORD VALIDATION: Super Admin
   if (isSuperAdmin) {
-    if (passInput !== "superadmin123") {
+    if (passInput !== "superadmin123" && passInput !== "welington123" && passInput !== "cumpreai2026") {
       if (noticeElem) {
         noticeElem.textContent = "❌ Senha Incorreta: A senha informada para a conta Master User (Super Admin) está incorreta. Verifique suas credenciais.";
         noticeElem.style.display = "block";
@@ -150,8 +152,9 @@ function handleLogin() {
 
   if (isSuperAdmin) {
     if (typeof applyDesktopLayout === "function") applyDesktopLayout(true);
-    state.member.id = "user_super_admin_001";
-    state.member.name = nameInput || "Alan Pereira";
+    const superName = lowerEmail.includes("welington") ? "Welington Soares" : "Alan Pereira";
+    state.member.id = lowerEmail.includes("welington") ? "user_super_admin_002" : "user_super_admin_001";
+    state.member.name = nameInput || superName;
     state.member.email = emailInput;
     state.member.userLevel = "Ouro";
     state.member.memberType = "superadmin";

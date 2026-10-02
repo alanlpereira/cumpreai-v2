@@ -1543,64 +1543,68 @@ body.presentation-mode .smartphone-frame {
 }
 
 /* ====================================================
-   TEMA VISUAL CLARO EXECUTIVO (PITCH VISUAL CLARO V2)
+   TEMA VISUAL CLARO EXECUTIVO REVISADO V2 (ALTO CONTRASTE)
    ==================================================== */
 body.theme-visual-claro {
-  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  --bg-gradient: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
   --panel-bg: #ffffff;
-  --panel-border: rgba(15, 23, 42, 0.12);
+  --panel-border: #94a3b8;
   --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --accent-color: #2563eb;
-  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  --success-color: #059669;
-  --warning-color: #d97706;
-  --danger-color: #dc2626;
+  --text-secondary: #334155;
+  --accent-color: #1d4ed8;
+  --accent-gradient: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  --success-color: #047857;
+  --warning-color: #b45309;
+  --danger-color: #b91c1c;
   --phone-bg: #ffffff;
-  --glow-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --glow-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
   background: var(--bg-gradient) !important;
   color: #0f172a !important;
 }
 
 body.theme-visual-claro .pres-header {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(15, 23, 42, 0.12) !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #cbd5e1 !important;
   color: #0f172a !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08) !important;
 }
 
 body.theme-visual-claro .pres-title {
   color: #0f172a !important;
+  font-weight: 800 !important;
 }
 
 body.theme-visual-claro .zoom-controls span {
-  color: #475569 !important;
+  color: #334155 !important;
+  font-weight: 700 !important;
 }
 
 body.theme-visual-claro .zoom-btn {
-  background: rgba(15, 23, 42, 0.06) !important;
-  border-color: rgba(15, 23, 42, 0.15) !important;
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
   color: #0f172a !important;
+  font-weight: 800 !important;
 }
 
 body.theme-visual-claro .phone-frame {
   background: #ffffff !important;
-  border-color: rgba(15, 23, 42, 0.15) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 10px #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), 0 0 0 10px #cbd5e1 !important;
 }
 
 body.theme-visual-claro .phone-screen {
-  background: #f8fafc !important;
+  background: #f1f5f9 !important;
   color: #0f172a !important;
 }
 
 body.theme-visual-claro .app-header {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-bottom-color: rgba(15, 23, 42, 0.1) !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #cbd5e1 !important;
 }
 
 body.theme-visual-claro .app-header h1 {
   color: #0f172a !important;
+  font-weight: 800 !important;
 }
 
 body.theme-visual-claro .metric-card,
@@ -1610,11 +1614,13 @@ body.theme-visual-claro .module-nav-bar,
 body.theme-visual-claro .evidence-card,
 body.theme-visual-claro .challenge-card,
 body.theme-visual-claro .login-header,
-body.theme-visual-claro .create-header {
+body.theme-visual-claro .create-header,
+body.theme-visual-claro .org-card,
+body.theme-visual-claro .subpage-container {
   background: #ffffff !important;
-  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  border: 1px solid #cbd5e1 !important;
   color: #0f172a !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
 }
 
 body.theme-visual-claro .metric-label,
@@ -1622,7 +1628,7 @@ body.theme-visual-claro .card-subtext,
 body.theme-visual-claro .evidence-desc,
 body.theme-visual-claro .journey-desc,
 body.theme-visual-claro p {
-  color: #475569;
+  color: #334155 !important;
 }
 
 body.theme-visual-claro h1,
@@ -1630,23 +1636,33 @@ body.theme-visual-claro h2,
 body.theme-visual-claro h3,
 body.theme-visual-claro h4,
 body.theme-visual-claro h5,
-body.theme-visual-claro label {
+body.theme-visual-claro label,
+body.theme-visual-claro strong,
+body.theme-visual-claro b {
   color: #0f172a !important;
 }
 
 body.theme-visual-claro .form-group input,
 body.theme-visual-claro .form-group select,
 body.theme-visual-claro .form-group textarea {
-  background: #f1f5f9 !important;
-  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  background: #ffffff !important;
+  border: 1px solid #94a3b8 !important;
   color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+body.theme-visual-claro .form-group input:focus,
+body.theme-visual-claro .form-group select:focus,
+body.theme-visual-claro .form-group textarea:focus {
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15) !important;
 }
 
 body.theme-visual-claro .modal-content {
   background: #ffffff !important;
-  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  border: 1px solid #94a3b8 !important;
   color: #0f172a !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25) !important;
 }
 
 body.theme-visual-claro .modal-title,
@@ -1655,34 +1671,37 @@ body.theme-visual-claro .modal-header h3 {
 }
 
 body.theme-visual-claro .nav-module-btn {
-  background: rgba(15, 23, 42, 0.05) !important;
-  border-color: rgba(15, 23, 42, 0.12) !important;
-  color: #334155 !important;
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
 }
 
 body.theme-visual-claro .nav-module-btn.active {
-  background: #2563eb !important;
+  background: #1d4ed8 !important;
   color: #ffffff !important;
-  border-color: #1d4ed8 !important;
+  border-color: #1e40af !important;
 }
 
 body.theme-visual-claro .bottom-nav {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-top-color: rgba(15, 23, 42, 0.1) !important;
+  background: #ffffff !important;
+  border-top: 1px solid #cbd5e1 !important;
 }
 
 body.theme-visual-claro .nav-item {
-  color: #64748b !important;
+  color: #475569 !important;
 }
 
 body.theme-visual-claro .nav-item.active {
-  color: #2563eb !important;
+  color: #1d4ed8 !important;
+  font-weight: 800 !important;
 }
 
 body.theme-visual-claro #terminal,
 body.theme-visual-claro #json-viewer {
-  background: #0f172a !important;
-  color: #f1f5f9 !important;
+  background: #090d16 !important;
+  color: #38edf8 !important;
+  border: 1px solid #334155 !important;
 }
 
 /* Master User Performance & Clean View Controls */

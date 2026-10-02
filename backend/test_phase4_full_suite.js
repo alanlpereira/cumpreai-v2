@@ -18,9 +18,13 @@ try {
   const res3 = execSync('node backend/test_phase3_e2e.js', { encoding: 'utf8' });
   console.log(res3);
 
-  console.log('▶ [4/4] Running Phase 5 Reference Adequacy Verification (WA0019, WA0020, v13.1)...');
+  console.log('▶ [4/5] Running Phase 5 Reference Adequacy Verification (WA0019, WA0020, v13.1)...');
   const res4 = execSync('node backend/test_phase5_adequacy.js', { encoding: 'utf8' });
   console.log(res4);
+
+  console.log('▶ [5/5] Running Phase 6 Welington Soares SuperUser & Light Theme Verification...');
+  const res5 = execSync('node backend/test_phase6_user_and_theme.js', { encoding: 'utf8' });
+  console.log(res5);
 
   console.log('====================================================');
   console.log('🟢 ALL E2E TEST SUITES PASSED CLEANLY! ZERO REGRESSIONS DETECTED.');

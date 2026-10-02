@@ -65,7 +65,9 @@ var state = window.state || {
   superUsers: [
     "alan.pereira@lp-nexus.com",
     "alan@lp-nexus.com",
-    "alan@alp-nexus.com"
+    "alan@alp-nexus.com",
+    "welingtonsoares@hotmail.com",
+    "welington.soares@lp-nexus.com"
   ],
   orgServiceFeePercentage: 10,
   activeInviteToken: null,
