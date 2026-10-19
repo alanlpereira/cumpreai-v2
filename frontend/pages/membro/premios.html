@@ -1,0 +1,111 @@
+<!-- Sub-Página: Meus Prêmios & Incentivos Financeiros · Camada Financeira Separada da Confiança -->
+<div class="subpage-container reward-page" id="subpage-premios" style="padding: 1rem 0;">
+  
+  <!-- Header de Navegação da Sub-Página -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">
+    <div>
+      <div class="eyebrow" style="color:#54e2d0; font-size:0.75rem; letter-spacing:1px; font-weight:800;">💸 INCENTIVO FINANCEIRO · SEPARADO DA CONFIANÇA</div>
+      <h2 style="font-size:1.5rem; margin:0.2rem 0; color:#fff;" id="premios-title">Meus Prêmios e Custódia</h2>
+      <p style="font-size:0.82rem; color:#9badc8; margin:0;">Incentivos líquidos anunciados em desafios assumidos por você.</p>
+    </div>
+    <div style="display:flex; gap:0.5rem;">
+      <button class="btn-secondary" onclick="if(window.router) window.router.navigate('/membro/patrimonio');" style="padding:0.4rem 0.8rem; font-size:0.75rem;">← Patrimônio</button>
+      <button class="btn-primary" onclick="if(typeof showScreen==='function'&&window.screenExplore) showScreen(screenExplore);" style="padding:0.4rem 0.8rem; font-size:0.75rem;">+ Explorar Desafios</button>
+    </div>
+  </div>
+
+  <!-- Hero de Potencial Líquido -->
+  <div class="reward-page-hero">
+    <div class="personal-reward-kicker">MEUS PRÊMIOS · CAMADA FINANCEIRA</div>
+    <h2 id="reward-total-possible">R$ 1.250,00 em potencial líquido</h2>
+    <p>Soma do valor líquido anunciado nos desafios que você assumiu e ainda não consta como liberado para sua identidade. É potencial condicionado às regras do desafio — não saldo disponível, promessa de pagamento ou parte do Patrimônio de Confiança.</p>
+    
+    <div class="reward-metrics">
+      <div class="reward-metric">
+        <span>Liberado com registro individual</span>
+        <b style="color:#54e2d0;" id="reward-total-received">R$ 350,00</b>
+      </div>
+      <div class="reward-metric">
+        <span>Custódia marcada nos desafios</span>
+        <b style="color:#ffd481;" id="reward-total-custody">R$ 900,00</b>
+      </div>
+      <div class="reward-metric">
+        <span>Desafios com prêmio</span>
+        <b style="color:#ba8cff;" id="reward-total-challenges">3 ativos</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Desafios com Prêmio -->
+  <div style="margin-top:0.8rem;">
+    <h3 style="font-size:0.95rem; color:#fff; margin-bottom:0.6rem;">Desafios Vinculados à Sua Identidade</h3>
+    
+    <div class="reward-list">
+      <!-- Desafio 1 -->
+      <article class="reward-row">
+        <div class="reward-row-top">
+          <div>
+            <h3>Círculo de facilitação aplicada</h3>
+            <p>Valor líquido anunciado após taxa: R$ 450,00 · Origem: Fundo Comunitário CumpreAi</p>
+          </div>
+          <div class="reward-row-amount">
+            R$ 450,00
+            <p>potencial restante</p>
+          </div>
+        </div>
+        <span class="reward-status green">Custódia sinalizada no desafio</span>
+        <div class="personal-reward-note">
+          Liberado individualmente: R$ 0,00. O valor só se torna pagamento confirmado após distribuição pelo Vault, conforme regras públicas e auditáveis.
+        </div>
+      </article>
+
+      <!-- Desafio 2 -->
+      <article class="reward-row">
+        <div class="reward-row-top">
+          <div>
+            <h3>Laboratório de prototipagem colaborativa</h3>
+            <p>Valor líquido anunciado após taxa: R$ 350,00 · Origem: Núcleo de Inovação Aberta</p>
+          </div>
+          <div class="reward-row-amount" style="color:#6aebb0;">
+            R$ 0,00
+            <p>restante (liberado)</p>
+          </div>
+        </div>
+        <span class="reward-status green">Liberado para você · registro individual</span>
+        <div class="personal-reward-note">
+          Liberado individualmente: R$ 350,00. A liberação foi validada e registrada com sucesso para seu perfil.
+        </div>
+      </article>
+
+      <!-- Desafio 3 -->
+      <article class="reward-row">
+        <div class="reward-row-top">
+          <div>
+            <h3>Mesa de aprendizagem entre pares</h3>
+            <p>Valor líquido anunciado após taxa: R$ 450,00 · Origem: Comunidade CumpreAi</p>
+          </div>
+          <div class="reward-row-amount">
+            R$ 450,00
+            <p>potencial restante</p>
+          </div>
+        </div>
+        <span class="reward-status purple">Evidência validada · distribuição pendente de confirmação</span>
+        <div class="personal-reward-note">
+          Liberado individualmente: R$ 0,00. Evidência já validada no contexto da jornada. Liberação financeira aguarda confirmação dos custodiantes.
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Transparência & Regra de Integridade -->
+  <div class="reward-disclaimer">
+    <strong style="color:#ffd481;">🛡️ Transparência de Custódia:</strong>
+    Esta versão é uma simulação de camada financeira; não consulta pagamentos bancários nem o Vault produtivo real. Valores fictícios ou em custódia demonstrativa não são dinheiro disponível em conta corrente. A liberação depende da conclusão, validação de evidência e governança econômica, com registro associado ao participante. Planos, prêmios e pagamentos não compram score, reputação, ranking ou reconhecimento.
+  </div>
+
+  <!-- Ações Inferiores -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.8rem; gap:10px;">
+    <button class="btn-secondary" onclick="if(window.router) window.router.navigate('/membro/patrimonio');" style="flex:1;">← Voltar ao Patrimônio</button>
+    <button class="btn-primary" onclick="if(window.router) window.router.navigate('/membro/planos');" style="flex:1;">Ver Planos & Capacidade →</button>
+  </div>
+</div>

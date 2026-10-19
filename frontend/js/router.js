@@ -17,7 +17,10 @@ class CumpreAiRouter {
       '/membro/ligas': { title: 'Ligas & Equipes', screenId: 'screen-home', subpage: 'pages/membro/ligas.html' },
       '/gestao/master': { title: 'Módulo 6 - Master User Global', screenId: 'screen-home', moduleNum: 6, roleView: 'master', subpage: 'pages/gestao/master.html' },
       '/gestao/org': { title: 'Módulo 6 - Gestor de Organização', screenId: 'screen-home', moduleNum: 6, roleView: 'org', subpage: 'pages/gestao/org.html' },
+      '/gestao/proprietarios': { title: 'Console dos Proprietários', screenId: 'screen-subpage', isOwnerConsole: true, subpage: 'pages/gestao/proprietarios.html' },
       '/membro/perfil': { title: 'Módulo 7 - Perfil & Configurações', screenId: 'screen-home', moduleNum: 7, subpage: 'pages/membro/perfil.html' },
+      '/membro/premios': { title: 'Meus Prêmios & Incentivos', screenId: 'screen-subpage', subpage: 'pages/membro/premios.html' },
+      '/membro/planos': { title: 'Planos & Capacidade Operacional', screenId: 'screen-subpage', subpage: 'pages/membro/planos.html' },
       '/marketplace': { title: 'Marketplace MVP', screenId: 'screen-marketplace', subpage: 'pages/marketplace.html' },
       '/comms': { title: 'Central de Comunicação', screenId: 'screen-comms', subpage: 'pages/comms.html' },
       '/explore': { title: 'Explorar Oportunidades', screenId: 'screen-explore', subpage: 'pages/explore.html' },
@@ -110,6 +113,10 @@ class CumpreAiRouter {
       }
     }
 
+    if (routeConfig.isOwnerConsole) {
+      if (typeof applyDesktopLayout === 'function') applyDesktopLayout(true);
+    }
+
     // Load sub-page HTML asynchronously if available
     this.loadSubpageHTML(routeConfig);
 
@@ -132,6 +139,14 @@ class CumpreAiRouter {
         const container = document.getElementById('page-content-container');
         if (container) {
           container.innerHTML = html;
+          // Re-evaluate script elements inside dynamic subpage to bind handlers globally
+          const scripts = container.querySelectorAll("script");
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+          });
           if (typeof logSystem === 'function') {
             logSystem(`SUB-PAGE RENDER: Dynamic HTML loaded from ${subpageUrl}`);
           }

@@ -1,0 +1,570 @@
+<!-- Sub-Página: Console dos Proprietários · Gestão de Rede, Negócio e Governança -->
+<div class="subpage-container" id="subpage-proprietarios" style="padding:1rem 0;">
+  <!-- Header do Console dos Proprietários -->
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.2rem; flex-wrap:wrap; gap:10px;">
+    <div>
+      <div class="eyebrow" style="color:#54e2d0; font-size:0.75rem; letter-spacing:1.5px; font-weight:900;">👑 ÁREA EXECUTIVA DE PROPRIETÁRIOS · CONTROLE OPERACIONAL</div>
+      <h2 style="font-size:1.6rem; color:#fff; margin:0.3rem 0;" id="owner-page-title">Console dos Proprietários</h2>
+      <p style="color:#93a5c3; font-size:0.82rem; margin:0;" id="owner-page-subtitle">Acompanhe a saúde da rede, os patrimônios e o desempenho do negócio.</p>
+    </div>
+    <div style="display:flex; gap:0.6rem; align-items:center;">
+      <span style="padding:0.4rem 0.8rem; border-radius:999px; background:#2b2111; border:1px solid #795c25; color:#ffd481; font-size:0.72rem; font-weight:800;">● CONSOLE OFICIAL · PROPRIETÁRIOS</span>
+      <button class="btn-secondary" id="ownerExportBtn" onclick="exportOwnerReport()" style="padding:0.4rem 0.8rem; font-size:0.75rem; border-radius:10px;">↓ Exportar Resumo</button>
+      <button class="btn-primary" onclick="if(window.router) window.router.navigate('/gestao/master');" style="padding:0.4rem 0.8rem; font-size:0.75rem; background:linear-gradient(135deg, #10b981, #059669); border-radius:10px;">Voltar ao Master Board</button>
+    </div>
+  </div>
+
+  <!-- Barra de Navegação das 7 Visões -->
+  <div style="display:flex; gap:0.5rem; overflow-x:auto; padding-bottom:0.6rem; margin-bottom:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1);">
+    <button class="nav-module-btn active" id="tab-owner-overview" onclick="switchOwnerView('overview')" style="padding:0.45rem 0.9rem; font-size:0.78rem; font-weight:800;">◈ Visão Geral</button>
+    <button class="nav-module-btn" id="tab-owner-engagement" onclick="switchOwnerView('engagement')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">⚡ Engajamento</button>
+    <button class="nav-module-btn" id="tab-owner-patrimonies" onclick="switchOwnerView('patrimonies')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">◇ Patrimônios</button>
+    <button class="nav-module-btn" id="tab-owner-participants" onclick="switchOwnerView('participants')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">♙ Participantes</button>
+    <button class="nav-module-btn" id="tab-owner-challenges" onclick="switchOwnerView('challenges')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">🎯 Desafios</button>
+    <button class="nav-module-btn" id="tab-owner-finance" onclick="switchOwnerView('finance')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">$ Rentabilização</button>
+    <button class="nav-module-btn" id="tab-owner-governance" onclick="switchOwnerView('governance')" style="padding:0.45rem 0.9rem; font-size:0.78rem;">▣ Governança</button>
+  </div>
+
+  <!-- AVISO DE INTEGRIDADE OPERACIONAL -->
+  <div style="background:#1b1e2e; border:1px solid #354970; border-radius:12px; padding:0.75rem 1rem; margin-bottom:1.2rem; font-size:0.75rem; color:#b7c8e7; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <strong style="color:#74e6c0;">🛡️ Governança dos Proprietários:</strong>
+      <span> O console mede, protege e opera a rede. Finanças, taxas e planos liberam capacidade de infraestrutura — nunca compram reputação nem alteram o score dos membros.</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 1. VISÃO GERAL (OVERVIEW)                  -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-overview" style="display:block;">
+    <!-- 4 KPIs Executivos -->
+    <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:0.9rem; margin-bottom:1.2rem;">
+      <div style="background:linear-gradient(145deg,#121e32,#0c1422); border:1px solid #263b5a; padding:1.1rem; border-radius:14px; position:relative; overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; color:#9badc8; font-size:0.72rem;">
+          <span>Participantes Ativos</span><span>♙</span>
+        </div>
+        <strong style="font-size:1.8rem; color:#fff; display:block; margin:0.4rem 0 0.2rem;">12.480</strong>
+        <span style="font-size:0.7rem; color:#6aebb0; font-weight:800;">↗ +18,6% vs. período anterior</span>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#121e32,#0c1422); border:1px solid #263b5a; padding:1.1rem; border-radius:14px; position:relative; overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; color:#9badc8; font-size:0.72rem;">
+          <span>Engajamento Semanal</span><span style="color:#54e2d0;">⚡</span>
+        </div>
+        <strong style="font-size:1.8rem; color:#54e2d0; display:block; margin:0.4rem 0 0.2rem;">68,4%</strong>
+        <span style="font-size:0.7rem; color:#6aebb0; font-weight:800;">↗ +6,2 p.p. em 30 dias</span>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#121e32,#0c1422); border:1px solid #263b5a; padding:1.1rem; border-radius:14px; position:relative; overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; color:#9badc8; font-size:0.72rem;">
+          <span>Patrimônios Ativos</span><span style="color:#6aebb0;">◇</span>
+        </div>
+        <strong style="font-size:1.8rem; color:#6aebb0; display:block; margin:0.4rem 0 0.2rem;">8.936</strong>
+        <span style="font-size:0.7rem; color:#6aebb0; font-weight:800;">↗ +14,2% com novas evidências</span>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#121e32,#0c1422); border:1px solid #263b5a; padding:1.1rem; border-radius:14px; position:relative; overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; color:#9badc8; font-size:0.72rem;">
+          <span>Receita Recorrente (MRR)</span><span style="color:#ffbd68;">$</span>
+        </div>
+        <strong style="font-size:1.8rem; color:#ffbd68; display:block; margin:0.4rem 0 0.2rem;">R$ 184,7k</strong>
+        <span style="font-size:0.7rem; color:#6aebb0; font-weight:800;">↗ +21,8% crescimento líquido</span>
+      </div>
+    </div>
+
+    <!-- Gráficos: Rede em Movimento (SVG) + Composição da Rede (Donut) -->
+    <div style="display:grid; grid-template-columns:1.4fr 0.9fr; gap:1rem; margin-bottom:1.2rem;">
+      <!-- Gráfico SVG: Curva de Ações e Validações -->
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:16px; padding:1.2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="margin:0; font-size:0.95rem; color:#fff;">Rede em Movimento</h3>
+            <p style="margin:0.2rem 0 0; color:#8194b3; font-size:0.72rem;">Atividade, evidências e validações nos últimos 30 dias</p>
+          </div>
+          <div style="display:flex; gap:0.8rem; font-size:0.72rem; color:#9badc8;">
+            <span><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#54e2d0; margin-right:4px;"></i>Ações</span>
+            <span><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#ba8cff; margin-right:4px;"></i>Validações</span>
+          </div>
+        </div>
+        
+        <svg viewBox="0 0 720 180" style="width:100%; height:180px; display:block;" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="ownerAreaCyan" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#54e2d0" stop-opacity=".3"/>
+              <stop offset="1" stop-color="#54e2d0" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="ownerAreaPurple" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#ba8cff" stop-opacity=".25"/>
+              <stop offset="1" stop-color="#ba8cff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 25H720M0 75H720M0 125H720M0 165H720" stroke="#1f2d45" stroke-width="1"/>
+          <path d="M0 150 L60 140 L120 145 L180 115 L240 125 L300 95 L360 105 L420 70 L480 80 L540 55 L600 65 L660 30 L720 40 L720 180 L0 180Z" fill="url(#ownerAreaCyan)"/>
+          <path d="M0 165 L60 155 L120 160 L180 145 L240 140 L300 125 L360 130 L420 110 L480 115 L540 95 L600 100 L660 75 L720 68 L720 180 L0 180Z" fill="url(#ownerAreaPurple)"/>
+          <path d="M0 150 L60 140 L120 145 L180 115 L240 125 L300 95 L360 105 L420 70 L480 80 L540 55 L600 65 L660 30 L720 40" fill="none" stroke="#54e2d0" stroke-width="3" stroke-linecap="round"/>
+          <path d="M0 165 L60 155 L120 160 L180 145 L240 140 L300 125 L360 130 L420 110 L480 115 L540 95 L600 100 L660 75 L720 68" fill="none" stroke="#ba8cff" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+
+        <div style="background:#102636; border-left:3px solid #54e2d0; padding:0.6rem 0.8rem; border-radius:8px; font-size:0.73rem; color:#9fc4cf; margin-top:0.6rem;">
+          <strong style="color:#d9fff6;">Leitura Estratégica:</strong> Validações cresceram 12,4% após o novo modelo de sub-páginas e roteamento. O foco atual é converter ações de check-in em evidências completas com validação legítima.
+        </div>
+      </div>
+
+      <!-- Donut: Composição da Rede -->
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:16px; padding:1.2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="margin:0; font-size:0.95rem; color:#fff;">Composição da Rede</h3>
+            <p style="margin:0.2rem 0 0; color:#8194b3; font-size:0.72rem;">Distribuição por tipo de identidade</p>
+          </div>
+          <span style="font-size:0.7rem; color:#6d7cff; background:rgba(109,124,255,0.15); padding:0.2rem 0.5rem; border-radius:99px; font-weight:800;">12.480 total</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:1.2rem; margin-bottom:1rem;">
+          <!-- Donut CSS Conic -->
+          <div style="width:110px; height:110px; border-radius:50%; background:conic-gradient(#6d7cff 0% 52%, #54e2d0 52% 77%, #ffbd68 77% 91%, #ba8cff 91% 100%); display:grid; place-items:center; position:relative; flex-shrink:0;">
+            <div class="donut-hole" style="width:68px; height:68px; border-radius:50%; background:#0f1a2a; border:1px solid #273d5a; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              <strong style="font-size:1.1rem; color:#fff;">12,4k</strong>
+              <span style="font-size:0.55rem; color:#8195b2;">identidades</span>
+            </div>
+          </div>
+
+          <div style="flex:1; display:flex; flex-direction:column; gap:0.4rem; font-size:0.75rem;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🔵 Pessoas</span><strong style="color:#fff;">52% (6.490)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟢 Organizações</span><strong style="color:#fff;">25% (3.120)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟡 Comunidades</span><strong style="color:#fff;">14% (1.745)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟣 Equipes</span><strong style="color:#fff;">9% (1.125)</strong></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; text-align:center; font-size:0.72rem; border-top:1px solid rgba(255,255,255,0.08); padding-top:0.6rem;">
+          <div><span style="color:#8295b4;">Novos 30d</span><strong style="display:block; color:#fff; font-size:0.95rem;">+1.954</strong></div>
+          <div><span style="color:#8295b4;">Retenção D30</span><strong style="display:block; color:#6aebb0; font-size:0.95rem;">74,2%</strong></div>
+          <div><span style="color:#8295b4;">Convites Ativos</span><strong style="display:block; color:#ffbd68; font-size:0.95rem;">2.306</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Cards: Atividade Recente + Funil de Confiança + Saúde Operacional -->
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;">
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Atividade Recente</h4>
+        <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.72rem;">
+          <div style="border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:0.4rem;">
+            <strong style="color:#d9fff6;">Lucas Mendes</strong> concluiu um desafio de liderança.
+            <span style="display:block; color:#7487a4; font-size:0.65rem;">há 2 min</span>
+          </div>
+          <div style="border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:0.4rem;">
+            <strong style="color:#54e2d0;">Instituto Horizonte</strong> publicou nova jornada de impacto.
+            <span style="display:block; color:#7487a4; font-size:0.65rem;">há 18 min</span>
+          </div>
+          <div>
+            <strong style="color:#ba8cff;">Comunidade Makers</strong> recebeu 3 novas validações.
+            <span style="display:block; color:#7487a4; font-size:0.65rem;">há 41 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Funil de Confiança</h4>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.72rem;">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.2rem;">
+              <span style="color:#9eb0c9;">1. Ações registradas</span><strong style="color:#fff;">18.240</strong>
+            </div>
+            <div style="height:5px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:100%; height:100%; background:#6d7cff;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.2rem;">
+              <span style="color:#9eb0c9;">2. Evidências enviadas</span><strong style="color:#fff;">13.130</strong>
+            </div>
+            <div style="height:5px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:72%; height:100%; background:#54e2d0;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.2rem;">
+              <span style="color:#9eb0c9;">3. Validações legítimas</span><strong style="color:#fff;">9.842</strong>
+            </div>
+            <div style="height:5px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:54%; height:100%; background:#6aebb0;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Saúde Operacional</h4>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.75rem;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟢 Serviços essenciais</span><strong style="color:#6aebb0;">99,98%</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟢 Validação no SLA</span><strong style="color:#6aebb0;">94,6%</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🟡 Contas em revisão</span><strong style="color:#ffbd68;">87</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">🔴 Casos de governança</span><strong style="color:#ff7b91;">4</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. ENGAJAMENTO                             -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-engagement" style="display:none;">
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.8rem; margin-bottom:1.2rem;">
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">DAU / MAU</span>
+        <strong style="font-size:1.5rem; color:#54e2d0; display:block;">42,8%</strong>
+        <small style="color:#6aebb0;">↗ +4,1 p.p. vs meta</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Check-ins no Mês</span>
+        <strong style="font-size:1.5rem; color:#fff; display:block;">24.860</strong>
+        <small style="color:#6aebb0;">↗ +17,3% mensal</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Conclusão de Jornada</span>
+        <strong style="font-size:1.5rem; color:#6aebb0; display:block;">36,7%</strong>
+        <small style="color:#6aebb0;">↗ +8,4 p.p. em 90d</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Tempo até 1ª Evidência</span>
+        <strong style="font-size:1.5rem; color:#ffbd68; display:block;">4,8 dias</strong>
+        <small style="color:#6aebb0;">↓ 1,2 dia de melhora</small>
+      </div>
+    </div>
+
+    <!-- Atividade por Etapa & Retenção por Cohort -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem;">
+        <h4 style="margin:0 0 0.8rem; font-size:0.9rem; color:#fff;">Funil de Atividade por Etapa</h4>
+        <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.75rem;">
+          <div style="display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:8px;">
+            <span>Onboarding concluído</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:86%; height:100%; background:#6d7cff;"></div></div>
+            <strong style="color:#fff;">86%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:8px;">
+            <span>1º desafio assumido</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:68%; height:100%; background:#6d7cff;"></div></div>
+            <strong style="color:#fff;">68%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:8px;">
+            <span>1º check-in realizado</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:57%; height:100%; background:#6d7cff;"></div></div>
+            <strong style="color:#fff;">57%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:8px;">
+            <span>Evidência enviada</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:49%; height:100%; background:#6aebb0;"></div></div>
+            <strong style="color:#fff;">49%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:8px;">
+            <span>Validação recebida</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:37%; height:100%; background:#6aebb0;"></div></div>
+            <strong style="color:#fff;">37%</strong>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem;">
+        <h4 style="margin:0 0 0.8rem; font-size:0.9rem; color:#fff;">Retenção Mensal por Coorte (Cohort)</h4>
+        <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.75rem;">
+          <div style="display:grid; grid-template-columns:100px 1fr 40px; align-items:center; gap:8px;">
+            <span>Março 2026</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:82%; height:100%; background:#6aebb0;"></div></div>
+            <strong style="color:#fff;">82%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:100px 1fr 40px; align-items:center; gap:8px;">
+            <span>Abril 2026</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:78%; height:100%; background:#6aebb0;"></div></div>
+            <strong style="color:#fff;">78%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:100px 1fr 40px; align-items:center; gap:8px;">
+            <span>Maio 2026</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:74%; height:100%; background:#6d7cff;"></div></div>
+            <strong style="color:#fff;">74%</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:100px 1fr 40px; align-items:center; gap:8px;">
+            <span>Junho 2026</span>
+            <div style="height:7px; background:#1b2a42; border-radius:99px; overflow:hidden;"><div style="width:69%; height:100%; background:#ffbd68;"></div></div>
+            <strong style="color:#fff;">69%</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. PATRIMÔNIOS                             -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-patrimonies" style="display:none;">
+    <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem; margin-bottom:1rem;">
+      <h4 style="margin:0 0 0.8rem; font-size:0.9rem; color:#fff;">Maturidade dos Patrimônios de Confiança</h4>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.8rem; text-align:center;">
+        <div style="background:#091529; border:1px solid #203a63; padding:0.8rem; border-radius:10px;">
+          <span style="font-size:0.7rem; color:#8fa1bf;">Em Construção</span>
+          <strong style="font-size:1.3rem; color:#6d7cff; display:block;">44%</strong>
+          <small style="color:#8fa1bf;">4.120 contas</small>
+        </div>
+        <div style="background:#091529; border:1px solid #203a63; padding:0.8rem; border-radius:10px;">
+          <span style="font-size:0.7rem; color:#8fa1bf;">Com Evidências</span>
+          <strong style="font-size:1.3rem; color:#54e2d0; display:block;">31%</strong>
+          <small style="color:#8fa1bf;">2.900 contas</small>
+        </div>
+        <div style="background:#091529; border:1px solid #203a63; padding:0.8rem; border-radius:10px;">
+          <span style="font-size:0.7rem; color:#8fa1bf;">Com Validações</span>
+          <strong style="font-size:1.3rem; color:#6aebb0; display:block;">19%</strong>
+          <small style="color:#8fa1bf;">1.780 contas</small>
+        </div>
+        <div style="background:#091529; border:1px solid #203a63; padding:0.8rem; border-radius:10px;">
+          <span style="font-size:0.7rem; color:#8fa1bf;">Patrimônio Avançado</span>
+          <strong style="font-size:1.3rem; color:#ffbd68; display:block;">6%</strong>
+          <small style="color:#8fa1bf;">560 contas</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de Patrimônios com Busca -->
+    <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+        <h4 style="margin:0; font-size:0.9rem; color:#fff;">Acompanhamento Operacional de Patrimônios</h4>
+        <input type="text" id="owner-search-patrimony" placeholder="Buscar patrimônio ou ID..." oninput="filterOwnerTable('patrimony', this.value)" style="padding:0.4rem 0.8rem; background:#0c1626; border:1px solid #243650; color:#fff; border-radius:8px; font-size:0.75rem; width:220px;">
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.75rem; text-align:left;" id="owner-tbl-patrimony">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#8fa1bf;">
+            <th style="padding:0.5rem;">IDENTIDADE</th>
+            <th style="padding:0.5rem;">TIPO</th>
+            <th style="padding:0.5rem;">EVIDÊNCIAS</th>
+            <th style="padding:0.5rem;">VALIDAÇÕES</th>
+            <th style="padding:0.5rem;">MATURIDADE</th>
+            <th style="padding:0.5rem;">ÚLTIMA ATIVIDADE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Lucas Mendes (CU-00842)</td>
+            <td style="padding:0.5rem; color:#d1d5db;">Pessoa</td>
+            <td style="padding:0.5rem;">18 fontes</td>
+            <td style="padding:0.5rem; color:#6aebb0; font-weight:800;">12</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(106,235,176,0.15); color:#6aebb0; padding:0.15rem 0.5rem; border-radius:99px;">Avançado</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">há 2 min</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Instituto Horizonte (OR-00193)</td>
+            <td style="padding:0.5rem; color:#d1d5db;">Organização</td>
+            <td style="padding:0.5rem;">42 fontes</td>
+            <td style="padding:0.5rem; color:#6aebb0; font-weight:800;">28</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(84,226,208,0.15); color:#54e2d0; padding:0.15rem 0.5rem; border-radius:99px;">Consolidado</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">há 18 min</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Comunidade Makers (CO-00071)</td>
+            <td style="padding:0.5rem; color:#d1d5db;">Comunidade</td>
+            <td style="padding:0.5rem;">67 fontes</td>
+            <td style="padding:0.5rem; color:#6aebb0; font-weight:800;">45</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(106,235,176,0.15); color:#6aebb0; padding:0.15rem 0.5rem; border-radius:99px;">Avançado</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">há 41 min</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 4. PARTICIPANTES                           -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-participants" style="display:none;">
+    <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+        <h4 style="margin:0; font-size:0.9rem; color:#fff;">Base de Participantes & Contas da Rede</h4>
+        <input type="text" id="owner-search-participants" placeholder="Buscar por nome, e-mail ou ID..." oninput="filterOwnerTable('participants', this.value)" style="padding:0.4rem 0.8rem; background:#0c1626; border:1px solid #243650; color:#fff; border-radius:8px; font-size:0.75rem; width:220px;">
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.75rem; text-align:left;" id="owner-tbl-participants">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#8fa1bf;">
+            <th style="padding:0.5rem;">PARTICIPANTE</th>
+            <th style="padding:0.5rem;">TIPO</th>
+            <th style="padding:0.5rem;">PLANO</th>
+            <th style="padding:0.5rem;">ENGAJAMENTO</th>
+            <th style="padding:0.5rem;">STATUS</th>
+            <th style="padding:0.5rem;">ÚLTIMO ACESSO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Lucas Mendes (lucas@demo.com)</td>
+            <td style="padding:0.5rem;">Pessoa</td>
+            <td style="padding:0.5rem;"><span style="color:#9eb0c9;">Free</span></td>
+            <td style="padding:0.5rem; color:#6aebb0; font-weight:800;">82%</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(16,185,129,0.2); color:#10b981; padding:0.15rem 0.5rem; border-radius:99px;">Ativo</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">agora</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Instituto Horizonte (admin@horizonte.org)</td>
+            <td style="padding:0.5rem;">Organização</td>
+            <td style="padding:0.5rem;"><span style="color:#54e2d0;">Growth</span></td>
+            <td style="padding:0.5rem; color:#6aebb0; font-weight:800;">76%</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(16,185,129,0.2); color:#10b981; padding:0.15rem 0.5rem; border-radius:99px;">Ativo</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">há 18 min</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; font-weight:700; color:#fff;">Ateliê Semente (contato@semente.art)</td>
+            <td style="padding:0.5rem;">Organização</td>
+            <td style="padding:0.5rem;"><span style="color:#ffbd68;">Starter</span></td>
+            <td style="padding:0.5rem; color:#ffbd68; font-weight:800;">38%</td>
+            <td style="padding:0.5rem;"><span style="background:rgba(245,158,11,0.2); color:#f59e0b; padding:0.15rem 0.5rem; border-radius:99px;">Em Revisão</span></td>
+            <td style="padding:0.5rem; color:#8fa1bf;">há 3 dias</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 5. DESAFIOS                                -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-challenges" style="display:none;">
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.8rem; margin-bottom:1.2rem;">
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Desafios Publicados</span>
+        <strong style="font-size:1.5rem; color:#54e2d0; display:block;">1.286</strong>
+        <small style="color:#6aebb0;">↗ +23,4% no trimestre</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Taxa de Adesão</span>
+        <strong style="font-size:1.5rem; color:#fff; display:block;">64,8%</strong>
+        <small style="color:#6aebb0;">↗ +5,9 p.p. em 30d</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Conclusão Média</span>
+        <strong style="font-size:1.5rem; color:#6aebb0; display:block;">48,2%</strong>
+        <small style="color:#6aebb0;">↗ +7,1 p.p. em 90d</small>
+      </div>
+      <div style="background:#0c172a; border:1px solid #20334f; padding:0.9rem; border-radius:12px;">
+        <span style="font-size:0.7rem; color:#8fa1bf;">Prêmios em Custódia</span>
+        <strong style="font-size:1.5rem; color:#ffbd68; display:block;">R$ 86,3k</strong>
+        <small style="color:#ffbd68;">🔒 camada financeira</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 6. RENTABILIZAÇÃO                          -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-finance" style="display:none;">
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-bottom:1.2rem;">
+      <div style="background:linear-gradient(145deg,#13243a,#0b1726); border:1px solid #477e76; padding:1.2rem; border-radius:14px;">
+        <span style="font-size:0.7rem; color:#91a4c0;">Receita Recorrente Mensal (MRR)</span>
+        <strong style="font-size:1.8rem; color:#fff; display:block; margin:0.3rem 0;">R$ 184,7k</strong>
+        <small style="color:#6aebb0;">↗ +21,8% vs mês anterior</small>
+      </div>
+      <div style="background:linear-gradient(145deg,#13243a,#0b1726); border:1px solid #2c4261; padding:1.2rem; border-radius:14px;">
+        <span style="font-size:0.7rem; color:#91a4c0;">Receita Líquida no Mês</span>
+        <strong style="font-size:1.8rem; color:#54e2d0; display:block; margin:0.3rem 0;">R$ 221,4k</strong>
+        <small style="color:#6aebb0;">↗ margem líquida 72,6%</small>
+      </div>
+      <div style="background:linear-gradient(145deg,#13243a,#0b1726); border:1px solid #2c4261; padding:1.2rem; border-radius:14px;">
+        <span style="font-size:0.7rem; color:#91a4c0;">Valor Total em Custódia</span>
+        <strong style="font-size:1.8rem; color:#ffbd68; display:block; margin:0.3rem 0;">R$ 86,3k</strong>
+        <small style="color:#ffbd68;">● R$ 42,8k liberáveis</small>
+      </div>
+    </div>
+
+    <!-- Unit Economics -->
+    <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1.2rem;">
+      <h4 style="margin:0 0 0.8rem; font-size:0.9rem; color:#fff;">Unit Economics da Plataforma</h4>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; text-align:center;">
+        <div><span style="color:#8fa1bf; font-size:0.7rem;">CAC Blended</span><strong style="display:block; color:#fff; font-size:1.1rem;">R$ 84,20</strong></div>
+        <div><span style="color:#8fa1bf; font-size:0.7rem;">LTV Médio</span><strong style="display:block; color:#6aebb0; font-size:1.1rem;">R$ 1.482</strong></div>
+        <div><span style="color:#8fa1bf; font-size:0.7rem;">Payback</span><strong style="display:block; color:#54e2d0; font-size:1.1rem;">2,7 meses</strong></div>
+        <div><span style="color:#8fa1bf; font-size:0.7rem;">LTV / CAC</span><strong style="display:block; color:#ffbd68; font-size:1.1rem;">17,6x</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 7. GOVERNANÇA                              -->
+  <!-- ========================================== -->
+  <div class="owner-view-pane" id="owner-view-governance" style="display:none;">
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;">
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Casos para Revisão</h4>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.75rem;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Conflito de validação</span><strong style="color:#fff;">2</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Pedido de remoção</span><strong style="color:#fff;">9</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Custódia contestada</span><strong style="color:#ffbd68;">3</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Abuso de convites</span><strong style="color:#ff7b91;">6</strong></div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Integridade Financeira</h4>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.75rem;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Prêmios com Ledger</span><strong style="color:#6aebb0;">100%</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Taxas explicitadas</span><strong style="color:#6aebb0;">100%</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Reputação paga</span><strong style="color:#6aebb0;">0%</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Auditorias pendentes</span><strong style="color:#54e2d0;">2</strong></div>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(145deg,#111c2e,#0b1422); border:1px solid #253a59; border-radius:14px; padding:1rem;">
+        <h4 style="margin:0 0 0.6rem; font-size:0.85rem; color:#fff;">Controles de Acesso</h4>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.75rem;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Administradores</span><strong style="color:#fff;">6</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Analistas</span><strong style="color:#fff;">14</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Auditores Externos</span><strong style="color:#fff;">3</strong></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:#9eb0c9;">Última revisão</span><strong style="color:#54e2d0;">há 6 dias</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchOwnerView(viewKey) {
+  const views = ['overview', 'engagement', 'patrimonies', 'participants', 'challenges', 'finance', 'governance'];
+  views.forEach(v => {
+    const pane = document.getElementById('owner-view-' + v);
+    const tab = document.getElementById('tab-owner-view-' + v) || document.getElementById('tab-owner-' + v);
+    if (pane) pane.style.display = (v === viewKey) ? 'block' : 'none';
+    if (tab) {
+      if (v === viewKey) {
+        tab.classList.add('active');
+        tab.style.fontWeight = '800';
+      } else {
+        tab.classList.remove('active');
+        tab.style.fontWeight = 'normal';
+      }
+    }
+  });
+}
+window.switchOwnerView = switchOwnerView;
+
+function exportOwnerReport() {
+  const content = `CumpreAi OS v2 - Relatório de Governança dos Proprietários
+Gerado em: ${new Date().toLocaleString('pt-BR')}
+Receita Recorrente (MRR): R$ 184,7k
+Participantes Ativos: 12.480
+Patrimônios Ativos: 8.936
+Engajamento Semanal: 68,4%
+Custódia Total: R$ 86,3k
+LTV / CAC: 17,6x
+Integridade: 100% dos prêmios em Ledger | 0% influência de pagamento em reputação`;
+  
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `cumpreai-relatorio-proprietarios-${Date.now()}.txt`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 500);
+}
+window.exportOwnerReport = exportOwnerReport;
+
+function filterOwnerTable(type, query) {
+  const table = document.getElementById('owner-tbl-' + type);
+  if (!table) return;
+  const q = (query || '').toLowerCase().trim();
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(tr => {
+    const text = tr.textContent.toLowerCase();
+    tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+}
+window.filterOwnerTable = filterOwnerTable;
+</script>

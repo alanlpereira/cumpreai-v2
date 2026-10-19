@@ -1220,7 +1220,38 @@ function selectEvidenceType(type) {
   document.getElementById("evidence-url").placeholder = placeholders[type];
 }
 
-// Submit Evidence logic
+// Dual Evidence Origin Handling (Jornada vs Legado anterior)
+function toggleEvidenceSource() {
+  const select = document.getElementById("evidenceSource");
+  const isLegacy = select && select.value === "legacy";
+  const challengeWrap = document.getElementById("evidence-challenge-wrap");
+  const legacyWrap = document.getElementById("evidence-legacy-wrap");
+  const note = document.getElementById("evidence-origin-note");
+
+  if (challengeWrap) challengeWrap.style.display = isLegacy ? "none" : "block";
+  if (legacyWrap) legacyWrap.style.display = isLegacy ? "block" : "none";
+  if (note) {
+    note.innerHTML = isLegacy 
+      ? '<strong style="color:#ffd481;">🛡️ Evidência de Legado:</strong> Evidência histórica do seu Legado anterior. Só contará no Score contextual após validação de terceiros; a narrativa sozinha não gera pontuação. Contribuição máxima limitada a 10%.'
+      : 'Evidência produzida em uma Jornada. A Jornada é o eixo principal e mantém o maior peso (45%) no Score contextual.';
+  }
+}
+
+function openLegacyEvidenceSubmission() {
+  const select = document.getElementById("evidenceSource");
+  if (select) {
+    select.value = "legacy";
+    toggleEvidenceSource();
+  }
+  const screenElem = document.getElementById("screen-submit");
+  if (typeof showScreen === "function" && screenElem) {
+    showScreen(screenElem);
+  }
+}
+window.openLegacyEvidenceSubmission = openLegacyEvidenceSubmission;
+window.toggleEvidenceSource = toggleEvidenceSource;
+
+// Submit Evidence logic with Dual Origin (Journey vs Legacy)
 async function submitEvidence() {
   const url = document.getElementById("evidence-url").value;
   if (!url) {
@@ -1228,7 +1259,12 @@ async function submitEvidence() {
     return;
   }
   
-  logSystem(`Submitting evidence for commitment ${currentActiveCommitmentId}: ${url} (${activeEvidenceType})`);
+  const selectSource = document.getElementById("evidenceSource");
+  const source = selectSource ? selectSource.value : "journey";
+  const legacyTitleInput = document.getElementById("evidence-legacy-title");
+  const legacyTitle = (legacyTitleInput && legacyTitleInput.value.trim()) ? legacyTitleInput.value.trim() : "Evidência Histórica de Legado";
+  
+  logSystem(`Submitting evidence [Origin: ${source.toUpperCase()}] for commitment ${currentActiveCommitmentId}: ${url} (${activeEvidenceType})`);
   
   if (emulatorMode) {
     try {
@@ -1241,7 +1277,9 @@ async function submitEvidence() {
           data: {
             commitmentId: currentActiveCommitmentId,
             type: activeEvidenceType,
-            url: url
+            url: url,
+            source: source,
+            legacyTitle: source === "legacy" ? legacyTitle : null
           }
         })
       });
@@ -1256,44 +1294,43 @@ async function submitEvidence() {
           type: evBackend.type,
           url: evBackend.url,
           status: evBackend.status,
+          source: source,
+          legacyTitle: source === "legacy" ? legacyTitle : null,
           createdAt: evBackend.createdAt
         });
-        writeLedger("EVIDENCE_SUBMITTED", "evidence", evBackend.id, `URL: ${url}`);
+        writeLedger("EVIDENCE_SUBMITTED", "evidence", evBackend.id, `URL: ${url} | Origin: ${source.toUpperCase()}`);
         logSystem(`Success: Evidence written to Emulator DB! ID: ${evBackend.id}`);
         
-        // 2. Update Commitment function to 100% completion
-        logSystem("Triggering Callable Cloud Function: updateCommitment (100% progress)...");
-        const compResponse = await fetch("http://localhost:5001/cumpreai-mvp/us-central1/updateCommitment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            data: {
-              commitmentId: currentActiveCommitmentId,
-              progress: 100
+        // 2. Update Commitment function to 100% completion if journey
+        if (source === "journey") {
+          logSystem("Triggering Callable Cloud Function: updateCommitment (100% progress)...");
+          const compResponse = await fetch("http://localhost:5001/cumpreai-mvp/us-central1/updateCommitment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              data: {
+                commitmentId: currentActiveCommitmentId,
+                progress: 100
+              }
+            })
+          });
+          const compResData = await compResponse.json();
+          
+          if (compResData.result && compResData.result.success) {
+            const commitBackend = compResData.result.data;
+            const localCommit = state.commitments.find(c => c.id === currentActiveCommitmentId);
+            if (localCommit) {
+              localCommit.progress = 100;
+              localCommit.status = "completed";
+              localCommit.completedAt = commitBackend.completedAt;
             }
-          })
-        });
-        const compResData = await compResponse.json();
-        
-        if (compResData.result && compResData.result.success) {
-          const commitBackend = compResData.result.data;
-          
-          // Update local state
-          const localCommit = state.commitments.find(c => c.id === currentActiveCommitmentId);
-          if (localCommit) {
-            localCommit.progress = 100;
-            localCommit.status = "completed";
-            localCommit.completedAt = commitBackend.completedAt;
+            writeLedger("COMMITMENT_UPDATED", "commitment", currentActiveCommitmentId, "Progress: 100% [Completed]");
+            logSystem(`Success: Commitment set to 100% in Emulator!`);
           }
-          
-          writeLedger("COMMITMENT_UPDATED", "commitment", currentActiveCommitmentId, "Progress: 100% [Completed]");
-          logSystem(`Success: Commitment set to 100% in Emulator!`);
-          
-          // Trigger Recognition UI
-          triggerRecognition();
-        } else {
-          logSystem(`Update commitment failed in emulator: ${JSON.stringify(compResData.error)}`);
         }
+        
+        // Trigger Recognition UI
+        triggerRecognition();
       } else {
         logSystem(`Submit evidence failed in emulator: ${JSON.stringify(evResData.error)}`);
       }
@@ -1304,11 +1341,14 @@ async function submitEvidence() {
   } else {
     // Local Simulation with Gemini AI Oracle Audit
     const commit = state.commitments.find(c => c.id === currentActiveCommitmentId);
-    const title = commit ? commit.title : "Compromisso Baseline";
+    const title = source === "legacy" ? legacyTitle : (commit ? commit.title : "Compromisso Baseline");
     
     // Gemini AI Oracle Score Heuristic Calculation
     let score = 95;
-    let notes = `Oráculo Gemini API: Evidência de tipo [${activeEvidenceType.toUpperCase()}] auditada com sucesso. Link verificado. Compatibilidade semântica com "${title}": 95%.`;
+    let notes = source === "legacy" 
+      ? `Oráculo Gemini API: Evidência de Legado anterior auditada. Acontecimento "${title}" verificado com sucesso. Contribuição de até 10% creditada ao Patrimônio.`
+      : `Oráculo Gemini API: Evidência de Jornada atual [${activeEvidenceType.toUpperCase()}] auditada com sucesso. Link verificado. Compatibilidade semântica com "${title}": 95%.`;
+      
     if (!url.toLowerCase().includes("http") && !url.toLowerCase().includes("github")) {
       score = 65;
       notes = `Oráculo Gemini API: Evidência requer auditoria complementar. Compatibilidade: 65%.`;
@@ -1319,9 +1359,12 @@ async function submitEvidence() {
     const newEvidence = {
       id: "ev_" + Math.random().toString(36).substr(2, 9),
       ownerId: state.member.id,
-      commitmentId: currentActiveCommitmentId,
+      commitmentId: source === "legacy" ? "legacy_record" : currentActiveCommitmentId,
       type: activeEvidenceType,
       url: url,
+      source: source,
+      evidenceType: source === "legacy" ? "legacy" : "journey",
+      legacyTitle: source === "legacy" ? legacyTitle : null,
       status: aiValidated ? "validated" : "reviewing",
       aiValidated: aiValidated,
       aiConfidenceScore: score,
@@ -1330,10 +1373,10 @@ async function submitEvidence() {
     };
     
     state.evidences.push(newEvidence);
-    writeLedger("EVIDENCE_SUBMITTED", "evidence", newEvidence.id, `Type: ${activeEvidenceType} | Gemini Score: ${score}%`);
-    logSystem(`GEMINI ORACLE: Evidence audited. Score: ${score}% | Validated: ${aiValidated}`);
+    writeLedger("EVIDENCE_SUBMITTED", "evidence", newEvidence.id, `Type: ${activeEvidenceType} | Origin: ${source.toUpperCase()} | Score: ${score}%`);
+    logSystem(`GEMINI ORACLE: Evidence audited. Origin: ${source} | Score: ${score}% | Validated: ${aiValidated}`);
 
-    if (commit) {
+    if (commit && source === "journey") {
       commit.progress = 100;
       commit.status = aiValidated ? "completed" : "reviewing";
       commit.completedAt = new Date().toISOString();

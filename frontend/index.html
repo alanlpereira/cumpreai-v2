@@ -1107,10 +1107,32 @@
                 <button class="back-btn" onclick="showScreen(screenHome)">←</button>
                 <h2>Comprovar Progresso</h2>
               </div>
-              
-              <div class="detail-card">
-                <div class="detail-label">Compromisso</div>
-                <div class="detail-title" id="evidence-commit-title">Título do Compromisso</div>
+
+              <!-- Seletor de Origem: Jornada vs Legado -->
+              <div class="form-group" style="margin-bottom:0.75rem;">
+                <label for="evidenceSource" style="font-size:0.75rem; color:#a78bfa; font-weight:700;">Origem da Evidência</label>
+                <select id="evidenceSource" onchange="toggleEvidenceSource()" style="width:100%; padding:0.5rem; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff; font-size:0.8rem;">
+                  <option value="journey">Jornada atual (Eixo Principal - peso 45%)</option>
+                  <option value="legacy">Legado anterior ao CumpreAi (Histórico - até 10%)</option>
+                </select>
+              </div>
+
+              <div id="evidence-challenge-wrap">
+                <div class="detail-card">
+                  <div class="detail-label">Compromisso da Jornada</div>
+                  <div class="detail-title" id="evidence-commit-title">Título do Compromisso</div>
+                </div>
+              </div>
+
+              <div id="evidence-legacy-wrap" style="display:none;">
+                <div class="detail-card" style="border-color:#ffd481; background:rgba(255,212,129,0.06);">
+                  <div class="detail-label" style="color:#ffd481;">Acontecimento Histórico de Legado</div>
+                  <input type="text" id="evidence-legacy-title" placeholder="Ex: Liderança técnica de projeto anterior ou artigo publicado" style="width:100%; background:transparent; border:none; border-bottom:1px solid #795c25; color:#fff; font-size:0.85rem; padding:0.3rem 0; outline:none; margin-top:0.3rem;">
+                </div>
+              </div>
+
+              <div class="finance-note" id="evidence-origin-note" style="margin-bottom:0.75rem; font-size:0.72rem; padding:0.5rem 0.75rem;">
+                Evidência produzida em uma Jornada. A Jornada tem o maior peso (45%) no Score contextual.
               </div>
               
               <p class="evidence-desc">Selecione o tipo de evidência único para comprovar a realização do seu compromisso:</p>
@@ -1306,6 +1328,11 @@
                   <button class="opp-apply-btn" onclick="buyMarketItem('Selo Auditor', 500)">Resgatar</button>
                 </div>
               </div>
+            </div>
+
+            <!-- 12. Dynamic Sub-Page Screen -->
+            <div class="app-screen" id="screen-subpage" style="padding-bottom: 2rem;">
+              <div id="page-content-container"></div>
             </div>
           </div>
           

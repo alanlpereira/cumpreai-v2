@@ -1,10 +1,11 @@
 <div class="genesis-module-content active" id="gen-mod-6">
   <!-- Role Switcher Header Bar -->
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; background:rgba(15,23,42,0.8); padding:0.6rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(10px);">
-    <div style="display:flex; gap:0.6rem; align-items:center;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; background:rgba(15,23,42,0.8); padding:0.6rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(10px); flex-wrap:wrap; gap:8px;">
+    <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
       <span style="font-weight:800; font-size:0.8rem; color:#a78bfa;">💻 VISÃO DE GESTÃO EXECUTIVA:</span>
       <button class="nav-module-btn active" id="btn-view-master" style="padding:0.35rem 0.8rem; font-size:0.75rem; border-color:#10b981; color:#10b981;" onclick="toggleDashboardRoleView('master')">👑 Master User (Plataforma Global)</button>
       <button class="nav-module-btn" id="btn-view-org" style="padding:0.35rem 0.8rem; font-size:0.75rem; border-color:#3b82f6; color:#3b82f6;" onclick="toggleDashboardRoleView('org')">🏢 Gestor de Organização (Camelot DAO)</button>
+      <button class="nav-module-btn" id="btn-view-owners" style="padding:0.35rem 0.8rem; font-size:0.75rem; border-color:#ffd481; color:#ffd481; background:rgba(255,212,129,0.1);" onclick="if(window.router) window.router.navigate('/gestao/proprietarios')">👑 Console dos Proprietários</button>
     </div>
     <div style="display:flex; gap:0.5rem;">
       <button class="btn-primary" style="padding:0.35rem 0.75rem; font-size:0.75rem; background:linear-gradient(135deg, #10b981, #059669);" onclick="openCreateChallengeModal()">➕ Criar Desafio Executivo</button>

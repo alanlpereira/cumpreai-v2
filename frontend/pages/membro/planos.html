@@ -1,0 +1,226 @@
+<!-- Sub-Página: Planos & Capacidade Operacional · Sustentação de Infraestrutura sem Compra de Confiança -->
+<div class="subpage-container billing-shell" id="subpage-planos" style="padding: 1rem 0;">
+  
+  <!-- Header do Plano -->
+  <div class="billing-hero">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+      <div>
+        <div class="eyebrow" style="color:#54e2d0; font-size:0.75rem; letter-spacing:1.2px; font-weight:900;">CAMADA FINANCEIRA • CAPACIDADE DO SERVIÇO</div>
+        <h2 style="margin:0.4rem 0; font-size:1.5rem; color:#fff;">Seu plano sustenta a operação — não compra confiança.</h2>
+        <p style="margin:0; font-size:0.82rem; color:#b8c7d9;">Use esta área para ampliar armazenamento, jornadas, membros e governança. O Patrimônio de Confiança continua sendo construído apenas por compromissos, evidências, validações e reconhecimentos legítimos.</p>
+      </div>
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <span class="plan-badge" style="background:rgba(84,226,208,0.15); color:#54e2d0; font-weight:800; font-size:0.75rem;">Plano atual: Essencial</span>
+        <button class="btn-secondary" onclick="if(window.router) window.router.navigate('/membro/perfil');" style="padding:0.4rem 0.8rem; font-size:0.75rem;">← Meu Perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nota de Integridade -->
+  <div class="finance-note">
+    <strong style="color:#ffd481;">🛡️ Regra de Integridade do Master Book:</strong>
+    Nenhum plano aumenta reputação, aprova evidências, concede reconhecimento ou altera a ordem de validação. O pagamento libera exclusivamente capacidade operacional, armazenamento e recursos de infraestrutura para indivíduos e organizações.
+  </div>
+
+  <!-- Título dos Planos -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.4rem;">
+    <h3 style="margin:0; font-size:1.1rem; color:#fff;">Escolha a capacidade da sua operação</h3>
+    <span style="font-size:0.75rem; color:#9badc8;">Valores demonstrativos da versão Alpha</span>
+  </div>
+
+  <!-- Grade dos 4 Planos -->
+  <div class="plan-grid">
+    <!-- Plano 1: Essencial -->
+    <div class="plan-card current" id="plan-card-free">
+      <span class="plan-badge" id="plan-badge-free">Plano atual</span>
+      <h3>Essencial</h3>
+      <p style="color:#9badc8; font-size:0.75rem; margin:0.2rem 0;">Para começar a construir sua trajetória.</p>
+      <div class="plan-price">Grátis</div>
+      <ul>
+        <li><strong>1</strong> jornada ativa</li>
+        <li><strong>5</strong> evidências armazenadas</li>
+        <li><strong>1</strong> membro</li>
+        <li><strong>1 GB</strong> de armazenamento</li>
+      </ul>
+      <button class="btn-secondary" id="btn-plan-free" disabled style="opacity:0.7; font-size:0.75rem; width:100%;">Selecionado</button>
+    </div>
+
+    <!-- Plano 2: Individual -->
+    <div class="plan-card" id="plan-card-individual">
+      <span class="plan-badge" id="plan-badge-individual">Disponível</span>
+      <h3>Individual</h3>
+      <p style="color:#9badc8; font-size:0.75rem; margin:0.2rem 0;">Mais espaço para sua evolução pessoal.</p>
+      <div class="plan-price">R$ 19,90<small> / mês</small></div>
+      <ul>
+        <li><strong>5</strong> jornadas ativas</li>
+        <li><strong>50</strong> evidências armazenadas</li>
+        <li><strong>1</strong> membro</li>
+        <li><strong>10 GB</strong> de armazenamento</li>
+      </ul>
+      <button class="btn-primary" id="btn-plan-individual" onclick="selectPlan('individual')" style="font-size:0.75rem; width:100%;">Escolher plano</button>
+    </div>
+
+    <!-- Plano 3: Equipe (Featured) -->
+    <div class="plan-card featured" id="plan-card-team">
+      <span class="plan-badge" id="plan-badge-team" style="background:rgba(139,92,246,0.25); color:#c4b5fd;">★ Mais usado</span>
+      <h3>Equipe</h3>
+      <p style="color:#9badc8; font-size:0.75rem; margin:0.2rem 0;">Governança e colaboração para times.</p>
+      <div class="plan-price">R$ 79,90<small> / mês</small></div>
+      <ul>
+        <li><strong>20</strong> jornadas ativas</li>
+        <li><strong>250</strong> evidências armazenadas</li>
+        <li><strong>10</strong> membros na rede</li>
+        <li><strong>50 GB</strong> de armazenamento</li>
+      </ul>
+      <button class="btn-primary" id="btn-plan-team" onclick="selectPlan('team')" style="font-size:0.75rem; width:100%; background:linear-gradient(135deg,#8b5cf6,#6d28d9);">Escolher plano</button>
+    </div>
+
+    <!-- Plano 4: Organização -->
+    <div class="plan-card" id="plan-card-organization">
+      <span class="plan-badge" id="plan-badge-organization">Disponível</span>
+      <h3>Organização</h3>
+      <p style="color:#9badc8; font-size:0.75rem; margin:0.2rem 0;">Infraestrutura para redes e comunidades.</p>
+      <div class="plan-price">R$ 249,90<small> / mês</small></div>
+      <ul>
+        <li><strong>100</strong> jornadas ativas</li>
+        <li><strong>2.000</strong> evidências armazenadas</li>
+        <li><strong>50</strong> membros na rede</li>
+        <li><strong>200 GB</strong> de armazenamento</li>
+      </ul>
+      <button class="btn-primary" id="btn-plan-organization" onclick="selectPlan('organization')" style="font-size:0.75rem; width:100%;">Escolher plano</button>
+    </div>
+  </div>
+
+  <!-- Grade de Uso e Faturamento -->
+  <div class="finance-grid" style="margin-top:0.6rem;">
+    <!-- Uso Atual -->
+    <div style="background:#111d31; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:1.2rem;" class="plan-card">
+      <div class="eyebrow" style="color:#54e2d0; font-size:0.72rem; letter-spacing:1px; font-weight:800;">USO ATUAL</div>
+      <h3 style="margin:0.2rem 0 0.8rem; font-size:1.1rem; color:#fff;">Capacidade Utilizada</h3>
+      
+      <div class="usage-row">
+        <div class="usage-head"><span>Jornadas</span><b id="usage-journeys">1 / 1</b></div>
+        <div class="usage-bar"><i id="bar-journeys" style="width:100%;"></i></div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-head"><span>Evidências</span><b id="usage-evidence">3 / 5</b></div>
+        <div class="usage-bar"><i id="bar-evidence" style="width:60%;"></i></div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-head"><span>Membros da rede</span><b id="usage-members">1 / 1</b></div>
+        <div class="usage-bar"><i id="bar-members" style="width:100%;"></i></div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-head"><span>Armazenamento</span><b id="usage-storage">0.4 GB / 1 GB</b></div>
+        <div class="usage-bar"><i id="bar-storage" style="width:40%;"></i></div>
+      </div>
+    </div>
+
+    <!-- Faturamento / Resumo -->
+    <div style="background:#111d31; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:1.2rem; display:flex; flex-direction:column; justify-content:space-between;" class="plan-card">
+      <div>
+        <div class="eyebrow" style="color:#ba8cff; font-size:0.72rem; letter-spacing:1px; font-weight:800;">FATURAMENTO</div>
+        <h3 style="margin:0.2rem 0 0.8rem; font-size:1.1rem; color:#fff;">Resumo da Conta</h3>
+        
+        <div class="invoice">
+          <div>
+            <b id="invoice-plan-name" style="color:#fff;">Essencial</b>
+            <small>Recorrência mensal demonstrativa</small>
+          </div>
+          <strong id="invoice-plan-price" style="color:#54e2d0;">Grátis</strong>
+        </div>
+        <div class="invoice">
+          <div>
+            <b style="color:#fff;">Próxima cobrança</b>
+            <small>Ambiente de simulação local</small>
+          </div>
+          <strong id="invoice-next-billing" style="color:#9badc8;">Isento</strong>
+        </div>
+        <div class="invoice">
+          <div>
+            <b style="color:#fff;">Forma de pagamento</b>
+            <small>Nenhuma cobrança bancária real nesta Alpha</small>
+          </div>
+          <strong style="color:#ffd481;">Simulação Demo</strong>
+        </div>
+      </div>
+
+      <button class="btn-secondary" style="width:100%; margin-top:1rem; font-size:0.75rem;" onclick="alert('Portal de faturamento integrado: na versão produtiva será conectado ao Stripe / Gateway seguro.')">Gerenciar Faturamento</button>
+    </div>
+  </div>
+
+  <!-- Disclaimer de Simulação -->
+  <div class="finance-note" style="border-color:#b91c1c; background:rgba(185,28,28,0.1); color:#fca5a5;">
+    <strong>⚠️ Transparência da Simulação:</strong> Esta é uma simulação local da camada de capacidade. Não há cobrança financeira real nem integração bancária ativa. Na implementação de produção, cobranças liberarão estritamente os limites técnicos contratados e seguirão rigorosamente as normas de proteção de dados.
+  </div>
+
+  <script>
+    function selectPlan(planKey) {
+      const plans = {
+        free: { name: 'Essencial', price: 'Grátis', journeys: '1 / 1', evidence: '3 / 5', members: '1 / 1', storage: '0.4 GB / 1 GB', pJourneys: 100, pEvidence: 60, pMembers: 100, pStorage: 40, next: 'Isento' },
+        individual: { name: 'Individual', price: 'R$ 19,90 / mês', journeys: '1 / 5', evidence: '3 / 50', members: '1 / 1', storage: '0.4 GB / 10 GB', pJourneys: 20, pEvidence: 6, pMembers: 100, pStorage: 4, next: '10/11/2026' },
+        team: { name: 'Equipe', price: 'R$ 79,90 / mês', journeys: '1 / 20', evidence: '3 / 250', members: '1 / 10', storage: '0.4 GB / 50 GB', pJourneys: 5, pEvidence: 1.2, pMembers: 10, pStorage: 0.8, next: '10/11/2026' },
+        organization: { name: 'Organização', price: 'R$ 249,90 / mês', journeys: '1 / 100', evidence: '3 / 2.000', members: '1 / 50', storage: '0.4 GB / 200 GB', pJourneys: 1, pEvidence: 0.15, pMembers: 2, pStorage: 0.2, next: '10/11/2026' }
+      };
+
+      const selected = plans[planKey];
+      if (!selected) return;
+
+      // Update cards UI
+      ['free', 'individual', 'team', 'organization'].forEach(k => {
+        const card = document.getElementById(`plan-card-${k}`);
+        const badge = document.getElementById(`plan-badge-${k}`);
+        const btn = document.getElementById(`btn-plan-${k}`);
+        if (card) {
+          card.classList.toggle('current', k === planKey);
+        }
+        if (badge) {
+          badge.textContent = k === planKey ? 'Plano atual' : (k === 'team' ? '★ Mais usado' : 'Disponível');
+        }
+        if (btn) {
+          btn.disabled = k === planKey;
+          btn.textContent = k === planKey ? 'Selecionado' : 'Escolher plano';
+          if (k === planKey) {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+          } else {
+            btn.classList.add('btn-primary');
+            btn.classList.remove('btn-secondary');
+          }
+        }
+      });
+
+      // Update invoice and usage metrics
+      const invName = document.getElementById('invoice-plan-name');
+      const invPrice = document.getElementById('invoice-plan-price');
+      const invNext = document.getElementById('invoice-next-billing');
+      if (invName) invName.textContent = selected.name;
+      if (invPrice) invPrice.textContent = selected.price;
+      if (invNext) invNext.textContent = selected.next;
+
+      const uJourneys = document.getElementById('usage-journeys');
+      const uEv = document.getElementById('usage-evidence');
+      const uMem = document.getElementById('usage-members');
+      const uSt = document.getElementById('usage-storage');
+      if (uJourneys) uJourneys.textContent = selected.journeys;
+      if (uEv) uEv.textContent = selected.evidence;
+      if (uMem) uMem.textContent = selected.members;
+      if (uSt) uSt.textContent = selected.storage;
+
+      const bJourneys = document.getElementById('bar-journeys');
+      const bEv = document.getElementById('bar-evidence');
+      const bMem = document.getElementById('bar-members');
+      const bSt = document.getElementById('bar-storage');
+      if (bJourneys) bJourneys.style.width = selected.pJourneys + '%';
+      if (bEv) bEv.style.width = selected.pEvidence + '%';
+      if (bMem) bMem.style.width = selected.pMembers + '%';
+      if (bSt) bSt.style.width = selected.pStorage + '%';
+
+      if (window.state && window.state.billing) {
+        window.state.billing.plan = planKey;
+      }
+      alert(`Capacidade atualizada para o Plano ${selected.name}! Lembre-se: planos financiam a infraestrutura e não compram reputação nem confiança.`);
+    }
+    window.selectPlan = selectPlan;
+  </script>
+</div>
